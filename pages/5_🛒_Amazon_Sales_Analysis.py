@@ -6,4 +6,4 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.title("🛒 :orange[Amazon Sales Analysis Analysis]", text_alignment="center")
+st.title("🛒 :green[Amazon Sales Analysis Analysis]", text_alignment="center")
