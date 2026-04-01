@@ -56,8 +56,8 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    background-color: #131313d0;
-    border-bottom: 2px solid #1B2A3B;
+    background-color: #001219;
+    border-bottom: 2px solid #005F73;
     border-radius: 10px;
     margin-bottom: 2rem;
 }
@@ -69,7 +69,7 @@ div[data-testid="stMetric"]:hover {
 
 /* Buttons */
 .stButton>button {
-    background: linear-gradient(135deg, #46B83D 0%, #111E0B 100%);
+    background: linear-gradient(135deg, #BB3E03 0%, #CA6702 100%);
     color: white;
     border: none;
     border-radius: 5px;
@@ -79,40 +79,40 @@ div[data-testid="stMetric"]:hover {
 }
 
 .stButton>button:hover {
-    background: linear-gradient(135deg, #5A9E4B 0%, #1B2A3B 100%);
+    background: linear-gradient(135deg, #EE9B00 0%, #BB3E03 100%);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(70, 184, 61, 0.3);
+    box-shadow: 0 5px 15px rgba(238, 155, 0, 0.8);
 }
 
 /* Dataframe Styling */
 .stDataFrame {
-    border: 1px solid #1B2A3B;
+    border: 1px solid #005F73;
     border-radius: 10px;
     padding: 0.5rem;
-    background-color: #0A1A2F;
+    background-color: #001219;
 }
 
 .stDataFrame thead {
-    background-color: #1B2A3B;
+    background-color: #001219;
     color: #E0E0E0;
 }
 
 .stDataFrame tbody tr:nth-child(even) {
-    background-color: #0A1A2F;
+    background-color: #001219;
 }
 
 .stDataFrame tbody tr:nth-child(odd) {
-    background-color: #1B2A3B;
+    background-color: #005F73;
 }
 
 .stDataFrame tbody tr:hover {
-    background-color: #5A6A7A;
+    background-color: #0A9396;
     color: #E0E0E0;
 }
 
 /* Expander Styling */
 .streamlit-expanderHeader {
-    background-color: rgba(76, 201, 166, 0.15);
+    background-color: rgba(155, 34, 38, 0.4);
     color: #E0E0E0;
     border-radius: 5px;
     padding: 0.5rem 1rem;
@@ -121,13 +121,13 @@ div[data-testid="stMetric"]:hover {
 
 /* Sidebar Styling */
 section[data-testid="stSidebar"] {
-    background-color: #04250e;
-    border-right: 2px solid #1B2A3B;
+    background-color: #005F73;
+    border-right: 2px solid #0A9396;
     padding: 1rem;
 }
 
 div[data-testid="stSidebarNavSearch"] input {
-    border: 1px solid #235b2c !important;
+    border: 1px solid #005F73 !important;
     border-radius: 5px !important;
 }
 
@@ -136,18 +136,18 @@ div[data-testid="stSidebarNavSearch"] input {
 }
 
 [data-testid="stSidebarNav"] li {
-    background-color: rgba(76, 201, 166, 0.15);
+    background-color: rgba(0, 96, 115, 0.4);
     margin-bottom: 10px;
-    border: 1px solid #34b17f;
+    border: 1px solid #94D2BD;
     border-radius: 10px;
     transition: all 0.3s ease;
 }
 
 [data-testid="stSidebarNav"] li:hover {
-    background-color: rgba(76, 201, 166, 0.25);
-    border-color: #46B83D;
+    background-color: rgba(174, 32, 18, 0.4);
+    border-color: #BB3E03;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(70, 184, 61, 0.3);
+    box-shadow: 0 5px 15px rgba(238, 155, 0, 0.6);
 }
 
 [data-testid="stSidebarNav"] span {
@@ -159,13 +159,13 @@ div[data-testid="stSidebarNavSearch"] input {
 
 /* Label */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] label {
-    color: #A8F0C4 !important;
+    color: #94D2BD !important;
 }
 
 /* Multiselect outer container */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] .st-emotion-cache-1dvwncr {
-    background-color: #0F3D2E !important;
-    border: 1px solid #2ECC71 !important;
+    background-color: #001219 !important;
+    border: 1px solid #0A9396 !important;
     border-radius: 6px !important;
     padding: 4px !important;
 }
@@ -177,49 +177,49 @@ div[data-testid="stSidebarNavSearch"] input {
 
 /* Selected tag (pill) */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="tag"] {
-    background-color: #2ECC71 !important;
+    background-color: #94D2BD !important;
     /* red pill */
-    color: #0F3D2E !important;
+    color: #005F73 !important;
     border-radius: 4px !important;
     padding: 2px 6px !important;
 }
 
 /* Tag text */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="tag"] span[title] {
-    color: #0F3D2E !important;
+    color: #005F73 !important;
 }
 
 /* Delete icon inside tag */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] [data-baseweb="tag"] svg {
-    fill: #0F3D2E !important;
+    fill: #005F73 !important;
 }
 
 /* Input box (where user types) */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] input[role="combobox"] {
-    color: #A8F0C4 !important;
+    color: #94D2BD !important;
     background-color: transparent !important;
 }
 
 /* Dropdown arrow icon */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] svg[title="open"] {
-    fill: #A8F0C4 !important;
+    fill: #94D2BD !important;
 }
 
 /* Clear-all icon */
 [data-testid="stSidebar"] [data-testid="stMultiSelect"] svg[title="Clear all"] {
-    fill: #2ECC71 !important;
+    fill: #0A9396 !important;
 }
 
 /* Dropdown menu background */
 [data-testid="stSidebar"] [data-baseweb="popover"] {
-    background-color: #0F3D2E !important;
-    border: 1px solid #2ECC71 !important;
+    background-color: #005F73 !important;
+    border: 1px solid #0A9396 !important;
 }
 
 /* Dropdown option hover */
 [data-testid="stSidebar"] [data-baseweb="option"]:hover {
-    background-color: #2ECC71 !important;
-    color: #0F3D2E !important;
+    background-color: #0A9396 !important;
+    color: #005F73 !important;
 }
 
 
@@ -227,7 +227,7 @@ div[data-testid="stSidebarNavSearch"] input {
 
 /* Label */
 [data-testid="stSidebar"] [data-testid="stSlider"] label {
-    color: #A8F0C4 !important;
+    color: #94D2BD !important;
 }
 
 /* Slider container */
@@ -237,29 +237,29 @@ div[data-testid="stSidebarNavSearch"] input {
 
 /* Unfilled track */
 [data-testid="stSidebar"] [data-testid="stSlider"] .st-an.st-ao.st-ap.st-aq.st-ar.st-as.st-af.st-at.st-al {
-    background-color: #0F3D2E !important;
+    background-color: #005F73 !important;
     height: 6px !important;
     border-radius: 4px !important;
 }
 
 /* Text inside the bubble */
 [data-testid="stSidebar"] [data-testid="stSliderThumbValue"] p {
-    color: #A8F0C4 !important;
+    color: #E9D8A6 !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
 /* Filled track */
 [data-testid="stSidebar"] [data-testid="stSlider"] .st-ag>.st-emotion-cache-1rr4qq7>.st-emotion-cache-dx6mrm {
-    background-color: #2ECC71 !important;
+    background-color: #0A9396 !important;
     height: 6px !important;
     border-radius: 4px !important;
 }
 
 /* Slider thumbs */
 [data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"] {
-    background-color: #2ECC71 !important;
-    border: 2px solid #A8F0C4 !important;
+    background-color: #0A9396 !important;
+    border: 2px solid #94D2BD !important;
     width: 18px !important;
     height: 18px !important;
     border-radius: 50% !important;
@@ -267,19 +267,19 @@ div[data-testid="stSidebarNavSearch"] input {
 
 /* Thumb hover */
 [data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"]:hover {
-    background-color: #58D68D !important;
+    background-color: #005F73 !important;
     border-color: #FFFFFF !important;
 }
 
 /* Thumb focus ring */
 [data-testid="stSidebar"] [data-testid="stSlider"] [role="slider"]:focus {
-    box-shadow: 0 0 0 4px rgba(46, 204, 113, 0.4) !important;
+    box-shadow: 0 0 0 4px rgba(0, 95, 115, 0.7) !important;
 }
 
 
 /* Download Button */
 .stDownloadButton>button {
-    background: linear-gradient(135deg, #46B83D 0%, #111E0B 100%);
+    background: linear-gradient(135deg, #005F73 0%, #001219 100%);
     color: white;
     border: none;
     border-radius: 5px;
@@ -289,17 +289,17 @@ div[data-testid="stSidebarNavSearch"] input {
 }
 
 .stDownloadButton>button:hover {
-    background: linear-gradient(135deg, #5A9E4B 0%, #1B2A3B 100%);
+    background: linear-gradient(135deg, #0A9396 0%, #001219 100%);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(70, 184, 61, 0.3);
+    box-shadow: 0 5px 15px rgba(174, 32, 18, 0.7);
 }
 
 .stLinkButton {
-    background: linear-gradient(135deg, #46B83D 0%, #111E0B 100%);
-    background-color: #275311;
+    background: linear-gradient(135deg, #0A9396 0%, #001219 100%);
+    background-color: #005F73;
     backdrop-filter: blur(12px);
     color: white;
-    border: 1px solid #1B2A3B;
+    border: 1px solid #BB3E03;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
     border-radius: 18px;
     padding: 0rem;
@@ -310,9 +310,9 @@ div[data-testid="stSidebarNavSearch"] input {
 }
 
 .stLinkButton:hover {
-    border-color: rgba(139, 239, 132, 0.874);
+    border-color: rgba(148, 210, 189, 0.874);
     transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 10px 28px rgba(70, 184, 61, 0.3);
+    box-shadow: 0 10px 28px rgba(10, 147, 150, 0.3);
 }
 
 .stLinkButton-title {
