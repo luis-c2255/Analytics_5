@@ -219,7 +219,7 @@ fig4 = px.bar(
     color='count',
     color_continuous_scale='Blues'
 )
-fig4.update_layout(showlegend=False, height=500)
+fig4.update_layout(showlegend=False, height=700)
 st.plotly_chart(fig4, width="stretch")
 st.markdown("   ")
 
