@@ -373,6 +373,7 @@ with col3:
             card_type="info"
         ), unsafe_allow_html=True
     )
+st.markdown("   ")
 if len(tv_shows_df) > 0:
     st.markdown(":red-background[TV Show Season Statistics]")
     fig12 = px.histogram(
