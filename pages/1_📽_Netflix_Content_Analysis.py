@@ -173,6 +173,7 @@ fig2 = px.bar(
     title='Content Additions by Month (Seasonality)',
     labels={'month_name': 'Month', 'count': 'Number of Titles'},
     color='count',
+    text_auto=True,
     color_continuous_scale='Viridis'
 )
 fig2.update_layout(showlegend=False, height=400)
@@ -195,6 +196,7 @@ fig3 = px.bar(
     y='count',
     color='type',
     title='Content Freshness Distribution',
+    text_auto=True,
     labels={'freshness_category': 'Time from Release to Netflix', 'count': 'Number of Titles'},
     barmode='group'
 )
@@ -212,6 +214,7 @@ fig4 = px.bar(
     x='count',
     orientation='h',
     title='Top 15 Content-Producing Countries',
+    text_auto=True,
     labels={'country': 'Country', 'count': 'Number of Titles'},
     color='count',
     color_continuous_scale='Blues'
@@ -230,6 +233,7 @@ fig5 = px.bar(
     x='primary_country',
     y='count',
     color='type',
+    text_auto=True,
     title='Content Type Distribution by Top 10 Countries',
     labels={'primary_country': 'Country', 'count': 'Number of Titles'},
     barmode='stack'
@@ -316,6 +320,7 @@ fig10 = px.bar(
     x='rating',
     y='count',
     color='type',
+    text_auto=True,
     title='Rating Distribution: Movies vs TV Shows',
     labels={'rating': 'Content Rating', 'count': 'Number of Titles'},
     barmode='group'
@@ -338,6 +343,7 @@ if len(movies_df) > 0:
         x='duration_value',
         nbins=50,
         title='Movie Duration Distribution (minutes)',
+        text_auto=True,
         labels={'duration_value': 'Duration (minutes)', 'count': 'Frequency'},
         color_discrete_sequence=['#1f77b4']
     )
@@ -381,6 +387,7 @@ if len(tv_shows_df) > 0:
         x='duration_value',
         nbins=20,
         title='TV Show Season Count Distribution',
+        text_auto=True,
         labels={'duration_value': 'Number of Seasons', 'count': 'Frequency'},
         color_discrete_sequence=['#ff7f0e']
     )
@@ -417,6 +424,7 @@ with col3:
             card_type="info"
         ), unsafe_allow_html=True
     )
+st.markdown("   ")
 st.markdown(":red-background[Average Duration Trends Over Time]")
 if len(movies_df) > 0:
     movie_duration_trend = movies_df.groupby('year_added')['duration_value'].mean().reset_index()
@@ -480,6 +488,7 @@ for directors in directors_df['director'].dropna():
         orientation='h',
         title='Top 15 Directors by Number of Titles',
         labels={'director': 'Director', 'count': 'Number of Titles'},
+        text_auto=True,
         color='count',
         color_continuous_scale='Reds'
     )
@@ -506,6 +515,7 @@ for _, row in directors_df.iterrows():
                 y='count',
                 color='type',
                 title='Top 10 Directors: Movies vs TV Shows',
+                text_auto=True,
                 labels={'director': 'Director', 'count': 'Number of Titles'},
                 barmode='stack'
             )
@@ -527,6 +537,7 @@ for cast_list in cast_df['cast'].dropna():
         y='count',
         title='Top 20 Most Featured Actors',
         labels={'actor': 'Actor', 'count': 'Number of Titles'},
+        text_auto=True,
         color='count',
         color_continuous_scale='Greens'
     )
