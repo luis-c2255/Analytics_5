@@ -19,8 +19,6 @@ st.markdown(
 )
 
 
-st.title(":orange[Multiple Dataset Analysis]", text_alignment="center")
-
 with st.container(height="content", width="stretch", horizontal_alignment="center"):    
     st.image("utils/2.svg")
    
