@@ -2,8 +2,20 @@ import streamlit as st
 from utils.theme import Components
 
 st.set_page_config(
-    layout="wide",
-    initial_sidebar_state="expanded"
+        page_title=f"Amazon Sales Analysis Analysis",
+        page_icon= "🛒",
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
+try:
+    with open('style.css') as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+except FileNotFoundError:
+    pass
+
+
+st.markdown(
+    Components.page_header("🛒 Amazon Sales Analysis Analysis"), unsafe_allow_html=True
 )
 
-st.title("🛒 :green[Amazon Sales Analysis Analysis]", text_alignment="center")
+
