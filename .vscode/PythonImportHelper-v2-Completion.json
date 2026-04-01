@@ -9,11 +9,46 @@
         "documentation": {}
     },
     {
-        "label": "Components",
-        "importPath": "utils.theme",
-        "description": "utils.theme",
+        "label": "pandas",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "utils.theme",
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.express",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.express",
+        "description": "plotly.express",
+        "detail": "plotly.express",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.graph_objects",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.graph_objects",
+        "description": "plotly.graph_objects",
+        "detail": "plotly.graph_objects",
+        "documentation": {}
+    },
+    {
+        "label": "make_subplots",
+        "importPath": "plotly.subplots",
+        "description": "plotly.subplots",
+        "isExtraImport": true,
+        "detail": "plotly.subplots",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -70,6 +105,554 @@
         "description": "utils.theme",
         "isExtraImport": true,
         "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "Components",
+        "importPath": "utils.theme",
+        "description": "utils.theme",
+        "isExtraImport": true,
+        "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "load_data",
+        "kind": 2,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "def load_data():\n    df = pd.read_csv(\"netflix_titles.csv\")\n    df['date_added'] = pd.to_datetime(df['date_added'], errors=\"coerce\")\n    df['year_added'] = df[\"date_added\"].dt.year\n    df['month_added'] = df['date_added'].dt.month\n    df['duration_value'] = df['duration'].str.extract('(\\d+)').astype(float)\n    df['duration_type'] = df['duration'].str.extract('(min|Season)')\n    # Handle missing values\n    df['director'] = df['director'].fillna('Unknown')\n    df['cast'] = df['cast'].fillna('Unknown')",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "df = load_data()\n# Sidebar filters\nst.sidebar.title(\"🎬 Netflix Analytics Filters\")\nst.sidebar.markdown(\"---\")\n# Content type filter\ncontent_types = ['All'] + list(df['type'].unique())\nselected_type = st.sidebar.selectbox(\"Content Type\", content_types)\n# Year range filter\nmin_year = int(df['year_added'].min())\nmax_year = int(df['year_added'].max())",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "content_types",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "content_types = ['All'] + list(df['type'].unique())\nselected_type = st.sidebar.selectbox(\"Content Type\", content_types)\n# Year range filter\nmin_year = int(df['year_added'].min())\nmax_year = int(df['year_added'].max())\nyear_range = st.sidebar.slider(\n    \"Year Added Range\",\n    min_year, max_year, (min_year, max_year)\n)\n# Country filter",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "selected_type",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "selected_type = st.sidebar.selectbox(\"Content Type\", content_types)\n# Year range filter\nmin_year = int(df['year_added'].min())\nmax_year = int(df['year_added'].max())\nyear_range = st.sidebar.slider(\n    \"Year Added Range\",\n    min_year, max_year, (min_year, max_year)\n)\n# Country filter\ntop_countries = ['All'] + list(df['primary_country'].value_counts().head(20).index)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "min_year",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "min_year = int(df['year_added'].min())\nmax_year = int(df['year_added'].max())\nyear_range = st.sidebar.slider(\n    \"Year Added Range\",\n    min_year, max_year, (min_year, max_year)\n)\n# Country filter\ntop_countries = ['All'] + list(df['primary_country'].value_counts().head(20).index)\nselected_country = st.sidebar.selectbox(\"Primary Country\", top_countries)\n# Rating filter",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "max_year",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "max_year = int(df['year_added'].max())\nyear_range = st.sidebar.slider(\n    \"Year Added Range\",\n    min_year, max_year, (min_year, max_year)\n)\n# Country filter\ntop_countries = ['All'] + list(df['primary_country'].value_counts().head(20).index)\nselected_country = st.sidebar.selectbox(\"Primary Country\", top_countries)\n# Rating filter\nratings = ['All'] + list(df['rating'].unique())",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "year_range",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "year_range = st.sidebar.slider(\n    \"Year Added Range\",\n    min_year, max_year, (min_year, max_year)\n)\n# Country filter\ntop_countries = ['All'] + list(df['primary_country'].value_counts().head(20).index)\nselected_country = st.sidebar.selectbox(\"Primary Country\", top_countries)\n# Rating filter\nratings = ['All'] + list(df['rating'].unique())\nselected_rating = st.sidebar.multiselect(",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_countries",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_countries = ['All'] + list(df['primary_country'].value_counts().head(20).index)\nselected_country = st.sidebar.selectbox(\"Primary Country\", top_countries)\n# Rating filter\nratings = ['All'] + list(df['rating'].unique())\nselected_rating = st.sidebar.multiselect(\n    \"Content Rating\",\n    ratings,\n    default=['All']\n)\n# Apply filters",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "selected_country",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "selected_country = st.sidebar.selectbox(\"Primary Country\", top_countries)\n# Rating filter\nratings = ['All'] + list(df['rating'].unique())\nselected_rating = st.sidebar.multiselect(\n    \"Content Rating\",\n    ratings,\n    default=['All']\n)\n# Apply filters\nfiltered_df = df.copy()",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "ratings",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "ratings = ['All'] + list(df['rating'].unique())\nselected_rating = st.sidebar.multiselect(\n    \"Content Rating\",\n    ratings,\n    default=['All']\n)\n# Apply filters\nfiltered_df = df.copy()\nif selected_type != 'All':\n    filtered_df = filtered_df[filtered_df['type'] == selected_type]",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "selected_rating",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "selected_rating = st.sidebar.multiselect(\n    \"Content Rating\",\n    ratings,\n    default=['All']\n)\n# Apply filters\nfiltered_df = df.copy()\nif selected_type != 'All':\n    filtered_df = filtered_df[filtered_df['type'] == selected_type]\n    filtered_df = filtered_df[",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "filtered_df",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "filtered_df = df.copy()\nif selected_type != 'All':\n    filtered_df = filtered_df[filtered_df['type'] == selected_type]\n    filtered_df = filtered_df[\n        (filtered_df['year_added'] >= year_range[0]) &\n        (filtered_df['year_added'] <= year_range[1])\n    ]\nif selected_country != 'All':\n    filtered_df = filtered_df[filtered_df['primary_country'] == selected_country]\nif 'All' not in selected_rating:",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "yearly_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "yearly_data = filtered_df.groupby(['year_added', 'type']).size().reset_index(name='count')\nfig1 = px.line(\n    yearly_data,\n    x='year_added',\n    y='count',\n    color='type',\n    title='Content Additions by Year and Type',\n    labels={'year_added': 'Year', 'count': 'Number of Titles', 'type': 'Content Type'},\n    markers=True\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig1",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig1 = px.line(\n    yearly_data,\n    x='year_added',\n    y='count',\n    color='type',\n    title='Content Additions by Year and Type',\n    labels={'year_added': 'Year', 'count': 'Number of Titles', 'type': 'Content Type'},\n    markers=True\n)\nfig1.update_layout(hovermode='x unified', height=400)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "monthly_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "monthly_data = filtered_df.groupby('month_added').size().reset_index(name='count')\nmonthly_data['month_name'] = pd.to_datetime(monthly_data['month_added'], format='%m').dt.strftime('%B')\nfig2 = px.bar(\n    monthly_data,\n    x='month_name',\n    y='count',\n    title='Content Additions by Month (Seasonality)',\n    labels={'month_name': 'Month', 'count': 'Number of Titles'},\n    color='count',\n    color_continuous_scale='Viridis'",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "monthly_data['month_name']",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "monthly_data['month_name'] = pd.to_datetime(monthly_data['month_added'], format='%m').dt.strftime('%B')\nfig2 = px.bar(\n    monthly_data,\n    x='month_name',\n    y='count',\n    title='Content Additions by Month (Seasonality)',\n    labels={'month_name': 'Month', 'count': 'Number of Titles'},\n    color='count',\n    color_continuous_scale='Viridis'\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig2",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig2 = px.bar(\n    monthly_data,\n    x='month_name',\n    y='count',\n    title='Content Additions by Month (Seasonality)',\n    labels={'month_name': 'Month', 'count': 'Number of Titles'},\n    color='count',\n    color_continuous_scale='Viridis'\n)\nfig2.update_layout(showlegend=False, height=400)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "freshness_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "freshness_data = filtered_df[filtered_df['years_to_netflix'] >= 0].copy()\nfreshness_data['freshness_category'] = pd.cut(\n    freshness_data['years_to_netflix'],\n    bins=[-1, 0, 2, 5, 10, 100],\n    labels=['Same Year', '1-2 Years', '3-5 Years', '6-10 Years', '10+ Years']\n)\nfreshness_counts = freshness_data.groupby(['type', 'freshness_category']).size().reset_index(name='count')\nfig3 = px.bar(\n    freshness_counts,\n    x='freshness_category',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "freshness_data['freshness_category']",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "freshness_data['freshness_category'] = pd.cut(\n    freshness_data['years_to_netflix'],\n    bins=[-1, 0, 2, 5, 10, 100],\n    labels=['Same Year', '1-2 Years', '3-5 Years', '6-10 Years', '10+ Years']\n)\nfreshness_counts = freshness_data.groupby(['type', 'freshness_category']).size().reset_index(name='count')\nfig3 = px.bar(\n    freshness_counts,\n    x='freshness_category',\n    y='count',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "freshness_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "freshness_counts = freshness_data.groupby(['type', 'freshness_category']).size().reset_index(name='count')\nfig3 = px.bar(\n    freshness_counts,\n    x='freshness_category',\n    y='count',\n    color='type',\n    title='Content Freshness Distribution',\n    labels={'freshness_category': 'Time from Release to Netflix', 'count': 'Number of Titles'},\n    barmode='group'\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig3",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig3 = px.bar(\n    freshness_counts,\n    x='freshness_category',\n    y='count',\n    color='type',\n    title='Content Freshness Distribution',\n    labels={'freshness_category': 'Time from Release to Netflix', 'count': 'Number of Titles'},\n    barmode='group'\n)\nfig3.update_layout(height=400)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "country_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "country_counts = filtered_df['primary_country'].value_counts().head(15).reset_index()\ncountry_counts.columns = ['country', 'count']\nfig4 = px.bar(\n    country_counts,\n    y='country',\n    x='count',\n    orientation='h',\n    title='Top 15 Content-Producing Countries',\n    labels={'country': 'Country', 'count': 'Number of Titles'},\n    color='count',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "country_counts.columns",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "country_counts.columns = ['country', 'count']\nfig4 = px.bar(\n    country_counts,\n    y='country',\n    x='count',\n    orientation='h',\n    title='Top 15 Content-Producing Countries',\n    labels={'country': 'Country', 'count': 'Number of Titles'},\n    color='count',\n    color_continuous_scale='Blues'",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig4",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig4 = px.bar(\n    country_counts,\n    y='country',\n    x='count',\n    orientation='h',\n    title='Top 15 Content-Producing Countries',\n    labels={'country': 'Country', 'count': 'Number of Titles'},\n    color='count',\n    color_continuous_scale='Blues'\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_10_countries",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_10_countries = filtered_df['primary_country'].value_counts().head(10).index\ncountry_type_data = filtered_df[filtered_df['primary_country'].isin(top_10_countries)]\ncountry_type_counts = country_type_data.groupby(['primary_country', 'type']).size().reset_index(name='count')\nfig5 = px.bar(\n    country_type_counts,\n    x='primary_country',\n    y='count',\n    color='type',\n    title='Content Type Distribution by Top 10 Countries',\n    labels={'primary_country': 'Country', 'count': 'Number of Titles'},",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "country_type_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "country_type_data = filtered_df[filtered_df['primary_country'].isin(top_10_countries)]\ncountry_type_counts = country_type_data.groupby(['primary_country', 'type']).size().reset_index(name='count')\nfig5 = px.bar(\n    country_type_counts,\n    x='primary_country',\n    y='count',\n    color='type',\n    title='Content Type Distribution by Top 10 Countries',\n    labels={'primary_country': 'Country', 'count': 'Number of Titles'},\n    barmode='stack'",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "country_type_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "country_type_counts = country_type_data.groupby(['primary_country', 'type']).size().reset_index(name='count')\nfig5 = px.bar(\n    country_type_counts,\n    x='primary_country',\n    y='count',\n    color='type',\n    title='Content Type Distribution by Top 10 Countries',\n    labels={'primary_country': 'Country', 'count': 'Number of Titles'},\n    barmode='stack'\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig5",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig5 = px.bar(\n    country_type_counts,\n    x='primary_country',\n    y='count',\n    color='type',\n    title='Content Type Distribution by Top 10 Countries',\n    labels={'primary_country': 'Country', 'count': 'Number of Titles'},\n    barmode='stack'\n)\nfig5.update_layout(xaxis_tickangle=-45, height=500)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_countries_list",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_countries_list = filtered_df['primary_country'].value_counts().head(15).index\nheatmap_data = filtered_df[filtered_df['primary_country'].isin(top_countries_list)]\nheatmap_pivot = heatmap_data.groupby(['year_added', 'primary_country']).size().reset_index(name='count')\nheatmap_pivot = heatmap_pivot.pivot(index='primary_country', columns='year_added', values='count').fillna(0)\nfig6 = px.imshow(\n    heatmap_pivot,\n    labels=dict(x='Year Added', y='Country', color='Number of Titles'),\n    title='Content Production Intensity by Country and Year',\n    aspect='auto',\n    color_continuous_scale='YlOrRd'",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "heatmap_data = filtered_df[filtered_df['primary_country'].isin(top_countries_list)]\nheatmap_pivot = heatmap_data.groupby(['year_added', 'primary_country']).size().reset_index(name='count')\nheatmap_pivot = heatmap_pivot.pivot(index='primary_country', columns='year_added', values='count').fillna(0)\nfig6 = px.imshow(\n    heatmap_pivot,\n    labels=dict(x='Year Added', y='Country', color='Number of Titles'),\n    title='Content Production Intensity by Country and Year',\n    aspect='auto',\n    color_continuous_scale='YlOrRd'\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap_pivot",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "heatmap_pivot = heatmap_data.groupby(['year_added', 'primary_country']).size().reset_index(name='count')\nheatmap_pivot = heatmap_pivot.pivot(index='primary_country', columns='year_added', values='count').fillna(0)\nfig6 = px.imshow(\n    heatmap_pivot,\n    labels=dict(x='Year Added', y='Country', color='Number of Titles'),\n    title='Content Production Intensity by Country and Year',\n    aspect='auto',\n    color_continuous_scale='YlOrRd'\n)\nfig6.update_layout(height=500)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap_pivot",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "heatmap_pivot = heatmap_pivot.pivot(index='primary_country', columns='year_added', values='count').fillna(0)\nfig6 = px.imshow(\n    heatmap_pivot,\n    labels=dict(x='Year Added', y='Country', color='Number of Titles'),\n    title='Content Production Intensity by Country and Year',\n    aspect='auto',\n    color_continuous_scale='YlOrRd'\n)\nfig6.update_layout(height=500)\nst.plotly_chart(fig6, width=\"stretch\")",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig6",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig6 = px.imshow(\n    heatmap_pivot,\n    labels=dict(x='Year Added', y='Country', color='Number of Titles'),\n    title='Content Production Intensity by Country and Year',\n    aspect='auto',\n    color_continuous_scale='YlOrRd'\n)\nfig6.update_layout(height=500)\nst.plotly_chart(fig6, width=\"stretch\")\nst.subheader(\"🎭 :yellow[Genre & Ratings]\", divider=\"yellow\")",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "genre_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "genre_counts = filtered_df['primary_genre'].value_counts().head(15).reset_index()\ngenre_counts.columns = ['genre', 'count']\nfig7 = px.treemap(\n    genre_counts,\n    path=['genre'],\n    values='count',\n    title='Top 15 Genres (Treemap)',\n    color='count',\n    color_continuous_scale='Purples'\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "genre_counts.columns",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "genre_counts.columns = ['genre', 'count']\nfig7 = px.treemap(\n    genre_counts,\n    path=['genre'],\n    values='count',\n    title='Top 15 Genres (Treemap)',\n    color='count',\n    color_continuous_scale='Purples'\n)\nfig7.update_layout(height=500)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig7",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig7 = px.treemap(\n    genre_counts,\n    path=['genre'],\n    values='count',\n    title='Top 15 Genres (Treemap)',\n    color='count',\n    color_continuous_scale='Purples'\n)\nfig7.update_layout(height=500)\nst.plotly_chart(fig7, width=\"stretch\")",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "rating_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "rating_counts = filtered_df['rating'].value_counts().reset_index()\nrating_counts.columns = ['rating', 'count']\nfig8 = px.pie(\n    rating_counts,\n    values='count',\n    names='rating',\n    title='Content Rating Distribution',\n    hole=0.4\n)\nfig8.update_traces(textposition='inside', textinfo='percent+label')",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "rating_counts.columns",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "rating_counts.columns = ['rating', 'count']\nfig8 = px.pie(\n    rating_counts,\n    values='count',\n    names='rating',\n    title='Content Rating Distribution',\n    hole=0.4\n)\nfig8.update_traces(textposition='inside', textinfo='percent+label')\nfig8.update_layout(height=500)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig8",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig8 = px.pie(\n    rating_counts,\n    values='count',\n    names='rating',\n    title='Content Rating Distribution',\n    hole=0.4\n)\nfig8.update_traces(textposition='inside', textinfo='percent+label')\nfig8.update_layout(height=500)\nst.plotly_chart(fig8, width=\"stretch\")",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_5_genres",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_5_genres = filtered_df['primary_genre'].value_counts().head(5).index\ngenre_time_data = filtered_df[filtered_df['primary_genre'].isin(top_5_genres)]\ngenre_time_counts = genre_time_data.groupby(['year_added', 'primary_genre']).size().reset_index(name='count')\nfig9 = px.area(\n    genre_time_counts,\n    x='year_added',\n    y='count',\n    color='primary_genre',\n    title='Top 5 Genres: Trends Over Time',\n    labels={'year_added': 'Year', 'count': 'Number of Titles', 'primary_genre': 'Genre'}",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "genre_time_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "genre_time_data = filtered_df[filtered_df['primary_genre'].isin(top_5_genres)]\ngenre_time_counts = genre_time_data.groupby(['year_added', 'primary_genre']).size().reset_index(name='count')\nfig9 = px.area(\n    genre_time_counts,\n    x='year_added',\n    y='count',\n    color='primary_genre',\n    title='Top 5 Genres: Trends Over Time',\n    labels={'year_added': 'Year', 'count': 'Number of Titles', 'primary_genre': 'Genre'}\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "genre_time_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "genre_time_counts = genre_time_data.groupby(['year_added', 'primary_genre']).size().reset_index(name='count')\nfig9 = px.area(\n    genre_time_counts,\n    x='year_added',\n    y='count',\n    color='primary_genre',\n    title='Top 5 Genres: Trends Over Time',\n    labels={'year_added': 'Year', 'count': 'Number of Titles', 'primary_genre': 'Genre'}\n)\nfig9.update_layout(hovermode='x unified', height=400)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig9",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig9 = px.area(\n    genre_time_counts,\n    x='year_added',\n    y='count',\n    color='primary_genre',\n    title='Top 5 Genres: Trends Over Time',\n    labels={'year_added': 'Year', 'count': 'Number of Titles', 'primary_genre': 'Genre'}\n)\nfig9.update_layout(hovermode='x unified', height=400)\nst.plotly_chart(fig9, width=\"stretch\")",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "rating_type_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "rating_type_data = filtered_df.groupby(['rating', 'type']).size().reset_index(name='count')\nfig10 = px.bar(\n    rating_type_data,\n    x='rating',\n    y='count',\n    color='type',\n    title='Rating Distribution: Movies vs TV Shows',\n    labels={'rating': 'Content Rating', 'count': 'Number of Titles'},\n    barmode='group'\n)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig10",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig10 = px.bar(\n    rating_type_data,\n    x='rating',\n    y='count',\n    color='type',\n    title='Rating Distribution: Movies vs TV Shows',\n    labels={'rating': 'Content Rating', 'count': 'Number of Titles'},\n    barmode='group'\n)\nfig10.update_layout(xaxis_tickangle=-45, height=400)",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "movies_df",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "movies_df = filtered_df[filtered_df['type'] == 'Movie'].copy()\ntv_shows_df = filtered_df[filtered_df['type'] == 'TV Show'].copy()\nif len(movies_df) > 0:\n    st.markdown(\":red-background[Movie Duration Statistics]\")\n    fig11 = px.histogram(\n        movies_df,\n        x='duration_value',\n        nbins=50,\n        title='Movie Duration Distribution (minutes)',\n        labels={'duration_value': 'Duration (minutes)', 'count': 'Frequency'},",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "tv_shows_df",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "tv_shows_df = filtered_df[filtered_df['type'] == 'TV Show'].copy()\nif len(movies_df) > 0:\n    st.markdown(\":red-background[Movie Duration Statistics]\")\n    fig11 = px.histogram(\n        movies_df,\n        x='duration_value',\n        nbins=50,\n        title='Movie Duration Distribution (minutes)',\n        labels={'duration_value': 'Duration (minutes)', 'count': 'Frequency'},\n        color_discrete_sequence=['#1f77b4']",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "duration_stats",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "duration_stats = movies_df['duration_value'].describe()\ncol1, col2, col3 = st.columns(3)\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Avg Duration\",\n            value=f\"{duration_stats['mean']:.0f} min\",\n            delta=\"\",\n            card_type=\"info\"\n        ), unsafe_allow_html=True",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "season_stats",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "season_stats = tv_shows_df['duration_value'].describe()\ncol1, col2, col3 = st.columns(3)\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Avg Seasons\",\n            value=f\"{season_stats['mean']:.1f}\",\n            delta=\"\",\n            card_type=\"info\"\n        ), unsafe_allow_html=True",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "directors_df",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "directors_df = filtered_df[filtered_df['director'] != 'Unknown'].copy()\n# Split directors (some entries have multiple directors)\nall_directors = []\nfor directors in directors_df['director'].dropna():\n    all_directors.extend([d.strip() for d in str(directors).split(',')])\n    director_counts = pd.Series(all_directors).value_counts().head(15).reset_index()\n    director_counts.columns = ['director', 'count']\n    fig16 = px.bar(\n        director_counts,\n        y='director',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "all_directors",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "all_directors = []\nfor directors in directors_df['director'].dropna():\n    all_directors.extend([d.strip() for d in str(directors).split(',')])\n    director_counts = pd.Series(all_directors).value_counts().head(15).reset_index()\n    director_counts.columns = ['director', 'count']\n    fig16 = px.bar(\n        director_counts,\n        y='director',\n        x='count',\n        orientation='h',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "director_type_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "director_type_data = []\nfor _, row in directors_df.iterrows():\n    if pd.notna(row['director']):\n        for director in str(row['director']).split(','):\n            director_type_data.append({\n                'director': director.strip(),\n                'type': row['type']\n            })\n            director_type_df = pd.DataFrame(director_type_data)\n            # Get top 10 directors and their type distribution",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "cast_df",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "cast_df = filtered_df[filtered_df['cast'] != 'Unknown'].copy()\n# Split cast members\nall_cast = []\nfor cast_list in cast_df['cast'].dropna():\n    all_cast.extend([c.strip() for c in str(cast_list).split(',')])\n    cast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()\n    cast_counts.columns = ['actor', 'count']\n    fig18 = px.bar(\n        cast_counts,\n        x='actor',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "all_cast",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "all_cast = []\nfor cast_list in cast_df['cast'].dropna():\n    all_cast.extend([c.strip() for c in str(cast_list).split(',')])\n    cast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()\n    cast_counts.columns = ['actor', 'count']\n    fig18 = px.bar(\n        cast_counts,\n        x='actor',\n        y='count',\n        title='Top 20 Most Featured Actors',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "director_genre_data",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "director_genre_data = []\nfor _, row in directors_df.head(1000).iterrows(): # Limit for performance\n    if pd.notna(row['director']):\n        for director in str(row['director']).split(','):\n            director_genre_data.append({\n                'director': director.strip(),\n                'genre': row['primary_genre']\n            })\n            director_genre_df = pd.DataFrame(director_genre_data)\n# Get top 10 directors and their primary genres",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_directors_list",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_directors_list = director_genre_df['director'].value_counts().head(10).index\ntop_directors_genre = director_genre_df[director_genre_df['director'].isin(top_directors_list)]\ndirector_genre_matrix = pd.crosstab(\n    top_directors_genre['director'],\n    top_directors_genre['genre']\n)\nfig19 = px.imshow(\n    director_genre_matrix,\n    labels=dict(x=\"Genre\", y=\"Director\", color=\"Count\"),\n    title=\"Top 10 Directors: Genre Specialization Heatmap\",",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_directors_genre",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_directors_genre = director_genre_df[director_genre_df['director'].isin(top_directors_list)]\ndirector_genre_matrix = pd.crosstab(\n    top_directors_genre['director'],\n    top_directors_genre['genre']\n)\nfig19 = px.imshow(\n    director_genre_matrix,\n    labels=dict(x=\"Genre\", y=\"Director\", color=\"Count\"),\n    title=\"Top 10 Directors: Genre Specialization Heatmap\",\n    aspect=\"auto\",",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "director_genre_matrix",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "director_genre_matrix = pd.crosstab(\n    top_directors_genre['director'],\n    top_directors_genre['genre']\n)\nfig19 = px.imshow(\n    director_genre_matrix,\n    labels=dict(x=\"Genre\", y=\"Director\", color=\"Count\"),\n    title=\"Top 10 Directors: Genre Specialization Heatmap\",\n    aspect=\"auto\",\n    color_continuous_scale='Blues'",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig19",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig19 = px.imshow(\n    director_genre_matrix,\n    labels=dict(x=\"Genre\", y=\"Director\", color=\"Count\"),\n    title=\"Top 10 Directors: Genre Specialization Heatmap\",\n    aspect=\"auto\",\n    color_continuous_scale='Blues'\n)\nfig19.update_layout(height=500)\nst.plotly_chart(fig19, width=\"stretch\")\nst.subheader(\"📊 :rainbow[Key Insights Summary]\", divider=\"rainbow\")",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "csv = filtered_df.to_csv(index=False).encode('utf-8')\nst.download_button(\n    label=\"Download Filtered Dataset as CSV\",\n    data=csv,\n    file_name=f'netflix_filtered_{datetime.now().strftime(\"%Y%m%d\")}.csv',\n    mime='text/csv',\n)\n# ============================================\n# FOOTER\n# ============================================",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },
     {
