@@ -214,7 +214,7 @@ fig4.update_layout(height=400)
 st.plotly_chart(fig4, width="stretch")
 st.markdown("   ")
 
-filtered_df['Revenue'] = filtered_df['Revenue'].astype(Int64)
+filtered_df['Revenue'] = filtered_df['Revenue'].astype('Int64')
 # Bounce Rate vs Exit Rate scatter
 behavior_data = filtered_df.groupby('VisitorType').agg({
     'BounceRates': 'mean',

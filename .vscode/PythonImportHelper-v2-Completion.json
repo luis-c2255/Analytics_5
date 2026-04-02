@@ -974,7 +974,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "filtered_df['Revenue'] = filtered_df['Revenue'].astype(Int64)\n# Bounce Rate vs Exit Rate scatter\nbehavior_data = filtered_df.groupby('VisitorType').agg({\n    'BounceRates': 'mean',\n    'ExitRates': 'mean',\n    'Revenue': 'mean'\n}).reset_index()\nbehavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nbehavior_data['ConversionRate'] = behavior_data['ConversionRate'].fillna(0)\nfig5 = px.scatter(",
+        "peekOfCode": "filtered_df['Revenue'] = filtered_df['Revenue'].astype('Int64')\n# Bounce Rate vs Exit Rate scatter\nbehavior_data = filtered_df.groupby('VisitorType').agg({\n    'BounceRates': 'mean',\n    'ExitRates': 'mean',\n    'Revenue': 'mean'\n}).reset_index()\nbehavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nbehavior_data['ConversionRate'] = behavior_data['ConversionRate'].fillna(0)\nfig5 = px.scatter(",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
