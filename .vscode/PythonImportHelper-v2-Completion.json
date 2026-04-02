@@ -44,6 +44,14 @@
         "documentation": {}
     },
     {
+        "label": "make_subplots",
+        "importPath": "plotly.subplots",
+        "description": "plotly.subplots",
+        "isExtraImport": true,
+        "detail": "plotly.subplots",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -113,6 +121,15 @@
         "description": "utils.theme",
         "isExtraImport": true,
         "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
         "documentation": {}
     },
     {
@@ -752,6 +769,645 @@
         "description": "pages.1_📽_Netflix_Content_Analysis",
         "peekOfCode": "csv = filtered_df.to_csv(index=False).encode('utf-8')\nst.download_button(\n    label=\"Download Filtered Dataset as CSV\",\n    data=csv,\n    file_name=f'netflix_filtered_{datetime.now().strftime(\"%Y%m%d\")}.csv',\n    mime='text/csv',\n)\n# ============================================\n# FOOTER\n# ============================================",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "load_data",
+        "kind": 2,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "def load_data():\n    df = pd.read_csv(\"online_shoppers.csv\")\n    # Clean data\n    df['Weekend'] = df['Weekend'].map({'True': True, 'False': False})\n    df['Revenue'] = df['Revenue'].map({'True': True, 'False': False})\n    # Convert Month to ordered categorical\n    month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June',\n                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']\n    df['Month'] = pd.Categorical(df['Month'], categories=month_order, ordered=True)\n    return df",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "df = load_data()\n# Sidebar filters\nst.sidebar.header(\"🔍 Filter Data\")\n# Month filter\nselected_months = st.sidebar.multiselect(\n    \"Select Months\",\n    options=df['Month'].cat.categories.tolist(),\n    default=df['Month'].cat.categories.tolist()\n)\n# Visitor Type filter",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "selected_months",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "selected_months = st.sidebar.multiselect(\n    \"Select Months\",\n    options=df['Month'].cat.categories.tolist(),\n    default=df['Month'].cat.categories.tolist()\n)\n# Visitor Type filter\nselected_visitors = st.sidebar.multiselect(\n    \"Select Visitor Type\",\n    options=df['VisitorType'].unique().tolist(),\n    default=df['VisitorType'].unique().tolist()",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "selected_visitors",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "selected_visitors = st.sidebar.multiselect(\n    \"Select Visitor Type\",\n    options=df['VisitorType'].unique().tolist(),\n    default=df['VisitorType'].unique().tolist()\n)\n# Weekend filter\nweekend_filter = st.sidebar.radio(\n    \"Weekend/Weekday\",\n    options=['All', 'Weekday Only', 'Weekend Only']\n)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "weekend_filter",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "weekend_filter = st.sidebar.radio(\n    \"Weekend/Weekday\",\n    options=['All', 'Weekday Only', 'Weekend Only']\n)\n# Apply filters\nfiltered_df = df[df['Month'].isin(selected_months) &\ndf['VisitorType'].isin(selected_visitors)]\nif weekend_filter == 'Weekday Only':\n    filtered_df = filtered_df[filtered_df['Weekend'] == False]\nelif weekend_filter == 'Weekend Only':",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "filtered_df",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "filtered_df = df[df['Month'].isin(selected_months) &\ndf['VisitorType'].isin(selected_visitors)]\nif weekend_filter == 'Weekday Only':\n    filtered_df = filtered_df[filtered_df['Weekend'] == False]\nelif weekend_filter == 'Weekend Only':\n    filtered_df = filtered_df[filtered_df['Weekend'] == True]\ncol1, col2, col3, col4, col5 = st.columns(5)\nwith col1:\n    total_sessions = len(filtered_df)\n    st.markdown(",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "visitor_conv",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "visitor_conv = filtered_df.groupby('VisitorType').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\nvisitor_conv.columns = ['VisitorType', 'Conversions', 'Sessions', 'ConversionRate']\nvisitor_conv['ConversionRate'] *= 100\nfig1 = go.Figure()\nfig1.add_trace(go.Bar(\n    x=visitor_conv['VisitorType'],\n    y=visitor_conv['ConversionRate'],\n    text=visitor_conv['ConversionRate'].round(2),",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "visitor_conv.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "visitor_conv.columns = ['VisitorType', 'Conversions', 'Sessions', 'ConversionRate']\nvisitor_conv['ConversionRate'] *= 100\nfig1 = go.Figure()\nfig1.add_trace(go.Bar(\n    x=visitor_conv['VisitorType'],\n    y=visitor_conv['ConversionRate'],\n    text=visitor_conv['ConversionRate'].round(2),\n    textposition='auto',\n    marker_color=['#FF6B6B', '#4ECDC4', '#45B7D1']\n))",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig1",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig1 = go.Figure()\nfig1.add_trace(go.Bar(\n    x=visitor_conv['VisitorType'],\n    y=visitor_conv['ConversionRate'],\n    text=visitor_conv['ConversionRate'].round(2),\n    textposition='auto',\n    marker_color=['#FF6B6B', '#4ECDC4', '#45B7D1']\n))\nfig1.update_layout(\n    title=\"Conversion Rate by Visitor Type\",",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "revenue_dist",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "revenue_dist = filtered_df['Revenue'].value_counts()\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[revenue_dist[False], revenue_dist[True]],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig2",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[revenue_dist[False], revenue_dist[True]],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(\n    title=\"Overall Conversion Distribution\",",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "total",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "total = len(filtered_df)\nhad_product_pages = len(filtered_df[filtered_df['ProductRelated'] > 0])\nhad_page_value = len(filtered_df[filtered_df['PageValues'] > 0])\nconverted = filtered_df['Revenue'].sum()\nfig3 = go.Figure(go.Funnel(\n    y=['All Sessions', 'Viewed Products', 'High Engagement (PageValue>0)', 'Converted'],\n    x=[total, had_product_pages, had_page_value, converted],\n    textinfo=\"value+percent initial\",\n    marker={\"color\": [\"#667eea\", \"#764ba2\", \"#f093fb\", \"#4facfe\"]}\n))",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "had_product_pages",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "had_product_pages = len(filtered_df[filtered_df['ProductRelated'] > 0])\nhad_page_value = len(filtered_df[filtered_df['PageValues'] > 0])\nconverted = filtered_df['Revenue'].sum()\nfig3 = go.Figure(go.Funnel(\n    y=['All Sessions', 'Viewed Products', 'High Engagement (PageValue>0)', 'Converted'],\n    x=[total, had_product_pages, had_page_value, converted],\n    textinfo=\"value+percent initial\",\n    marker={\"color\": [\"#667eea\", \"#764ba2\", \"#f093fb\", \"#4facfe\"]}\n))\nfig3.update_layout(height=400)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "had_page_value",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "had_page_value = len(filtered_df[filtered_df['PageValues'] > 0])\nconverted = filtered_df['Revenue'].sum()\nfig3 = go.Figure(go.Funnel(\n    y=['All Sessions', 'Viewed Products', 'High Engagement (PageValue>0)', 'Converted'],\n    x=[total, had_product_pages, had_page_value, converted],\n    textinfo=\"value+percent initial\",\n    marker={\"color\": [\"#667eea\", \"#764ba2\", \"#f093fb\", \"#4facfe\"]}\n))\nfig3.update_layout(height=400)\nst.plotly_chart(fig3, width=\"stretch\")",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "converted",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "converted = filtered_df['Revenue'].sum()\nfig3 = go.Figure(go.Funnel(\n    y=['All Sessions', 'Viewed Products', 'High Engagement (PageValue>0)', 'Converted'],\n    x=[total, had_product_pages, had_page_value, converted],\n    textinfo=\"value+percent initial\",\n    marker={\"color\": [\"#667eea\", \"#764ba2\", \"#f093fb\", \"#4facfe\"]}\n))\nfig3.update_layout(height=400)\nst.plotly_chart(fig3, width=\"stretch\")\nst.markdown(\"   \")",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig3",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig3 = go.Figure(go.Funnel(\n    y=['All Sessions', 'Viewed Products', 'High Engagement (PageValue>0)', 'Converted'],\n    x=[total, had_product_pages, had_page_value, converted],\n    textinfo=\"value+percent initial\",\n    marker={\"color\": [\"#667eea\", \"#764ba2\", \"#f093fb\", \"#4facfe\"]}\n))\nfig3.update_layout(height=400)\nst.plotly_chart(fig3, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"👥 :violet[Visitor Segmentation]\", divider=\"violet\")",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "duration_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "duration_data = filtered_df.groupby(['VisitorType', 'Revenue']).agg({\n    'ProductRelated_Duration': 'mean',\n    'Administrative_Duration': 'mean',\n    'Informational_Duration': 'mean'\n}).reset_index()\nduration_data['Revenue'] = duration_data['Revenue'].map({True: 'Converted', False: 'Not Converted'})\nduration_data['TotalDuration'] = (duration_data['ProductRelated_Duration'] + duration_data['Administrative_Duration'] + duration_data['Informational_Duration'])\nfig4 = px.bar(\n    duration_data,\n    x='VisitorType',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "duration_data['Revenue']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "duration_data['Revenue'] = duration_data['Revenue'].map({True: 'Converted', False: 'Not Converted'})\nduration_data['TotalDuration'] = (duration_data['ProductRelated_Duration'] + duration_data['Administrative_Duration'] + duration_data['Informational_Duration'])\nfig4 = px.bar(\n    duration_data,\n    x='VisitorType',\n    y='TotalDuration',\n    color='Revenue',\n    barmode='group',\n    title='Average Session Duration by Visitor Type & Conversion',\n    labels={'TotalDuration': 'Duration (seconds)'},",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "duration_data['TotalDuration']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "duration_data['TotalDuration'] = (duration_data['ProductRelated_Duration'] + duration_data['Administrative_Duration'] + duration_data['Informational_Duration'])\nfig4 = px.bar(\n    duration_data,\n    x='VisitorType',\n    y='TotalDuration',\n    color='Revenue',\n    barmode='group',\n    title='Average Session Duration by Visitor Type & Conversion',\n    labels={'TotalDuration': 'Duration (seconds)'},\n    color_discrete_map={'Converted': '#51CF66', 'Not Converted': '#FF6B6B'}",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig4",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig4 = px.bar(\n    duration_data,\n    x='VisitorType',\n    y='TotalDuration',\n    color='Revenue',\n    barmode='group',\n    title='Average Session Duration by Visitor Type & Conversion',\n    labels={'TotalDuration': 'Duration (seconds)'},\n    color_discrete_map={'Converted': '#51CF66', 'Not Converted': '#FF6B6B'}\n)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "behavior_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "behavior_data = filtered_df.groupby('VisitorType').agg({\n    'BounceRates': 'mean',\n    'ExitRates': 'mean',\n    'Revenue': 'mean'\n}).reset_index()\nbehavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nfig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "behavior_data['ConversionRate']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "behavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nfig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',\n    size='ConversionRate',\n    color='VisitorType',\n    text='VisitorType',\n    title='Bounce Rate vs Exit Rate by Visitor Type',\n    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'}",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig5",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',\n    size='ConversionRate',\n    color='VisitorType',\n    text='VisitorType',\n    title='Bounce Rate vs Exit Rate by Visitor Type',\n    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'}\n)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "engagement_metrics",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "engagement_metrics = filtered_df.groupby('Revenue').agg({\n    'Administrative': 'mean',\n    'Informational': 'mean',\n    'ProductRelated': 'mean'\n}).T.reset_index()\nengagement_metrics.columns = ['PageType', 'Not Converted', 'Converted']\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "engagement_metrics.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "engagement_metrics.columns = ['PageType', 'Not Converted', 'Converted']\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',\n    y='AvgPages',\n    color='Status',\n    barmode='group',\n    title='Average Pages Viewed by Type and Conversion Status',\n    color_discrete_map={'Converted': '#51CF66', 'Not Converted': '#FF6B6B'}",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "engagement_metrics",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "engagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',\n    y='AvgPages',\n    color='Status',\n    barmode='group',\n    title='Average Pages Viewed by Type and Conversion Status',\n    color_discrete_map={'Converted': '#51CF66', 'Not Converted': '#FF6B6B'}\n)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig6",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig6 = px.bar(\n    engagement_metrics,\n    x='PageType',\n    y='AvgPages',\n    color='Status',\n    barmode='group',\n    title='Average Pages Viewed by Type and Conversion Status',\n    color_discrete_map={'Converted': '#51CF66', 'Not Converted': '#FF6B6B'}\n)\nfig6.update_layout(height=400)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "monthly_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "monthly_data = filtered_df.groupby('Month').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\nmonthly_data.columns = ['Month', 'Conversions', 'Sessions', 'ConversionRate']\nmonthly_data['ConversionRate'] *= 100\nfig7 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig7.add_trace(go.Bar(\n    x=monthly_data['Month'],\n    y=monthly_data['Sessions'],\n    name='Total Sessions',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "monthly_data.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "monthly_data.columns = ['Month', 'Conversions', 'Sessions', 'ConversionRate']\nmonthly_data['ConversionRate'] *= 100\nfig7 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig7.add_trace(go.Bar(\n    x=monthly_data['Month'],\n    y=monthly_data['Sessions'],\n    name='Total Sessions',\n    marker_color='lightblue'),\n    secondary_y=False\n)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig7",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig7 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig7.add_trace(go.Bar(\n    x=monthly_data['Month'],\n    y=monthly_data['Sessions'],\n    name='Total Sessions',\n    marker_color='lightblue'),\n    secondary_y=False\n)\nfig7.add_trace(go.Scatter(\n    x=monthly_data['Month'],",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "weekend_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "weekend_data = filtered_df.groupby('Weekend').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\nweekend_data.columns = ['Weekend', 'Conversions', 'Sessions', 'ConversionRate']\nweekend_data['ConversionRate'] *= 100\nweekend_data['DayType'] = weekend_data['Weekend'].map({True: 'Weekend', False: 'Weekday'})\nfig8 = go.Figure(\n    data=[go.Bar(name='Sessions',\n                 x=weekend_data['DayType'],\n                 y=weekend_data['Sessions'],",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "weekend_data.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "weekend_data.columns = ['Weekend', 'Conversions', 'Sessions', 'ConversionRate']\nweekend_data['ConversionRate'] *= 100\nweekend_data['DayType'] = weekend_data['Weekend'].map({True: 'Weekend', False: 'Weekday'})\nfig8 = go.Figure(\n    data=[go.Bar(name='Sessions',\n                 x=weekend_data['DayType'],\n                 y=weekend_data['Sessions'],\n                 marker_color='#667eea'),\n          go.Bar(name='Conversions',\n                 x=weekend_data['DayType'],",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "weekend_data['DayType']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "weekend_data['DayType'] = weekend_data['Weekend'].map({True: 'Weekend', False: 'Weekday'})\nfig8 = go.Figure(\n    data=[go.Bar(name='Sessions',\n                 x=weekend_data['DayType'],\n                 y=weekend_data['Sessions'],\n                 marker_color='#667eea'),\n          go.Bar(name='Conversions',\n                 x=weekend_data['DayType'],\n                 y=weekend_data['Conversions'],\n                 marker_color='#51CF66')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig8",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig8 = go.Figure(\n    data=[go.Bar(name='Sessions',\n                 x=weekend_data['DayType'],\n                 y=weekend_data['Sessions'],\n                 marker_color='#667eea'),\n          go.Bar(name='Conversions',\n                 x=weekend_data['DayType'],\n                 y=weekend_data['Conversions'],\n                 marker_color='#51CF66')\n    ])",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "special_day_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "special_day_data = filtered_df.copy()\nspecial_day_data['SpecialDayCategory'] = pd.cut(\n    special_day_data['SpecialDay'],\n    bins=[-0.1, 0, 0.5, 1.0],\n    labels=['No Special Day', 'Near Special Day', 'Special Day']\n)\nspecial_conv = special_day_data.groupby('SpecialDayCategory')['Revenue'].agg(['mean', 'count']).reset_index()\nspecial_conv['ConversionRate'] = special_conv['mean'] * 100\nfig9 = px.bar(\n    special_conv,",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "special_day_data['SpecialDayCategory']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "special_day_data['SpecialDayCategory'] = pd.cut(\n    special_day_data['SpecialDay'],\n    bins=[-0.1, 0, 0.5, 1.0],\n    labels=['No Special Day', 'Near Special Day', 'Special Day']\n)\nspecial_conv = special_day_data.groupby('SpecialDayCategory')['Revenue'].agg(['mean', 'count']).reset_index()\nspecial_conv['ConversionRate'] = special_conv['mean'] * 100\nfig9 = px.bar(\n    special_conv,\n    x='SpecialDayCategory',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "special_conv",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "special_conv = special_day_data.groupby('SpecialDayCategory')['Revenue'].agg(['mean', 'count']).reset_index()\nspecial_conv['ConversionRate'] = special_conv['mean'] * 100\nfig9 = px.bar(\n    special_conv,\n    x='SpecialDayCategory',\n    y='ConversionRate',\n    text='ConversionRate',\n    title='Conversion Rate by Special Day Proximity',\n    color='ConversionRate',\n    color_continuous_scale='Viridis')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "special_conv['ConversionRate']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "special_conv['ConversionRate'] = special_conv['mean'] * 100\nfig9 = px.bar(\n    special_conv,\n    x='SpecialDayCategory',\n    y='ConversionRate',\n    text='ConversionRate',\n    title='Conversion Rate by Special Day Proximity',\n    color='ConversionRate',\n    color_continuous_scale='Viridis')\nfig9.update_traces(texttemplate='%{text:.2f}%', textposition='outside')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig9",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig9 = px.bar(\n    special_conv,\n    x='SpecialDayCategory',\n    y='ConversionRate',\n    text='ConversionRate',\n    title='Conversion Rate by Special Day Proximity',\n    color='ConversionRate',\n    color_continuous_scale='Viridis')\nfig9.update_traces(texttemplate='%{text:.2f}%', textposition='outside')\nfig9.update_layout(height=400, showlegend=False)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "traffic_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "traffic_data = filtered_df.groupby('TrafficType').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\ntraffic_data.columns = ['TrafficType', 'Conversions', 'Sessions', 'ConversionRate']\ntraffic_data['ConversionRate'] *= 100\n# Filter for meaningful traffic (at least 100 sessions)\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "traffic_data.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "traffic_data.columns = ['TrafficType', 'Conversions', 'Sessions', 'ConversionRate']\ntraffic_data['ConversionRate'] *= 100\n# Filter for meaningful traffic (at least 100 sessions)\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),\n    x='TrafficType',\n    y='ConversionRate',\n    color='ConversionRate',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "traffic_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "traffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),\n    x='TrafficType',\n    y='ConversionRate',\n    color='ConversionRate',\n    title='Top 15 Traffic Sources by Conversion Rate',\n    labels={'TrafficType': 'Traffic Type', 'ConversionRate': 'Conversion Rate (%)'},\n    color_continuous_scale='RdYlGn',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig10",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig10 = px.bar(\n    traffic_data.head(15),\n    x='TrafficType',\n    y='ConversionRate',\n    color='ConversionRate',\n    title='Top 15 Traffic Sources by Conversion Rate',\n    labels={'TrafficType': 'Traffic Type', 'ConversionRate': 'Conversion Rate (%)'},\n    color_continuous_scale='RdYlGn',\n    text='ConversionRate')\nfig10.update_traces(texttemplate='%{text:.1f}%', textposition='outside')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig11",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig11 = px.scatter(\n    traffic_data,\n    x='Sessions',\n    y='ConversionRate',\n    size='Conversions',\n    color='ConversionRate',\n    hover_data=['TrafficType'],\n    title='Traffic Volume vs Conversion Rate',\n    labels={'Sessions': 'Total Sessions', 'ConversionRate': 'Conversion Rate (%)'},\n    color_continuous_scale='Viridis')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "browser_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "browser_data = filtered_df.groupby('Browser').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\nbrowser_data.columns = ['Browser', 'Conversions', 'Sessions', 'ConversionRate']\nbrowser_data['ConversionRate'] *= 100\nbrowser_data = browser_data[browser_data['Sessions'] >= 500].sort_values('ConversionRate', ascending=False).head(10)\nfig12 = px.bar(\n    browser_data,\n    y='Browser',\n    x='ConversionRate',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "browser_data.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "browser_data.columns = ['Browser', 'Conversions', 'Sessions', 'ConversionRate']\nbrowser_data['ConversionRate'] *= 100\nbrowser_data = browser_data[browser_data['Sessions'] >= 500].sort_values('ConversionRate', ascending=False).head(10)\nfig12 = px.bar(\n    browser_data,\n    y='Browser',\n    x='ConversionRate',\n    orientation='h',\n    title='Top 10 Browsers by Conversion Rate',\n    color='ConversionRate',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "browser_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "browser_data = browser_data[browser_data['Sessions'] >= 500].sort_values('ConversionRate', ascending=False).head(10)\nfig12 = px.bar(\n    browser_data,\n    y='Browser',\n    x='ConversionRate',\n    orientation='h',\n    title='Top 10 Browsers by Conversion Rate',\n    color='ConversionRate',\n    color_continuous_scale='Blues',\n    text='ConversionRate')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig12",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig12 = px.bar(\n    browser_data,\n    y='Browser',\n    x='ConversionRate',\n    orientation='h',\n    title='Top 10 Browsers by Conversion Rate',\n    color='ConversionRate',\n    color_continuous_scale='Blues',\n    text='ConversionRate')\nfig12.update_traces(texttemplate='%{text:.2f}%', textposition='outside')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "os_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "os_data = filtered_df.groupby('OperatingSystems').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\nos_data.columns = ['OS', 'Conversions', 'Sessions', 'ConversionRate']\nos_data['ConversionRate'] *= 100\nos_data = os_data[os_data['Sessions'] >= 500].sort_values('ConversionRate', ascending=False).head(10)\nfig13 = px.bar(\n    os_data,\n    y='OS',\n    x='ConversionRate',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "os_data.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "os_data.columns = ['OS', 'Conversions', 'Sessions', 'ConversionRate']\nos_data['ConversionRate'] *= 100\nos_data = os_data[os_data['Sessions'] >= 500].sort_values('ConversionRate', ascending=False).head(10)\nfig13 = px.bar(\n    os_data,\n    y='OS',\n    x='ConversionRate',\n    orientation='h',\n    title='Top 10 Operating Systems by Conversion Rate',\n    color='ConversionRate',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "os_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "os_data = os_data[os_data['Sessions'] >= 500].sort_values('ConversionRate', ascending=False).head(10)\nfig13 = px.bar(\n    os_data,\n    y='OS',\n    x='ConversionRate',\n    orientation='h',\n    title='Top 10 Operating Systems by Conversion Rate',\n    color='ConversionRate',\n    color_continuous_scale='Greens',\n    text='ConversionRate')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig13",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig13 = px.bar(\n    os_data,\n    y='OS',\n    x='ConversionRate',\n    orientation='h',\n    title='Top 10 Operating Systems by Conversion Rate',\n    color='ConversionRate',\n    color_continuous_scale='Greens',\n    text='ConversionRate')\nfig13.update_traces(texttemplate='%{text:.2f}%', textposition='outside')",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "pagevalue_conv",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "pagevalue_conv = filtered_df[filtered_df['Revenue'] == True]['PageValues']\npagevalue_noconv = filtered_df[filtered_df['Revenue'] == False]['PageValues']\nfig14 = go.Figure()\nfig14.add_trace(\n    go.Histogram(x=pagevalue_conv[pagevalue_conv > 0],\n                 name='Converted',\n                 marker_color='#51CF66',\n                 opacity=0.7,\n                 nbinsx=50))\nfig14.add_trace(",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "pagevalue_noconv",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "pagevalue_noconv = filtered_df[filtered_df['Revenue'] == False]['PageValues']\nfig14 = go.Figure()\nfig14.add_trace(\n    go.Histogram(x=pagevalue_conv[pagevalue_conv > 0],\n                 name='Converted',\n                 marker_color='#51CF66',\n                 opacity=0.7,\n                 nbinsx=50))\nfig14.add_trace(\n    go.Histogram(x=pagevalue_noconv[pagevalue_noconv > 0],",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig14",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig14 = go.Figure()\nfig14.add_trace(\n    go.Histogram(x=pagevalue_conv[pagevalue_conv > 0],\n                 name='Converted',\n                 marker_color='#51CF66',\n                 opacity=0.7,\n                 nbinsx=50))\nfig14.add_trace(\n    go.Histogram(x=pagevalue_noconv[pagevalue_noconv > 0],\n                 name='Not Converted',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "pv_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "pv_data = filtered_df.copy()\npv_data['PageValueCategory'] = pd.cut(\n    pv_data['PageValues'],\n    bins=[-0.1, 0, 10, 50, 100, 1000],\n    labels=['Zero', 'Low (0-10)', 'Medium (10-50)', 'High (50-100)', 'Very High (100+)']\n)\npv_conv = pv_data.groupby('PageValueCategory')['Revenue'].agg(['mean', 'count']).reset_index()\npv_conv['ConversionRate'] = pv_conv['mean'] * 100\nfig15 = px.line(\n    pv_conv,",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "pv_data['PageValueCategory']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "pv_data['PageValueCategory'] = pd.cut(\n    pv_data['PageValues'],\n    bins=[-0.1, 0, 10, 50, 100, 1000],\n    labels=['Zero', 'Low (0-10)', 'Medium (10-50)', 'High (50-100)', 'Very High (100+)']\n)\npv_conv = pv_data.groupby('PageValueCategory')['Revenue'].agg(['mean', 'count']).reset_index()\npv_conv['ConversionRate'] = pv_conv['mean'] * 100\nfig15 = px.line(\n    pv_conv,\n    x='PageValueCategory',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "pv_conv",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "pv_conv = pv_data.groupby('PageValueCategory')['Revenue'].agg(['mean', 'count']).reset_index()\npv_conv['ConversionRate'] = pv_conv['mean'] * 100\nfig15 = px.line(\n    pv_conv,\n    x='PageValueCategory',\n    y='ConversionRate',\n    markers=True,\n    title='Conversion Rate by Page Value Category',\n    labels={'ConversionRate': 'Conversion Rate (%)', 'PageValueCategory': 'Page Value Range'})\nfig15.update_traces(line=dict(width=3, color='#667eea'), marker=dict(size=12))",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "pv_conv['ConversionRate']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "pv_conv['ConversionRate'] = pv_conv['mean'] * 100\nfig15 = px.line(\n    pv_conv,\n    x='PageValueCategory',\n    y='ConversionRate',\n    markers=True,\n    title='Conversion Rate by Page Value Category',\n    labels={'ConversionRate': 'Conversion Rate (%)', 'PageValueCategory': 'Page Value Range'})\nfig15.update_traces(line=dict(width=3, color='#667eea'), marker=dict(size=12))\nfig15.update_layout(height=400)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig15",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig15 = px.line(\n    pv_conv,\n    x='PageValueCategory',\n    y='ConversionRate',\n    markers=True,\n    title='Conversion Rate by Page Value Category',\n    labels={'ConversionRate': 'Conversion Rate (%)', 'PageValueCategory': 'Page Value Range'})\nfig15.update_traces(line=dict(width=3, color='#667eea'), marker=dict(size=12))\nfig15.update_layout(height=400)\nst.plotly_chart(fig15, width=\"stretch\")",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "bounce_exit",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "bounce_exit = filtered_df.groupby('Revenue').agg({\n    'BounceRates': 'mean',\n    'ExitRates': 'mean'\n}).reset_index()\nbounce_exit['Revenue'] = bounce_exit['Revenue'].map({True: 'Converted', False: 'Not Converted'})\nbounce_exit_melted = bounce_exit.melt(id_vars='Revenue', var_name='Metric', value_name='Rate')\nfig16 = px.bar(\n    bounce_exit_melted,\n    x='Revenue',\n    y='Rate',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "bounce_exit['Revenue']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "bounce_exit['Revenue'] = bounce_exit['Revenue'].map({True: 'Converted', False: 'Not Converted'})\nbounce_exit_melted = bounce_exit.melt(id_vars='Revenue', var_name='Metric', value_name='Rate')\nfig16 = px.bar(\n    bounce_exit_melted,\n    x='Revenue',\n    y='Rate',\n    color='Metric',\n    barmode='group',\n    title='Average Bounce & Exit Rates by Conversion Status',\n    labels={'Rate': 'Rate (average)', 'Revenue': 'Conversion Status'},",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "bounce_exit_melted",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "bounce_exit_melted = bounce_exit.melt(id_vars='Revenue', var_name='Metric', value_name='Rate')\nfig16 = px.bar(\n    bounce_exit_melted,\n    x='Revenue',\n    y='Rate',\n    color='Metric',\n    barmode='group',\n    title='Average Bounce & Exit Rates by Conversion Status',\n    labels={'Rate': 'Rate (average)', 'Revenue': 'Conversion Status'},\n    color_discrete_map={'BounceRates': '#FF6B6B', 'ExitRates': '#FFA94D'})",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig16",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig16 = px.bar(\n    bounce_exit_melted,\n    x='Revenue',\n    y='Rate',\n    color='Metric',\n    barmode='group',\n    title='Average Bounce & Exit Rates by Conversion Status',\n    labels={'Rate': 'Rate (average)', 'Revenue': 'Conversion Status'},\n    color_discrete_map={'BounceRates': '#FF6B6B', 'ExitRates': '#FFA94D'})\nfig16.update_layout(height=400)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "product_data",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "product_data = filtered_df.groupby('Revenue').agg({\n    'ProductRelated': 'mean',\n    'ProductRelated_Duration': 'mean'\n}).reset_index()\nproduct_data['Revenue'] = product_data['Revenue'].map({True: 'Converted', False: 'Not Converted'})\nfig17 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig17.add_trace(\n    go.Bar(x=product_data['Revenue'],\n           y=product_data['ProductRelated'],\n           name='Avg Product Pages',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "product_data['Revenue']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "product_data['Revenue'] = product_data['Revenue'].map({True: 'Converted', False: 'Not Converted'})\nfig17 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig17.add_trace(\n    go.Bar(x=product_data['Revenue'],\n           y=product_data['ProductRelated'],\n           name='Avg Product Pages',\n           marker_color='#4ECDC4'),\n    secondary_y=False\n)\nfig17.add_trace(",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "fig17",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "fig17 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig17.add_trace(\n    go.Bar(x=product_data['Revenue'],\n           y=product_data['ProductRelated'],\n           name='Avg Product Pages',\n           marker_color='#4ECDC4'),\n    secondary_y=False\n)\nfig17.add_trace(\n    go.Scatter(x=product_data['Revenue'],",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "metrics_comparison",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "metrics_comparison = filtered_df.groupby('Revenue').agg({\n    'Administrative': 'mean',\n    'Administrative_Duration': 'mean',\n    'Informational': 'mean',\n    'Informational_Duration': 'mean',\n    'ProductRelated': 'mean',\n    'ProductRelated_Duration': 'mean',\n    'BounceRates': 'mean',\n    'ExitRates': 'mean',\n    'PageValues': 'mean'",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "metrics_comparison.columns",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "metrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\nmetrics_comparison['PercentChange'] = (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",\n        height=400\n)",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "metrics_comparison['Difference']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "metrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\nmetrics_comparison['PercentChange'] = (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",\n        height=400\n)\n# ============================================",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "metrics_comparison['PercentChange']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "metrics_comparison['PercentChange'] = (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",\n        height=400\n)\n# ============================================\n# FOOTER",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
     {
