@@ -154,10 +154,12 @@ st.markdown("   ")
 
 # Revenue vs Non-Revenue Distribution
 revenue_dist = filtered_df['Revenue'].value_counts()
+no_purchase_count = revenue_dist.get(False, 0)
+purchase_count = revenue_dist.get(True, 0)
 
 fig2 = go.Figure(data=[go.Pie(
     labels=['No Purchase', 'Purchase'],
-    values=[revenue_dist[False], revenue_dist[True]],
+    values=[no_purchase_count, purchase_count],
     hole=0.4,
     marker_colors=['#FF6B6B', '#51CF66'],
     textinfo='label+percent',

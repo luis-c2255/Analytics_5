@@ -857,7 +857,25 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "revenue_dist = filtered_df['Revenue'].value_counts()\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[revenue_dist[False], revenue_dist[True]],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(",
+        "peekOfCode": "revenue_dist = filtered_df['Revenue'].value_counts()\nno_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "no_purchase_count",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "no_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "purchase_count",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "purchase_count = revenue_dist.get(True, 0)\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -866,7 +884,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "fig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[revenue_dist[False], revenue_dist[True]],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(\n    title=\"Overall Conversion Distribution\",",
+        "peekOfCode": "fig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(\n    title=\"Overall Conversion Distribution\",",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
