@@ -572,10 +572,26 @@ metrics_comparison = filtered_df.groupby('Revenue').agg({
     'BounceRates': 'mean',
     'ExitRates': 'mean',
     'PageValues': 'mean'
-}).T.reset_index()
+})
+
+# 2. Safety: Ensure both 0 and 1 exist in the index before transposing
+# This prevents the "Length mismatch" by filling missing groups with 0
+metrics_comparison = metrics_comparison.reindex([0, 1], fill_value=0)
+
+# 3. Transpose and Rename
+metrics_comparison = metrics_comparison.T.reset_index()
 metrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']
+
+# 4. Math (Safe now because 'Not Converted' won't be missing)
 metrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']
-metrics_comparison['PercentChange'] = (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2)
+
+# 5. Handle potential Division by Zero for PercentChange
+import numpy as np
+metrics_comparison['PercentChange'] = np.where(
+    metrics_comparison['Not Converted'] != 0,
+    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),
+    0
+)
 
 # Show table
 st.dataframe(

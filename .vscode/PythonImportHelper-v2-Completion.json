@@ -1447,11 +1447,29 @@
         "documentation": {}
     },
     {
+        "label": "metrics_comparison",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "metrics_comparison = metrics_comparison.reindex([0, 1], fill_value=0)\n# 3. Transpose and Rename\nmetrics_comparison = metrics_comparison.T.reset_index()\nmetrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "metrics_comparison",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "metrics_comparison = metrics_comparison.T.reset_index()\nmetrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
         "label": "metrics_comparison.columns",
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\nmetrics_comparison['PercentChange'] = (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",\n        height=400\n)",
+        "peekOfCode": "metrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1460,7 +1478,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\nmetrics_comparison['PercentChange'] = (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",\n        height=400\n)\n# ============================================",
+        "peekOfCode": "metrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)\n# Show table\nst.dataframe(",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1469,7 +1487,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison['PercentChange'] = (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",\n        height=400\n)\n# ============================================\n# FOOTER",
+        "peekOfCode": "metrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
