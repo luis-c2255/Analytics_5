@@ -30,32 +30,29 @@ with col1:
     icon="📽️", icon_position="left", width="stretch"
     )
 with col2:
-    st.link_button("Online Shoppers Purchasing",
-    "https:",
-    icon="🛍️", icon_position="left", width="stretch"
-    )
-with col3:
     st.link_button("Global Volcano Eruption",
     "https:",
     icon="🌋", icon_position="left", width="stretch"
     )
-col4, col5, col6, col7 = st.columns(4)
-with col4:
+
+with col3:
     st.link_button("Pypi AI Packages Download",
     "https:",
     icon="🖥️", icon_position="left", width="stretch"
     )
-with col5:
+st.markdown("   ")
+col4, col5, col6 = st.columns(3)
+with col4:
     st.link_button("Amazon Sales Analysis",
     "https:",
     icon="🛒", icon_position="left", width="stretch"
     )
-with col6:
+with col5:
     st.link_button("Mental Health Burnout",
     "https:",
     icon="🤯", icon_position="left", width="stretch"
     )
-with col7:
+with col6:
     st.link_button("Spotify Wrapped 2025",
     "https:",
     icon="🎶", icon_position="left", width="stretch"
