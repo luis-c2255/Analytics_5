@@ -606,7 +606,52 @@
         "kind": 5,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
         "description": "pages.1_📽_Netflix_Content_Analysis",
-        "peekOfCode": "director_type_data = []\nfor _, row in directors_df.iterrows():\n    if pd.notna(row['director']):\n        for director in str(row['director']).split(','):\n            director_type_data.append({\n                'director': director.strip(),\n                'type': row['type']\n            })\n            director_type_df = pd.DataFrame(director_type_data)\n            # Get top 10 directors and their type distribution",
+        "peekOfCode": "director_type_data = []\nfor _, row in directors_df.iterrows():\n    if pd.notna(row['director']):\n        for director in str(row['director']).split(','):\n            director_type_data.append({\n                'director': director.strip(),\n                'type': row['type']\n            })\ndirector_type_df = pd.DataFrame(director_type_data)\n# Get top 10 directors and their type distribution",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "director_type_df",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "director_type_df = pd.DataFrame(director_type_data)\n# Get top 10 directors and their type distribution\ntop_10_directors = director_type_df['director'].value_counts().head(10).index\ntop_directors_type = director_type_df[director_type_df['director'].isin(top_10_directors)]\ndirector_type_counts = top_directors_type.groupby(['director', 'type']).size().reset_index(name='count')\nfig17 = px.bar(\n                director_type_counts,\n                x='director',\n                y='count',\n                color='type',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_10_directors",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_10_directors = director_type_df['director'].value_counts().head(10).index\ntop_directors_type = director_type_df[director_type_df['director'].isin(top_10_directors)]\ndirector_type_counts = top_directors_type.groupby(['director', 'type']).size().reset_index(name='count')\nfig17 = px.bar(\n                director_type_counts,\n                x='director',\n                y='count',\n                color='type',\n                title='Top 10 Directors: Movies vs TV Shows',\n                text_auto=True,",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "top_directors_type",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "top_directors_type = director_type_df[director_type_df['director'].isin(top_10_directors)]\ndirector_type_counts = top_directors_type.groupby(['director', 'type']).size().reset_index(name='count')\nfig17 = px.bar(\n                director_type_counts,\n                x='director',\n                y='count',\n                color='type',\n                title='Top 10 Directors: Movies vs TV Shows',\n                text_auto=True,\n                labels={'director': 'Director', 'count': 'Number of Titles'},",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "director_type_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "director_type_counts = top_directors_type.groupby(['director', 'type']).size().reset_index(name='count')\nfig17 = px.bar(\n                director_type_counts,\n                x='director',\n                y='count',\n                color='type',\n                title='Top 10 Directors: Movies vs TV Shows',\n                text_auto=True,\n                labels={'director': 'Director', 'count': 'Number of Titles'},\n                barmode='stack'",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig17",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig17 = px.bar(\n                director_type_counts,\n                x='director',\n                y='count',\n                color='type',\n                title='Top 10 Directors: Movies vs TV Shows',\n                text_auto=True,\n                labels={'director': 'Director', 'count': 'Number of Titles'},\n                barmode='stack'\n            )",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },
@@ -615,7 +660,7 @@
         "kind": 5,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
         "description": "pages.1_📽_Netflix_Content_Analysis",
-        "peekOfCode": "cast_df = filtered_df[filtered_df['cast'] != 'Unknown'].copy()\n# Split cast members\nall_cast = []\nfor cast_list in cast_df['cast'].dropna():\n    all_cast.extend([c.strip() for c in str(cast_list).split(',')])\n    cast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()\n    cast_counts.columns = ['actor', 'count']\n    fig18 = px.bar(\n        cast_counts,\n        x='actor',",
+        "peekOfCode": "cast_df = filtered_df[filtered_df['cast'] != 'Unknown'].copy()\n# Split cast members\nall_cast = []\nfor cast_list in cast_df['cast'].dropna():\n    all_cast.extend([c.strip() for c in str(cast_list).split(',')])\ncast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()\ncast_counts.columns = ['actor', 'count']\nfig18 = px.bar(\n        cast_counts,\n        x='actor',",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },
@@ -624,7 +669,34 @@
         "kind": 5,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
         "description": "pages.1_📽_Netflix_Content_Analysis",
-        "peekOfCode": "all_cast = []\nfor cast_list in cast_df['cast'].dropna():\n    all_cast.extend([c.strip() for c in str(cast_list).split(',')])\n    cast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()\n    cast_counts.columns = ['actor', 'count']\n    fig18 = px.bar(\n        cast_counts,\n        x='actor',\n        y='count',\n        title='Top 20 Most Featured Actors',",
+        "peekOfCode": "all_cast = []\nfor cast_list in cast_df['cast'].dropna():\n    all_cast.extend([c.strip() for c in str(cast_list).split(',')])\ncast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()\ncast_counts.columns = ['actor', 'count']\nfig18 = px.bar(\n        cast_counts,\n        x='actor',\n        y='count',\n        title='Top 20 Most Featured Actors',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "cast_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "cast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()\ncast_counts.columns = ['actor', 'count']\nfig18 = px.bar(\n        cast_counts,\n        x='actor',\n        y='count',\n        title='Top 20 Most Featured Actors',\n        labels={'actor': 'Actor', 'count': 'Number of Titles'},\n        text_auto=True,\n        color='count',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "cast_counts.columns",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "cast_counts.columns = ['actor', 'count']\nfig18 = px.bar(\n        cast_counts,\n        x='actor',\n        y='count',\n        title='Top 20 Most Featured Actors',\n        labels={'actor': 'Actor', 'count': 'Number of Titles'},\n        text_auto=True,\n        color='count',\n        color_continuous_scale='Greens'",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig18",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig18 = px.bar(\n        cast_counts,\n        x='actor',\n        y='count',\n        title='Top 20 Most Featured Actors',\n        labels={'actor': 'Actor', 'count': 'Number of Titles'},\n        text_auto=True,\n        color='count',\n        color_continuous_scale='Greens'\n    )",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },

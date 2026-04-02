@@ -504,12 +504,12 @@ for _, row in directors_df.iterrows():
                 'director': director.strip(),
                 'type': row['type']
             })
-            director_type_df = pd.DataFrame(director_type_data)
-            # Get top 10 directors and their type distribution
-            top_10_directors = director_type_df['director'].value_counts().head(10).index
-            top_directors_type = director_type_df[director_type_df['director'].isin(top_10_directors)]
-            director_type_counts = top_directors_type.groupby(['director', 'type']).size().reset_index(name='count')
-            fig17 = px.bar(
+director_type_df = pd.DataFrame(director_type_data)
+# Get top 10 directors and their type distribution
+top_10_directors = director_type_df['director'].value_counts().head(10).index
+top_directors_type = director_type_df[director_type_df['director'].isin(top_10_directors)]
+director_type_counts = top_directors_type.groupby(['director', 'type']).size().reset_index(name='count')
+fig17 = px.bar(
                 director_type_counts,
                 x='director',
                 y='count',
@@ -519,8 +519,8 @@ for _, row in directors_df.iterrows():
                 labels={'director': 'Director', 'count': 'Number of Titles'},
                 barmode='stack'
             )
-            fig17.update_layout(xaxis_tickangle=-45, height=500)
-            st.plotly_chart(fig17, width="stretch")
+fig17.update_layout(xaxis_tickangle=-45, height=500)
+st.plotly_chart(fig17, width="stretch")
         
 st.markdown(":violet-background[Most Featured Cast Members]")
 cast_df = filtered_df[filtered_df['cast'] != 'Unknown'].copy()
@@ -528,10 +528,10 @@ cast_df = filtered_df[filtered_df['cast'] != 'Unknown'].copy()
 all_cast = []
 for cast_list in cast_df['cast'].dropna():
     all_cast.extend([c.strip() for c in str(cast_list).split(',')])
-    cast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()
-    cast_counts.columns = ['actor', 'count']
+cast_counts = pd.Series(all_cast).value_counts().head(20).reset_index()
+cast_counts.columns = ['actor', 'count']
     
-    fig18 = px.bar(
+fig18 = px.bar(
         cast_counts,
         x='actor',
         y='count',
@@ -541,8 +541,8 @@ for cast_list in cast_df['cast'].dropna():
         color='count',
         color_continuous_scale='Greens'
     )
-    fig18.update_layout(xaxis_tickangle=-45, showlegend=False, height=450)
-    st.plotly_chart(fig18, width="stretch")
+fig18.update_layout(xaxis_tickangle=-45, showlegend=False, height=450)
+st.plotly_chart(fig18, width="stretch")
 
 st.markdown(":violet-background[Top Directors by Primary Genre]")
 director_genre_data = []
