@@ -607,8 +607,9 @@ with col3:
     st.warning(f"Top Producer: {top_country} ({top_country_count} titles).")
     st.warning(f"Most Common Rating: {most_common_rating}.")
     st.warning(f"Unique Directors: {unique_directors:,}.")
-
-st.markdown("📥 :rainbow-background[Export Filtered Data]")
+st.markdown("   ")
+st.markdown("   ")
+st.markdown("## 📥 :rainbow-background[Export Filtered Data]")
 csv = filtered_df.to_csv(index=False).encode('utf-8')
 st.download_button(
     label="Download Filtered Dataset as CSV",
