@@ -584,7 +584,7 @@ with col1:
     international_pct = (filtered_df['primary_country'] != 'United States').sum() / len(filtered_df) * 100 if len(filtered_df) > 0 else 0
     if len(movies_df) > 0 and len(tv_shows_df) > 0:
         content_ratio = len(movies_df) / len(tv_shows_df)
-    st.markdown(":blue[Content Strategy]")
+    st.markdown("**:blue[Content Strategy]**", text_alignment="center")
     st.info(f"Recent Content: {growth_rate:.1f}% added in last 2 years.")
     st.info(f"International Content: {international_pct:.1f}% from outside US.")
     st.info(f"Movie to TV Ratio: {content_ratio:.2f}:1")
