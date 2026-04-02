@@ -1019,7 +1019,25 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "engagement_metrics = filtered_df.groupby('Revenue').agg({\n    'Administrative': 'mean',\n    'Informational': 'mean',\n    'ProductRelated': 'mean'\n}).T.reset_index()\nengagement_metrics.columns = ['PageType', 'Not Converted', 'Converted']\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',",
+        "peekOfCode": "engagement_metrics = filtered_df.groupby('Revenue').agg({\n    'Administrative': 'mean',\n    'Informational': 'mean',\n    'ProductRelated': 'mean'\n})\nengagement_metrics = engagement_metrics.T\ncolumn_map = {0: 'Not Converted', 1: 'Converted', False: 'Not Converted', True: 'Converted'}\nengagement_metrics.columns = [column_map.get(col, col) for col in engagement_metrics.columns]\n# 4. Reset index to turn PageType into a column\nengagement_metrics = engagement_metrics.reset_index().rename(columns={'index': 'PageType'})",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "engagement_metrics",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "engagement_metrics = engagement_metrics.T\ncolumn_map = {0: 'Not Converted', 1: 'Converted', False: 'Not Converted', True: 'Converted'}\nengagement_metrics.columns = [column_map.get(col, col) for col in engagement_metrics.columns]\n# 4. Reset index to turn PageType into a column\nengagement_metrics = engagement_metrics.reset_index().rename(columns={'index': 'PageType'})\n# 5. Melt for Plotly\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "column_map",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "column_map = {0: 'Not Converted', 1: 'Converted', False: 'Not Converted', True: 'Converted'}\nengagement_metrics.columns = [column_map.get(col, col) for col in engagement_metrics.columns]\n# 4. Reset index to turn PageType into a column\nengagement_metrics = engagement_metrics.reset_index().rename(columns={'index': 'PageType'})\n# 5. Melt for Plotly\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',\n    y='AvgPages',",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1028,7 +1046,16 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "engagement_metrics.columns = ['PageType', 'Not Converted', 'Converted']\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',\n    y='AvgPages',\n    color='Status',\n    barmode='group',\n    title='Average Pages Viewed by Type and Conversion Status',\n    color_discrete_map={'Converted': '#51CF66', 'Not Converted': '#FF6B6B'}",
+        "peekOfCode": "engagement_metrics.columns = [column_map.get(col, col) for col in engagement_metrics.columns]\n# 4. Reset index to turn PageType into a column\nengagement_metrics = engagement_metrics.reset_index().rename(columns={'index': 'PageType'})\n# 5. Melt for Plotly\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',\n    y='AvgPages',\n    color='Status',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "engagement_metrics",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "engagement_metrics = engagement_metrics.reset_index().rename(columns={'index': 'PageType'})\n# 5. Melt for Plotly\nengagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')\nfig6 = px.bar(\n    engagement_metrics,\n    x='PageType',\n    y='AvgPages',\n    color='Status',\n    barmode='group',\n    title='Average Pages Viewed by Type and Conversion Status',",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },

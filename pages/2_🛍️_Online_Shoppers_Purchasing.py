@@ -245,8 +245,16 @@ engagement_metrics = filtered_df.groupby('Revenue').agg({
     'Administrative': 'mean',
     'Informational': 'mean',
     'ProductRelated': 'mean'
-}).T.reset_index()
-engagement_metrics.columns = ['PageType', 'Not Converted', 'Converted']
+})
+engagement_metrics = engagement_metrics.T
+
+column_map = {0: 'Not Converted', 1: 'Converted', False: 'Not Converted', True: 'Converted'}
+engagement_metrics.columns = [column_map.get(col, col) for col in engagement_metrics.columns]
+
+# 4. Reset index to turn PageType into a column
+engagement_metrics = engagement_metrics.reset_index().rename(columns={'index': 'PageType'})
+
+# 5. Melt for Plotly
 engagement_metrics = engagement_metrics.melt(id_vars='PageType', var_name='Status', value_name='AvgPages')
 
 fig6 = px.bar(
