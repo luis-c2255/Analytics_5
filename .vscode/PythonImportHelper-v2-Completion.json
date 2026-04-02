@@ -1190,16 +1190,16 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "traffic_data = filtered_df.groupby('TrafficType').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\ntraffic_data.columns = ['TrafficType', 'Conversions', 'Sessions', 'ConversionRate']\ntraffic_data['ConversionRate'] *= 100\n# Filter for meaningful traffic (at least 100 sessions)\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),",
+        "peekOfCode": "traffic_data = filtered_df.groupby('TrafficType').agg(\n    Conversions=('Revenue', 'sum'),\n    Sessions=('Revenue', 'count'),\n    ConversionRate=('Revenue', 'mean')\n).reset_index()\n# 2. Convert to percentage\ntraffic_data['ConversionRate'] = traffic_data['ConversionRate'] * 100\n# 3. Filter for meaningful traffic \n# Note: If this results in 0 rows, your plots will error out later!\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
     {
-        "label": "traffic_data.columns",
+        "label": "traffic_data['ConversionRate']",
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "traffic_data.columns = ['TrafficType', 'Conversions', 'Sessions', 'ConversionRate']\ntraffic_data['ConversionRate'] *= 100\n# Filter for meaningful traffic (at least 100 sessions)\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),\n    x='TrafficType',\n    y='ConversionRate',\n    color='ConversionRate',",
+        "peekOfCode": "traffic_data['ConversionRate'] = traffic_data['ConversionRate'] * 100\n# 3. Filter for meaningful traffic \n# Note: If this results in 0 rows, your plots will error out later!\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# 4. Safety Check: If the filter is too strict, grab the top 5 regardless of volume\nif traffic_data.empty:\n    print(\"Warning: No traffic sources with >= 100 sessions. Showing top 5 by volume instead.\")\n    traffic_data = (filtered_df.groupby('TrafficType')\n                    .size().reset_index(name='Sessions')\n                    .sort_values('Sessions', ascending=False).head(5))",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1208,7 +1208,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "traffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),\n    x='TrafficType',\n    y='ConversionRate',\n    color='ConversionRate',\n    title='Top 15 Traffic Sources by Conversion Rate',\n    labels={'TrafficType': 'Traffic Type', 'ConversionRate': 'Conversion Rate (%)'},\n    color_continuous_scale='RdYlGn',",
+        "peekOfCode": "traffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# 4. Safety Check: If the filter is too strict, grab the top 5 regardless of volume\nif traffic_data.empty:\n    print(\"Warning: No traffic sources with >= 100 sessions. Showing top 5 by volume instead.\")\n    traffic_data = (filtered_df.groupby('TrafficType')\n                    .size().reset_index(name='Sessions')\n                    .sort_values('Sessions', ascending=False).head(5))\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
