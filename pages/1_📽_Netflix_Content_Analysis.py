@@ -22,7 +22,7 @@ except FileNotFoundError:
 st.markdown(
     Components.page_header("📽️ Netflix Content Analysis Analysis"), unsafe_allow_html=True
 )
-st.markdown("Comprehensive analysis of Netflix's content library", text_alignment="center")
+st.markdown("### Comprehensive analysis of Netflix's content library", text_alignment="center")
 
 # Load and prepare data
 @st.cache_data
