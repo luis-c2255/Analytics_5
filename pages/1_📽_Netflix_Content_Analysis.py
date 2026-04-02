@@ -586,7 +586,7 @@ with col1:
         content_ratio = len(movies_df) / len(tv_shows_df)
     with st.expander("Content Strategy"):
         st.markdown("""
-            - Recent Content: {growth_rate:.1f}% added in last 2 years.
+            - Recent Content: f'{growth_rate:.1f}%' added in last 2 years.
             - International Content: {international_pct:.1f}% from outside US.
             - Movie to TV Ratio: {content_ratio:.2f}:1
             """)
@@ -598,8 +598,8 @@ with col2:
         top_genre = filtered_df['primary_genre'].value_counts().index[0] if len(filtered_df) > 0 else "N/A"
         with st.expander("Content Characteristics"):
             st.markdown("""
-                - Average Movie Length: {avg_movie_duration:.0f} minutes.
-                - Most Popular Genre: {top_genre}.
+                - Average Movie Length: f'{avg_movie_duration:.0f}' minutes.
+                - Most Popular Genre: f'{top_genre}'.
                 - Average TV Seasons: {avg_tv_seasons:.1f}.
                 """)
 with col3:
