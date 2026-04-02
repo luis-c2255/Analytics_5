@@ -72,7 +72,7 @@ if weekend_filter == 'Weekday Only':
 elif weekend_filter == 'Weekend Only':
     filtered_df = filtered_df[filtered_df['Weekend'] == True]
     
-col1, col2, col3, col4, col5 = st.columns(5)
+col1, col2, col3, col4 = st.columns(4)
 with col1:
     total_sessions = len(filtered_df)
     st.markdown(
@@ -85,15 +85,6 @@ with col1:
     )
 with col2:
     total_revenue = filtered_df['Revenue'].sum()
-    st.markdown(
-        Components.metric_card(
-            title="Conversions",
-            value=f"{total_revenue:,}",
-            delta="",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
-with col3:
     conversion_rate = (total_revenue / total_sessions * 100) if total_sessions > 0 else 0
     st.markdown(
         Components.metric_card(
@@ -103,7 +94,7 @@ with col3:
             card_type="info"
         ), unsafe_allow_html=True
     )
-with col4:
+with col3:
     avg_page_value = filtered_df['PageValues'].mean()
     st.markdown(
         Components.metric_card(
@@ -113,7 +104,7 @@ with col4:
             card_type="info"
         ), unsafe_allow_html=True
     )
-with col5:
+with col4:
     avg_product_duration = filtered_df['ProductRelated_Duration'].mean()
     st.markdown(
         Components.metric_card(
@@ -135,21 +126,6 @@ visitor_conv = filtered_df.groupby('VisitorType').agg({
 visitor_conv.columns = ['VisitorType', 'Conversions', 'Sessions', 'ConversionRate']
 visitor_conv['ConversionRate'] *= 100
 
-fig1 = go.Figure()
-fig1.add_trace(go.Bar(
-    x=visitor_conv['VisitorType'],
-    y=visitor_conv['ConversionRate'],
-    text=visitor_conv['ConversionRate'].round(2),
-    textposition='auto',
-    marker_color=['#FF6B6B', '#4ECDC4', '#45B7D1']
-))
-fig1.update_layout(
-    title="Conversion Rate by Visitor Type",
-    xaxis_title="Visitor Type",
-    yaxis_title="Conversion Rate (%)",
-    height=400
-)
-st.plotly_chart(fig1, width="stretch")
 st.markdown("   ")
 
 # Revenue vs Non-Revenue Distribution
@@ -157,19 +133,6 @@ revenue_dist = filtered_df['Revenue'].value_counts()
 no_purchase_count = revenue_dist.get(False, 0)
 purchase_count = revenue_dist.get(True, 0)
 
-fig2 = go.Figure(data=[go.Pie(
-    labels=['No Purchase', 'Purchase'],
-    values=[no_purchase_count, purchase_count],
-    hole=0.4,
-    marker_colors=['#FF6B6B', '#51CF66'],
-    textinfo='label+percent',
-    textfont_size=14
-)])
-fig2.update_layout(
-    title="Overall Conversion Distribution",
-    height=400
-)
-st.plotly_chart(fig2, width="stretch")
 st.markdown("   ")
 st.markdown(":orange-background[Session Engagement Funnel]")
 

@@ -830,7 +830,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "filtered_df = df[df['Month'].isin(selected_months) &\ndf['VisitorType'].isin(selected_visitors)]\nif weekend_filter == 'Weekday Only':\n    filtered_df = filtered_df[filtered_df['Weekend'] == False]\nelif weekend_filter == 'Weekend Only':\n    filtered_df = filtered_df[filtered_df['Weekend'] == True]\ncol1, col2, col3, col4, col5 = st.columns(5)\nwith col1:\n    total_sessions = len(filtered_df)\n    st.markdown(",
+        "peekOfCode": "filtered_df = df[df['Month'].isin(selected_months) &\ndf['VisitorType'].isin(selected_visitors)]\nif weekend_filter == 'Weekday Only':\n    filtered_df = filtered_df[filtered_df['Weekend'] == False]\nelif weekend_filter == 'Weekend Only':\n    filtered_df = filtered_df[filtered_df['Weekend'] == True]\ncol1, col2, col3, col4 = st.columns(4)\nwith col1:\n    total_sessions = len(filtered_df)\n    st.markdown(",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -839,7 +839,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "visitor_conv = filtered_df.groupby('VisitorType').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\nvisitor_conv.columns = ['VisitorType', 'Conversions', 'Sessions', 'ConversionRate']\nvisitor_conv['ConversionRate'] *= 100\nfig1 = go.Figure()\nfig1.add_trace(go.Bar(\n    x=visitor_conv['VisitorType'],\n    y=visitor_conv['ConversionRate'],\n    text=visitor_conv['ConversionRate'].round(2),",
+        "peekOfCode": "visitor_conv = filtered_df.groupby('VisitorType').agg({\n    'Revenue': ['sum', 'count', 'mean']\n}).reset_index()\nvisitor_conv.columns = ['VisitorType', 'Conversions', 'Sessions', 'ConversionRate']\nvisitor_conv['ConversionRate'] *= 100\nst.markdown(\"   \")\n# Revenue vs Non-Revenue Distribution\nrevenue_dist = filtered_df['Revenue'].value_counts()\nno_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -848,16 +848,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "visitor_conv.columns = ['VisitorType', 'Conversions', 'Sessions', 'ConversionRate']\nvisitor_conv['ConversionRate'] *= 100\nfig1 = go.Figure()\nfig1.add_trace(go.Bar(\n    x=visitor_conv['VisitorType'],\n    y=visitor_conv['ConversionRate'],\n    text=visitor_conv['ConversionRate'].round(2),\n    textposition='auto',\n    marker_color=['#FF6B6B', '#4ECDC4', '#45B7D1']\n))",
-        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "documentation": {}
-    },
-    {
-        "label": "fig1",
-        "kind": 5,
-        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "fig1 = go.Figure()\nfig1.add_trace(go.Bar(\n    x=visitor_conv['VisitorType'],\n    y=visitor_conv['ConversionRate'],\n    text=visitor_conv['ConversionRate'].round(2),\n    textposition='auto',\n    marker_color=['#FF6B6B', '#4ECDC4', '#45B7D1']\n))\nfig1.update_layout(\n    title=\"Conversion Rate by Visitor Type\",",
+        "peekOfCode": "visitor_conv.columns = ['VisitorType', 'Conversions', 'Sessions', 'ConversionRate']\nvisitor_conv['ConversionRate'] *= 100\nst.markdown(\"   \")\n# Revenue vs Non-Revenue Distribution\nrevenue_dist = filtered_df['Revenue'].value_counts()\nno_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)\nst.markdown(\"   \")\nst.markdown(\":orange-background[Session Engagement Funnel]\")\ntotal = len(filtered_df)",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -866,7 +857,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "revenue_dist = filtered_df['Revenue'].value_counts()\nno_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14",
+        "peekOfCode": "revenue_dist = filtered_df['Revenue'].value_counts()\nno_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)\nst.markdown(\"   \")\nst.markdown(\":orange-background[Session Engagement Funnel]\")\ntotal = len(filtered_df)\nhad_product_pages = len(filtered_df[filtered_df['ProductRelated'] > 0])\nhad_page_value = len(filtered_df[filtered_df['PageValues'] > 0])\nconverted = filtered_df['Revenue'].sum()\nfig3 = go.Figure(go.Funnel(",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -875,7 +866,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "no_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])",
+        "peekOfCode": "no_purchase_count = revenue_dist.get(False, 0)\npurchase_count = revenue_dist.get(True, 0)\nst.markdown(\"   \")\nst.markdown(\":orange-background[Session Engagement Funnel]\")\ntotal = len(filtered_df)\nhad_product_pages = len(filtered_df[filtered_df['ProductRelated'] > 0])\nhad_page_value = len(filtered_df[filtered_df['PageValues'] > 0])\nconverted = filtered_df['Revenue'].sum()\nfig3 = go.Figure(go.Funnel(\n    y=['All Sessions', 'Viewed Products', 'High Engagement (PageValue>0)', 'Converted'],",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -884,16 +875,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "purchase_count = revenue_dist.get(True, 0)\nfig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(",
-        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "documentation": {}
-    },
-    {
-        "label": "fig2",
-        "kind": 5,
-        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "fig2 = go.Figure(data=[go.Pie(\n    labels=['No Purchase', 'Purchase'],\n    values=[no_purchase_count, purchase_count],\n    hole=0.4,\n    marker_colors=['#FF6B6B', '#51CF66'],\n    textinfo='label+percent',\n    textfont_size=14\n)])\nfig2.update_layout(\n    title=\"Overall Conversion Distribution\",",
+        "peekOfCode": "purchase_count = revenue_dist.get(True, 0)\nst.markdown(\"   \")\nst.markdown(\":orange-background[Session Engagement Funnel]\")\ntotal = len(filtered_df)\nhad_product_pages = len(filtered_df[filtered_df['ProductRelated'] > 0])\nhad_page_value = len(filtered_df[filtered_df['PageValues'] > 0])\nconverted = filtered_df['Revenue'].sum()\nfig3 = go.Figure(go.Funnel(\n    y=['All Sessions', 'Viewed Products', 'High Engagement (PageValue>0)', 'Converted'],\n    x=[total, had_product_pages, had_page_value, converted],",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
