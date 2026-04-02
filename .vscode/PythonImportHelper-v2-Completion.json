@@ -543,7 +543,7 @@
         "kind": 5,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
         "description": "pages.1_📽_Netflix_Content_Analysis",
-        "peekOfCode": "duration_stats = movies_df['duration_value'].describe()\ncol1, col2, col3 = st.columns(3)\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Avg Duration\",\n            value=f\"{duration_stats['mean']:.0f} min\",\n            delta=\"\",\n            card_type=\"info\"\n        ), unsafe_allow_html=True",
+        "peekOfCode": "duration_stats = movies_df['duration_value'].describe()\ncol1, col2, col3 = st.columns(3)\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Avg Duration\",\n            value=f\"{duration_stats['mean']:.0f} min\",\n            delta=\"🔜\",\n            card_type=\"info\"\n        ), unsafe_allow_html=True",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },
@@ -552,7 +552,7 @@
         "kind": 5,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
         "description": "pages.1_📽_Netflix_Content_Analysis",
-        "peekOfCode": "season_stats = tv_shows_df['duration_value'].describe()\ncol1, col2, col3 = st.columns(3)\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Avg Seasons\",\n            value=f\"{season_stats['mean']:.1f}\",\n            delta=\"\",\n            card_type=\"info\"\n        ), unsafe_allow_html=True",
+        "peekOfCode": "season_stats = tv_shows_df['duration_value'].describe()\ncol1, col2, col3 = st.columns(3)\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Avg Seasons\",\n            value=f\"{season_stats['mean']:.1f}\",\n            delta=\"🔜\",\n            card_type=\"warning\"\n        ), unsafe_allow_html=True",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },

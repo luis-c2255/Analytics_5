@@ -99,8 +99,8 @@ with col1:
         Components.metric_card(
             title="Total Titles",
             value=f"{len(filtered_df):,}",
-            delta="",
-            card_type="info"
+            delta="🆔",
+            card_type="success"
         ), unsafe_allow_html=True
     )
 with col2:
@@ -109,8 +109,8 @@ with col2:
         Components.metric_card(
             title="Movies",
             value=f"{movie_pct:.1f}%",
-            delta="",
-            card_type="info"
+            delta="🎥",
+            card_type="warning"
         ), unsafe_allow_html=True
     )
 with col3:
@@ -119,7 +119,7 @@ with col3:
         Components.metric_card(
             title="TV Shows",
             value=f"{tv_pct:.1f}%",
-            delta="",
+            delta="📺",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -129,8 +129,8 @@ with col4:
         Components.metric_card(
             title="Countries",
             value=f"{unique_countries}",
-            delta="",
-            card_type="info"
+            delta="🌎",
+            card_type="warning"
         ), unsafe_allow_html=True
     )
 with col5:
@@ -139,8 +139,8 @@ with col5:
         Components.metric_card(
             title="Avg Years to Netflix",
             value=f"{avg_lag:.1f}",
-            delta="",
-            card_type="info"
+            delta="🎞️",
+            card_type="error"
         ), unsafe_allow_html=True
     )
 st.markdown("   ")
@@ -357,7 +357,7 @@ with col1:
         Components.metric_card(
             title="Avg Duration",
             value=f"{duration_stats['mean']:.0f} min",
-            delta="",
+            delta="🔜",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -366,7 +366,7 @@ with col2:
         Components.metric_card(
             title="Median Duration",
             value=f"{duration_stats['50%']:.0f} min",
-            delta="",
+            delta="🟰",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -375,7 +375,7 @@ with col3:
         Components.metric_card(
             title="Std Deviation",
             value=f"{duration_stats['std']:.0f} min",
-            delta="",
+            delta="🔝",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -402,8 +402,8 @@ with col1:
         Components.metric_card(
             title="Avg Seasons",
             value=f"{season_stats['mean']:.1f}",
-            delta="",
-            card_type="info"
+            delta="🔜",
+            card_type="warning"
         ), unsafe_allow_html=True
     )
 with col2:
@@ -411,7 +411,7 @@ with col2:
         Components.metric_card(
             title="Median Seasons",
             value=f"{season_stats['50%']:.0f}",
-            delta="",
+            delta="🟰",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -420,8 +420,8 @@ with col3:
         Components.metric_card(
             title="Max Seasons",
             value=f"{season_stats['max']:.0f}",
-            delta="",
-            card_type="info"
+            delta="🔝",
+            card_type="success"
         ), unsafe_allow_html=True
     )
 st.markdown("   ")
