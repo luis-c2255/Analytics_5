@@ -605,8 +605,8 @@ with col3:
     unique_directors = filtered_df[filtered_df['director'] != 'Unknown']['director'].nunique()
     st.markdown("### **:yellow[Production Insights]**", text_alignment="center")
     st.warning(f"Top Producer: {top_country} ({top_country_count} titles).")
-    st.warnign(f"Most Common Rating: {most_common_rating}.")
-    st.warnign(f"Unique Directors: {unique_directors:,}.")
+    st.warning(f"Most Common Rating: {most_common_rating}.")
+    st.warning(f"Unique Directors: {unique_directors:,}.")
 
 st.markdown("📥 :rainbow-background[Export Filtered Data]")
 csv = filtered_df.to_csv(index=False).encode('utf-8')
