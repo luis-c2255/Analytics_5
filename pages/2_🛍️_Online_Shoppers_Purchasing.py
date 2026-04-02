@@ -587,6 +587,7 @@ metrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_com
 
 # 5. Handle potential Division by Zero for PercentChange
 import numpy as np
+import matplotlib.pyplot as plt
 metrics_comparison['PercentChange'] = np.where(
     metrics_comparison['Not Converted'] != 0,
     (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),
@@ -596,7 +597,13 @@ metrics_comparison['PercentChange'] = np.where(
 # Show table
 st.dataframe(
     metrics_comparison.style.background_gradient(
-        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), 
+        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50
+        ).format({
+            'Not Converted': '{:.2f}',
+            'Converted': '{:.2f}',
+            'Difference': '{:.2f}',
+            'PercentChange': '{:.1f}%'
+        }),
         width="stretch",
         height=400
 )

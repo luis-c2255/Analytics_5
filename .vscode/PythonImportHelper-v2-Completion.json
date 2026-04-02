@@ -133,6 +133,15 @@
         "documentation": {}
     },
     {
+        "label": "matplotlib.pyplot",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "matplotlib.pyplot",
+        "description": "matplotlib.pyplot",
+        "detail": "matplotlib.pyplot",
+        "documentation": {}
+    },
+    {
         "label": "load_data",
         "kind": 2,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
@@ -1451,7 +1460,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison = metrics_comparison.reindex([0, 1], fill_value=0)\n# 3. Transpose and Rename\nmetrics_comparison = metrics_comparison.T.reset_index()\nmetrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,",
+        "peekOfCode": "metrics_comparison = metrics_comparison.reindex([0, 1], fill_value=0)\n# 3. Transpose and Rename\nmetrics_comparison = metrics_comparison.T.reset_index()\nmetrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nimport matplotlib.pyplot as plt\nmetrics_comparison['PercentChange'] = np.where(",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1460,7 +1469,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison = metrics_comparison.T.reset_index()\nmetrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0",
+        "peekOfCode": "metrics_comparison = metrics_comparison.T.reset_index()\nmetrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nimport matplotlib.pyplot as plt\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1469,7 +1478,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)",
+        "peekOfCode": "metrics_comparison.columns = ['Metric', 'Not Converted', 'Converted']\n# 4. Math (Safe now because 'Not Converted' won't be missing)\nmetrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nimport matplotlib.pyplot as plt\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1478,7 +1487,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)\n# Show table\nst.dataframe(",
+        "peekOfCode": "metrics_comparison['Difference'] = metrics_comparison['Converted'] - metrics_comparison['Not Converted']\n# 5. Handle potential Division by Zero for PercentChange\nimport numpy as np\nimport matplotlib.pyplot as plt\nmetrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)\n# Show table",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1487,7 +1496,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "metrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50), \n        width=\"stretch\",",
+        "peekOfCode": "metrics_comparison['PercentChange'] = np.where(\n    metrics_comparison['Not Converted'] != 0,\n    (metrics_comparison['Difference'] / metrics_comparison['Not Converted'] * 100).round(2),\n    0\n)\n# Show table\nst.dataframe(\n    metrics_comparison.style.background_gradient(\n        subset=['PercentChange'], cmap='RdYlGn', vmin=-50, vmax=50\n        ).format({",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
