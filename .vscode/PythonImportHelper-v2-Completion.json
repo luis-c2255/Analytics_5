@@ -970,11 +970,20 @@
         "documentation": {}
     },
     {
+        "label": "filtered_df['Revenue']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "filtered_df['Revenue'] = filtered_df['Revenue'].astype(int)\n# Bounce Rate vs Exit Rate scatter\nbehavior_data = filtered_df.groupby('VisitorType').agg({\n    'BounceRates': 'mean',\n    'ExitRates': 'mean',\n    'Revenue': 'mean'\n}).reset_index()\nbehavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nbehavior_data['ConversionRate'] = behavior_data['ConversionRate'].fillna(0)\nfig5 = px.scatter(",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
         "label": "behavior_data",
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "behavior_data = filtered_df.groupby('VisitorType').agg({\n    'BounceRates': 'mean',\n    'ExitRates': 'mean',\n    'Revenue': 'mean'\n}).reset_index()\nbehavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nfig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',",
+        "peekOfCode": "behavior_data = filtered_df.groupby('VisitorType').agg({\n    'BounceRates': 'mean',\n    'ExitRates': 'mean',\n    'Revenue': 'mean'\n}).reset_index()\nbehavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nbehavior_data['ConversionRate'] = behavior_data['ConversionRate'].fillna(0)\nfig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -983,7 +992,16 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "behavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nfig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',\n    size='ConversionRate',\n    color='VisitorType',\n    text='VisitorType',\n    title='Bounce Rate vs Exit Rate by Visitor Type',\n    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'}",
+        "peekOfCode": "behavior_data['ConversionRate'] = behavior_data['Revenue'] * 100\nbehavior_data['ConversionRate'] = behavior_data['ConversionRate'].fillna(0)\nfig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',\n    size='ConversionRate',\n    color='VisitorType',\n    text='VisitorType',\n    title='Bounce Rate vs Exit Rate by Visitor Type',",
+        "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "documentation": {}
+    },
+    {
+        "label": "behavior_data['ConversionRate']",
+        "kind": 5,
+        "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
+        "peekOfCode": "behavior_data['ConversionRate'] = behavior_data['ConversionRate'].fillna(0)\nfig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',\n    size='ConversionRate',\n    color='VisitorType',\n    text='VisitorType',\n    title='Bounce Rate vs Exit Rate by Visitor Type',\n    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'},",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -992,7 +1010,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "fig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',\n    size='ConversionRate',\n    color='VisitorType',\n    text='VisitorType',\n    title='Bounce Rate vs Exit Rate by Visitor Type',\n    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'}\n)",
+        "peekOfCode": "fig5 = px.scatter(\n    behavior_data,\n    x='BounceRates',\n    y='ExitRates',\n    size='ConversionRate',\n    color='VisitorType',\n    text='VisitorType',\n    title='Bounce Rate vs Exit Rate by Visitor Type',\n    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'},\n    size_max=30",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },

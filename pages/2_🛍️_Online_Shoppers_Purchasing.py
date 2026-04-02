@@ -214,6 +214,7 @@ fig4.update_layout(height=400)
 st.plotly_chart(fig4, width="stretch")
 st.markdown("   ")
 
+filtered_df['Revenue'] = filtered_df['Revenue'].astype(int)
 # Bounce Rate vs Exit Rate scatter
 behavior_data = filtered_df.groupby('VisitorType').agg({
     'BounceRates': 'mean',
@@ -221,6 +222,7 @@ behavior_data = filtered_df.groupby('VisitorType').agg({
     'Revenue': 'mean'
 }).reset_index()
 behavior_data['ConversionRate'] = behavior_data['Revenue'] * 100
+behavior_data['ConversionRate'] = behavior_data['ConversionRate'].fillna(0)
 
 fig5 = px.scatter(
     behavior_data,
@@ -230,7 +232,8 @@ fig5 = px.scatter(
     color='VisitorType',
     text='VisitorType',
     title='Bounce Rate vs Exit Rate by Visitor Type',
-    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'}
+    labels={'BounceRates': 'Bounce Rate', 'ExitRates': 'Exit Rate'},
+    size_max=30
 )
 fig5.update_traces(textposition='top center')
 fig5.update_layout(height=400)
