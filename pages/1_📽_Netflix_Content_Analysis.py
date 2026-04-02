@@ -479,9 +479,9 @@ directors_df = filtered_df[filtered_df['director'] != 'Unknown'].copy()
 all_directors = []
 for directors in directors_df['director'].dropna():
     all_directors.extend([d.strip() for d in str(directors).split(',')])
-    director_counts = pd.Series(all_directors).value_counts().head(15).reset_index()
-    director_counts.columns = ['director', 'count']
-    fig20 = px.bar(
+director_counts = pd.Series(all_directors).value_counts().head(15).reset_index()
+director_counts.columns = ['director', 'count']
+fig20 = px.bar(
         director_counts,
         y='director',
         x='count',
@@ -492,8 +492,8 @@ for directors in directors_df['director'].dropna():
         color='count',
         color_continuous_scale='Reds'
     )
-    fig20.update_layout(showlegend=False, height=500)
-    st.plotly_chart(fig20, width="stretch")
+fig20.update_layout(showlegend=False, height=500)
+st.plotly_chart(fig20, width="stretch")
 
 st.markdown(":violet-background[Director Content Type Preference]")
 director_type_data = []

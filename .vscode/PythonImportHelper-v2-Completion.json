@@ -561,7 +561,7 @@
         "kind": 5,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
         "description": "pages.1_📽_Netflix_Content_Analysis",
-        "peekOfCode": "directors_df = filtered_df[filtered_df['director'] != 'Unknown'].copy()\n# Split directors (some entries have multiple directors)\nall_directors = []\nfor directors in directors_df['director'].dropna():\n    all_directors.extend([d.strip() for d in str(directors).split(',')])\n    director_counts = pd.Series(all_directors).value_counts().head(15).reset_index()\n    director_counts.columns = ['director', 'count']\n    fig20 = px.bar(\n        director_counts,\n        y='director',",
+        "peekOfCode": "directors_df = filtered_df[filtered_df['director'] != 'Unknown'].copy()\n# Split directors (some entries have multiple directors)\nall_directors = []\nfor directors in directors_df['director'].dropna():\n    all_directors.extend([d.strip() for d in str(directors).split(',')])\ndirector_counts = pd.Series(all_directors).value_counts().head(15).reset_index()\ndirector_counts.columns = ['director', 'count']\nfig20 = px.bar(\n        director_counts,\n        y='director',",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },
@@ -570,7 +570,34 @@
         "kind": 5,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
         "description": "pages.1_📽_Netflix_Content_Analysis",
-        "peekOfCode": "all_directors = []\nfor directors in directors_df['director'].dropna():\n    all_directors.extend([d.strip() for d in str(directors).split(',')])\n    director_counts = pd.Series(all_directors).value_counts().head(15).reset_index()\n    director_counts.columns = ['director', 'count']\n    fig20 = px.bar(\n        director_counts,\n        y='director',\n        x='count',\n        orientation='h',",
+        "peekOfCode": "all_directors = []\nfor directors in directors_df['director'].dropna():\n    all_directors.extend([d.strip() for d in str(directors).split(',')])\ndirector_counts = pd.Series(all_directors).value_counts().head(15).reset_index()\ndirector_counts.columns = ['director', 'count']\nfig20 = px.bar(\n        director_counts,\n        y='director',\n        x='count',\n        orientation='h',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "director_counts",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "director_counts = pd.Series(all_directors).value_counts().head(15).reset_index()\ndirector_counts.columns = ['director', 'count']\nfig20 = px.bar(\n        director_counts,\n        y='director',\n        x='count',\n        orientation='h',\n        title='Top 15 Directors by Number of Titles',\n        labels={'director': 'Director', 'count': 'Number of Titles'},\n        text_auto=True,",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "director_counts.columns",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "director_counts.columns = ['director', 'count']\nfig20 = px.bar(\n        director_counts,\n        y='director',\n        x='count',\n        orientation='h',\n        title='Top 15 Directors by Number of Titles',\n        labels={'director': 'Director', 'count': 'Number of Titles'},\n        text_auto=True,\n        color='count',",
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "fig20",
+        "kind": 5,
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "peekOfCode": "fig20 = px.bar(\n        director_counts,\n        y='director',\n        x='count',\n        orientation='h',\n        title='Top 15 Directors by Number of Titles',\n        labels={'director': 'Director', 'count': 'Number of Titles'},\n        text_auto=True,\n        color='count',\n        color_continuous_scale='Reds'",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },
