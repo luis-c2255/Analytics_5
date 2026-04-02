@@ -18,4 +18,14 @@ st.markdown(
     Components.page_header("🛒 Amazon Sales Analysis Analysis"), unsafe_allow_html=True
 )
 
-
+# ============================================
+# FOOTER
+# ============================================
+st.markdown("---")
+st.markdown("""
+<div style='text-align: center; color: #666;'>
+    <p><strong>🛒 Amazon Sales Analysis Analysis</strong></p>
+    <p>Explore key metrics, performance, sales & discounts, product, customer feedback and regional analysis.</p>
+    <p style='font-size: 0.9rem;'>Navigate using the sidebar to explore different datasets</p>
+</div>
+""", unsafe_allow_html=True)

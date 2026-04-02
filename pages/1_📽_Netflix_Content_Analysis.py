@@ -6,7 +6,7 @@ from plotly.subplots import make_subplots
 from datetime import datetime
 from utils.theme import Components
 
-st.set_page_config(
+st.set_page_config(  
         page_title=f"Netflix Content Analysis Analysis",
         page_icon= "📽️",
         layout="wide",
