@@ -594,23 +594,19 @@ with col2:
     if len(tv_shows_df) > 0:
         avg_tv_seasons = tv_shows_df['duration_value'].mean()
         top_genre = filtered_df['primary_genre'].value_counts().index[0] if len(filtered_df) > 0 else "N/A"
-        with st.expander("Content Characteristics"):
-            st.markdown("""
-                - Average Movie Length: f'{avg_movie_duration:.0f}' minutes.
-                - Most Popular Genre: f'{top_genre}'.
-                - Average TV Seasons: {avg_tv_seasons:.1f}.
-                """)
+        st.markdown("### **:green[Content Characteristics]**", text_alignment="center")
+        st.success(f"Average Movie Length: {avg_movie_duration:.0f} minutes.")
+        st.success(f"Most Popular Genre: {top_genre}.")
+        st.success(f"Average TV Seasons: {avg_tv_seasons:.1f}.")
 with col3:
     top_country = filtered_df['primary_country'].value_counts().index[0] if len(filtered_df) > 0 else "N/A"
     top_country_count = filtered_df['primary_country'].value_counts().values[0] if len(filtered_df) > 0 else 0
     most_common_rating = filtered_df['rating'].value_counts().index[0] if len(filtered_df) > 0 else "N/A"
     unique_directors = filtered_df[filtered_df['director'] != 'Unknown']['director'].nunique()
-    with st.expander("Production Insights"):
-        st.markdown("""
-            - Top Producer: {top_country} ({top_country_count} titles).
-            - Most Common Rating: {most_common_rating}.
-            - Unique Directors: {unique_directors:,}.
-            """)
+    st.markdown("### **:yellow[Production Insights]**", text_alignment="center")
+    st.warning(f"Top Producer: {top_country} ({top_country_count} titles).")
+    st.warnign(f"Most Common Rating: {most_common_rating}.")
+    st.warnign(f"Unique Directors: {unique_directors:,}.")
 
 st.markdown("📥 :rainbow-background[Export Filtered Data]")
 csv = filtered_df.to_csv(index=False).encode('utf-8')
