@@ -1190,7 +1190,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "traffic_data = filtered_df.groupby('TrafficType').agg(\n    Conversions=('Revenue', 'sum'),\n    Sessions=('Revenue', 'count'),\n    ConversionRate=('Revenue', 'mean')\n).reset_index()\n# 2. Convert to percentage\ntraffic_data['ConversionRate'] = traffic_data['ConversionRate'] * 100\n# 3. Filter for meaningful traffic \n# Note: If this results in 0 rows, your plots will error out later!\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)",
+        "peekOfCode": "traffic_data = filtered_df.groupby('TrafficType').agg(\n    Conversions=('Revenue', 'sum'),\n    Sessions=('Revenue', 'count'),\n    ConversionRate=('Revenue', 'mean')\n).reset_index()\ntraffic_data['ConversionRate'] = traffic_data['ConversionRate'] * 100\n# 2. Filter for meaningful traffic\nfiltered_traffic = traffic_data[traffic_data['Sessions'] >= 100].copy()\n# 3. Robust Safety Check\nif filtered_traffic.empty:",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1199,16 +1199,16 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "traffic_data['ConversionRate'] = traffic_data['ConversionRate'] * 100\n# 3. Filter for meaningful traffic \n# Note: If this results in 0 rows, your plots will error out later!\ntraffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# 4. Safety Check: If the filter is too strict, grab the top 5 regardless of volume\nif traffic_data.empty:\n    print(\"Warning: No traffic sources with >= 100 sessions. Showing top 5 by volume instead.\")\n    traffic_data = (filtered_df.groupby('TrafficType')\n                    .size().reset_index(name='Sessions')\n                    .sort_values('Sessions', ascending=False).head(5))",
+        "peekOfCode": "traffic_data['ConversionRate'] = traffic_data['ConversionRate'] * 100\n# 2. Filter for meaningful traffic\nfiltered_traffic = traffic_data[traffic_data['Sessions'] >= 100].copy()\n# 3. Robust Safety Check\nif filtered_traffic.empty:\n    # If no source has 100+ sessions, just take the top 15 by volume \n    # but KEEP all columns so the plot doesn't break\n    plot_df = traffic_data.sort_values('Sessions', ascending=False).head(15)\n    print(\"Note: Showing top sources by volume (none met the 100-session threshold).\")\nelse:",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
     {
-        "label": "traffic_data",
+        "label": "filtered_traffic",
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "traffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)\n# 4. Safety Check: If the filter is too strict, grab the top 5 regardless of volume\nif traffic_data.empty:\n    print(\"Warning: No traffic sources with >= 100 sessions. Showing top 5 by volume instead.\")\n    traffic_data = (filtered_df.groupby('TrafficType')\n                    .size().reset_index(name='Sessions')\n                    .sort_values('Sessions', ascending=False).head(5))\n# Top 15 traffic sources by conversion rate\nfig10 = px.bar(\n    traffic_data.head(15),",
+        "peekOfCode": "filtered_traffic = traffic_data[traffic_data['Sessions'] >= 100].copy()\n# 3. Robust Safety Check\nif filtered_traffic.empty:\n    # If no source has 100+ sessions, just take the top 15 by volume \n    # but KEEP all columns so the plot doesn't break\n    plot_df = traffic_data.sort_values('Sessions', ascending=False).head(15)\n    print(\"Note: Showing top sources by volume (none met the 100-session threshold).\")\nelse:\n    plot_df = filtered_traffic.sort_values('ConversionRate', ascending=False).head(15)\n# Top 15 traffic sources by conversion rate",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },
@@ -1217,7 +1217,7 @@
         "kind": 5,
         "importPath": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "description": "pages.2_🛍️_Online_Shoppers_Purchasing",
-        "peekOfCode": "fig10 = px.bar(\n    traffic_data.head(15),\n    x='TrafficType',\n    y='ConversionRate',\n    color='ConversionRate',\n    title='Top 15 Traffic Sources by Conversion Rate',\n    labels={'TrafficType': 'Traffic Type', 'ConversionRate': 'Conversion Rate (%)'},\n    color_continuous_scale='RdYlGn',\n    text='ConversionRate')\nfig10.update_traces(texttemplate='%{text:.1f}%', textposition='outside')",
+        "peekOfCode": "fig10 = px.bar(\n    plot_df,\n    x='TrafficType',\n    y='ConversionRate',\n    color='ConversionRate',\n    title='Top 15 Traffic Sources by Conversion Rate',\n    labels={'TrafficType': 'Traffic Type', 'ConversionRate': 'Conversion Rate (%)'},\n    color_continuous_scale='RdYlGn',\n    text='ConversionRate')\nfig10.update_traces(texttemplate='%{text:.1f}%', textposition='outside')",
         "detail": "pages.2_🛍️_Online_Shoppers_Purchasing",
         "documentation": {}
     },

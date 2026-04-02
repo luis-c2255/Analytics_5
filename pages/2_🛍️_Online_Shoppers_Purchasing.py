@@ -355,29 +355,30 @@ st.markdown("   ")
 st.subheader("🚦 :red[Traffic Source Performance]", divider="red")
 st.markdown("   ")
 
-# Top traffic sources
+# 1. Aggregate
 traffic_data = filtered_df.groupby('TrafficType').agg(
     Conversions=('Revenue', 'sum'),
     Sessions=('Revenue', 'count'),
     ConversionRate=('Revenue', 'mean')
 ).reset_index()
-# 2. Convert to percentage
+
 traffic_data['ConversionRate'] = traffic_data['ConversionRate'] * 100
 
-# 3. Filter for meaningful traffic 
-# Note: If this results in 0 rows, your plots will error out later!
-traffic_data = traffic_data[traffic_data['Sessions'] >= 100].sort_values('ConversionRate', ascending=False)
+# 2. Filter for meaningful traffic
+filtered_traffic = traffic_data[traffic_data['Sessions'] >= 100].copy()
 
-# 4. Safety Check: If the filter is too strict, grab the top 5 regardless of volume
-if traffic_data.empty:
-    print("Warning: No traffic sources with >= 100 sessions. Showing top 5 by volume instead.")
-    traffic_data = (filtered_df.groupby('TrafficType')
-                    .size().reset_index(name='Sessions')
-                    .sort_values('Sessions', ascending=False).head(5))
+# 3. Robust Safety Check
+if filtered_traffic.empty:
+    # If no source has 100+ sessions, just take the top 15 by volume 
+    # but KEEP all columns so the plot doesn't break
+    plot_df = traffic_data.sort_values('Sessions', ascending=False).head(15)
+    print("Note: Showing top sources by volume (none met the 100-session threshold).")
+else:
+    plot_df = filtered_traffic.sort_values('ConversionRate', ascending=False).head(15)
 
 # Top 15 traffic sources by conversion rate
 fig10 = px.bar(
-    traffic_data.head(15),
+    plot_df,
     x='TrafficType',
     y='ConversionRate',
     color='ConversionRate',
