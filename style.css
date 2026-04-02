@@ -326,7 +326,7 @@ div[data-testid="stSidebarNavSearch"] input {
 }
 
 .metric-card {
-    border: 1px solid var(--barbiepink);
+    border: 1px solid var(--grey);
     background-color: var(--darkblue);
     border-top: 6px solid var(--bordercolor);
     padding: 1rem;
