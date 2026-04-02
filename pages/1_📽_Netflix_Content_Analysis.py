@@ -609,7 +609,7 @@ with col3:
     st.warning(f"Unique Directors: {unique_directors:,}.")
 st.markdown("   ")
 st.markdown("   ")
-st.markdown("## 📥 :rainbow-background[Export Filtered Data]")
+st.markdown("#### 📥 :rainbow-background[Export Filtered Data]")
 csv = filtered_df.to_csv(index=False).encode('utf-8')
 st.download_button(
     label="Download Filtered Dataset as CSV",
