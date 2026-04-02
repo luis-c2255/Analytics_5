@@ -144,10 +144,10 @@ div[data-testid="stSidebarNavSearch"] input {
 }
 
 [data-testid="stSidebarNav"] li:hover {
-    background-color: rgba(174, 32, 18, 0.4);
-    border-color: #BB3E03;
+    background-color: rgba(215, 24, 104, 0.4);
+    border-color: #FF1F9E;
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(238, 155, 0, 0.6);
+    box-shadow: 0 5px 15px rgba(255, 31, 158, 0.6);
 }
 
 [data-testid="stSidebarNav"] span {
@@ -244,7 +244,7 @@ div[data-testid="stSidebarNavSearch"] input {
 
 /* Text inside the bubble */
 [data-testid="stSidebar"] [data-testid="stSliderThumbValue"] p {
-    color: #E9D8A6 !important;
+    color: #fa91cc !important;
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -299,7 +299,7 @@ div[data-testid="stSidebarNavSearch"] input {
     background-color: #005F73;
     backdrop-filter: blur(12px);
     color: white;
-    border: 1px solid #BB3E03;
+    border: 1px solid #FF004F;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
     border-radius: 18px;
     padding: 0rem;
