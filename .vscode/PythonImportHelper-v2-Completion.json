@@ -2044,7 +2044,7 @@
         "kind": 5,
         "importPath": "pages.5_🛒_Amazon_Sales_Analysis",
         "description": "pages.5_🛒_Amazon_Sales_Analysis",
-        "peekOfCode": "fig4 = px.histogram(\n    filtered_df,\n    x='discount_percent',\n    nbins=20,\n    title='Distribution of Discount Percentages',\n    labels={'discount_percent': 'Discount %', 'count': 'Number of Orders'},\n    color_discrete_sequence=['#FF6B6B']\n)\nst.plotly_chart(fig4, width=\"stretch\")\nst.divider()",
+        "peekOfCode": "fig4 = px.histogram(\n    filtered_df,\n    x='discount_percent',\n    nbins=20,\n    title='Distribution of Discount Percentages',\n    labels={'discount_percent': 'Discount %', 'count': 'Number of Orders'},\n    color_discrete_sequence=['#FF6B6B']\n)\nst.plotly_chart(fig4, width=\"stretch\")\nst.markdown(\"   \")",
         "detail": "pages.5_🛒_Amazon_Sales_Analysis",
         "documentation": {}
     },
@@ -2107,7 +2107,7 @@
         "kind": 5,
         "importPath": "pages.5_🛒_Amazon_Sales_Analysis",
         "description": "pages.5_🛒_Amazon_Sales_Analysis",
-        "peekOfCode": "fig6 = px.sunburst(\n    discount_category,\n    path=['product_category', 'discount_range'],\n    values='total_revenue',\n    title='Revenue Distribution: Category → Discount Range',\n    color='total_revenue',\n    color_continuous_scale='RdYlGn'\n)\nst.plotly_chart(fig6, width=\"stretch\")\nst.divider()",
+        "peekOfCode": "fig6 = px.sunburst(\n    discount_category,\n    path=['product_category', 'discount_range'],\n    values='total_revenue',\n    title='Revenue Distribution: Category → Discount Range',\n    color='total_revenue',\n    color_continuous_scale='RdYlGn'\n)\nst.plotly_chart(fig6, width=\"stretch\")\nst.markdown(\"   \")",
         "detail": "pages.5_🛒_Amazon_Sales_Analysis",
         "documentation": {}
     },
@@ -2251,7 +2251,7 @@
         "kind": 5,
         "importPath": "pages.5_🛒_Amazon_Sales_Analysis",
         "description": "pages.5_🛒_Amazon_Sales_Analysis",
-        "peekOfCode": "fig14 = px.bar(\n    quarterly_data,\n    x='year_quarter',\n    y=['total_revenue', 'profit'],\n    title='Quarterly Revenue vs Profit',\n    barmode='group',\n    labels={'value': 'Amount ($)', 'variable': 'Metric'}\n)\nst.plotly_chart(fig14, width=\"stretch\")\nst.divider()",
+        "peekOfCode": "fig14 = px.bar(\n    quarterly_data,\n    x='year_quarter',\n    y=['total_revenue', 'profit'],\n    title='Quarterly Revenue vs Profit',\n    barmode='group',\n    labels={'value': 'Amount ($)', 'variable': 'Metric'}\n)\nst.plotly_chart(fig14, width=\"stretch\")\nst.markdown(\"   \")",
         "detail": "pages.5_🛒_Amazon_Sales_Analysis",
         "documentation": {}
     },
@@ -2323,7 +2323,7 @@
         "kind": 5,
         "importPath": "pages.5_🛒_Amazon_Sales_Analysis",
         "description": "pages.5_🛒_Amazon_Sales_Analysis",
-        "peekOfCode": "heatmap_pivot = heatmap_data.pivot(index='product_category', columns='month', values='total_revenue').fillna(0)\nfig17 = px.imshow(\n    heatmap_pivot,\n    title='Revenue Heatmap: Category × Month',\n    labels=dict(x=\"Month\", y=\"Category\", color=\"Revenue\"),\n    aspect=\"auto\",\n    color_continuous_scale='YlOrRd'\n)\nst.plotly_chart(fig17, width=\"stretch\")\nst.divider()",
+        "peekOfCode": "heatmap_pivot = heatmap_data.pivot(index='product_category', columns='month', values='total_revenue').fillna(0)\nfig17 = px.imshow(\n    heatmap_pivot,\n    title='Revenue Heatmap: Category × Month',\n    labels=dict(x=\"Month\", y=\"Category\", color=\"Revenue\"),\n    aspect=\"auto\",\n    color_continuous_scale='YlOrRd'\n)\nst.plotly_chart(fig17, width=\"stretch\")\nst.markdown(\"   \")",
         "detail": "pages.5_🛒_Amazon_Sales_Analysis",
         "documentation": {}
     },
@@ -2332,7 +2332,7 @@
         "kind": 5,
         "importPath": "pages.5_🛒_Amazon_Sales_Analysis",
         "description": "pages.5_🛒_Amazon_Sales_Analysis",
-        "peekOfCode": "fig17 = px.imshow(\n    heatmap_pivot,\n    title='Revenue Heatmap: Category × Month',\n    labels=dict(x=\"Month\", y=\"Category\", color=\"Revenue\"),\n    aspect=\"auto\",\n    color_continuous_scale='YlOrRd'\n)\nst.plotly_chart(fig17, width=\"stretch\")\nst.divider()\nst.subheader(\"⭐ :yellow[Customer Ratings & Review Analysis]\", divider=\"yellow\")",
+        "peekOfCode": "fig17 = px.imshow(\n    heatmap_pivot,\n    title='Revenue Heatmap: Category × Month',\n    labels=dict(x=\"Month\", y=\"Category\", color=\"Revenue\"),\n    aspect=\"auto\",\n    color_continuous_scale='YlOrRd'\n)\nst.plotly_chart(fig17, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"⭐ :yellow[Customer Ratings & Review Analysis]\", divider=\"yellow\")",
         "detail": "pages.5_🛒_Amazon_Sales_Analysis",
         "documentation": {}
     },

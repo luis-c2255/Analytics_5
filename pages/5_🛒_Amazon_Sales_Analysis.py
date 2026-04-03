@@ -138,9 +138,9 @@ with col5:
             card_type="info"
     ), unsafe_allow_html=True
 )
-st.divider()
+st.markdown("   ")
 st.subheader("📊 :rainbow[Revenue & Profitability by Category]", divider="rainbow")
-st.divider()
+st.markdown("   ")
 # Revenue by Category
 category_revenue = filtered_df.groupby('product_category').agg({
     'total_revenue': 'sum',
@@ -159,7 +159,7 @@ fig1 = px.bar(
 )
 fig1.update_layout(showlegend=False, xaxis_tickangle=-45)
 st.plotly_chart(fig1, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Profit by Category
 fig2 = px.bar(
@@ -173,7 +173,7 @@ fig2 = px.bar(
 )
 fig2.update_layout(showlegend=False, xaxis_tickangle=-45)
 st.plotly_chart(fig2,  width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Profit Margin by Category
 category_revenue['Profit_Margin'] = (category_revenue['Profit'] / category_revenue['Revenue'] * 100)
@@ -190,7 +190,7 @@ fig3 = px.scatter(
 )
 fig3.update_traces(textposition='top center')
 st.plotly_chart(fig3, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Data table
 st.markdown(":rainbow-background[Category Performance Summary]")
@@ -201,9 +201,9 @@ st.dataframe(
         'Profit_Margin': '{:.2f}%'}),
     width="stretch"
 )
-st.divider()
+st.markdown("   ")
 st.subheader("💰 :orange[Discount Impact Analysis]", divider="orange")
-st.divider()
+st.markdown("   ")
 
 # Discount distribution
 fig4 = px.histogram(
@@ -215,7 +215,7 @@ fig4 = px.histogram(
     color_discrete_sequence=['#FF6B6B']
 )
 st.plotly_chart(fig4, width="stretch")
-st.divider()
+st.markdown("   ")
 # Average quantity sold by discount range
 discount_bins = [0, 10, 20, 30, 40, 100]
 discount_labels = ['0-10%', '10-20%', '20-30%', '30-40%', '40%+']
@@ -242,7 +242,7 @@ fig5 = px.bar(
     text_auto='.2f'
 )
 st.plotly_chart(fig5, width="stretch")
-st.divider()
+st.markdown("   ")
 # Discount effectiveness by category
 discount_category = filtered_df.groupby(['product_category', 'discount_range']).agg({
     'total_revenue': 'sum',
@@ -258,7 +258,7 @@ fig6 = px.sunburst(
     color_continuous_scale='RdYlGn'
 )
 st.plotly_chart(fig6, width="stretch")
-st.divider()
+st.markdown("   ")
 
 fig7 = px.scatter(
     filtered_df.sample(min(1000, len(filtered_df))), # Sample for performance
@@ -270,7 +270,7 @@ fig7 = px.scatter(
     opacity=0.6
 )
 st.plotly_chart(fig7, width="stretch")
-st.divider()
+st.markdown("   ")
 # Average revenue per order by discount range
 fig8 = px.line(
     discount_impact,
@@ -283,10 +283,10 @@ fig8 = px.line(
 )
 fig8.update_traces(texttemplate='$%{text:.2f}', textposition='top center')
 st.plotly_chart(fig8, width="stretch")
-st.divider()
+st.markdown("   ")
 
 st.subheader("🌍 :green[Geographic Performance Analysis]", divider="green")
-st.divider()
+st.markdown("   ")
 # Revenue by region
 region_data = filtered_df.groupby('customer_region').agg({
     'total_revenue': 'sum',
@@ -306,7 +306,7 @@ fig9 = px.pie(
 )
 fig9.update_traces(textposition='inside', textinfo='percent+label')
 st.plotly_chart(fig9, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Orders by region
 fig10 = px.bar(
@@ -320,7 +320,7 @@ fig10 = px.bar(
 )
 fig10.update_traces(texttemplate='%{text:,}', textposition='outside')
 st.plotly_chart(fig10, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Category preferences by region
 region_category = filtered_df.groupby(['customer_region', 'product_category']).agg({
@@ -336,7 +336,7 @@ fig11 = px.bar(
     labels={'total_revenue': 'Total Revenue', 'customer_region': 'Region'}
 )
 st.plotly_chart(fig11,  width="stretch")
-st.divider()
+st.markdown("   ")
 # Payment method by region
 payment_region = filtered_df.groupby(['customer_region', 'payment_method']).size().reset_index(name='count')
 
@@ -350,7 +350,7 @@ fig12 = px.bar(
     labels={'count': 'Number of Orders'}
 )
 st.plotly_chart(fig12, width="stretch")
-st.divider()
+st.markdown("   ")
 # Regional performance table
 st.markdown(":green-background[Regional Performance Summary]")
 st.dataframe(region_data.style.format({
@@ -358,9 +358,9 @@ st.dataframe(region_data.style.format({
     'Profit': '${:,.2f}',
     'Orders': '{:,}',
     'Avg_Rating': '{:.2f}'}),width="stretch")
-st.divider()
+st.markdown("   ")
 st.subheader("📅 :blue[Temporal Analysis & Seasonality]", divider="blue")
-st.divider()
+st.markdown("   ")
 # Monthly revenue trend
 monthly_data = filtered_df.groupby('year_month').agg({
     'total_revenue': 'sum',
@@ -398,7 +398,7 @@ fig13.update_yaxes(title_text="Revenue ($)", secondary_y=False)
 fig13.update_yaxes(title_text="Number of Orders", secondary_y=True)
 
 st.plotly_chart(fig13, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Quarterly performance
 quarterly_data = filtered_df.groupby(['year', 'quarter']).agg({
@@ -415,7 +415,7 @@ fig14 = px.bar(
     labels={'value': 'Amount ($)', 'variable': 'Metric'}
 )
 st.plotly_chart(fig14, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Day of week analysis
 dow_data = filtered_df.groupby('order_date').agg({
@@ -452,7 +452,7 @@ fig16 = px.line(
 )
 fig16.update_xaxes(tickmode='linear', tick0=1, dtick=1)
 st.plotly_chart(fig16, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Heatmap of sales by month and category
 heatmap_data = filtered_df.groupby(['month', 'product_category']).agg({
@@ -467,10 +467,10 @@ fig17 = px.imshow(
     color_continuous_scale='YlOrRd'
 )
 st.plotly_chart(fig17, width="stretch")
-st.divider()
+st.markdown("   ")
 
 st.subheader("⭐ :yellow[Customer Ratings & Review Analysis]", divider="yellow")
-st.divider()
+st.markdown("   ")
 # Rating distribution
 fig18 = px.histogram(
     filtered_df,
@@ -482,7 +482,7 @@ fig18 = px.histogram(
 )
 fig18.update_layout(bargap=0.1)
 st.plotly_chart(fig18, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Average rating by category
 category_rating = filtered_df.groupby('product_category').agg({
@@ -502,7 +502,7 @@ fig19 = px.bar(
 fig19.update_traces(texttemplate='%{text:.2f}', textposition='outside')
 fig19.update_layout(xaxis_tickangle=-45)
 st.plotly_chart(fig19, width="stretch")
-st.divider()
+st.markdown("   ")
 
 # Rating vs Price analysis
 # Price bins
@@ -523,7 +523,7 @@ fig20 = px.line(
 fig20.update_traces(texttemplate='%{text:.2f}', textposition='top center')
 fig20.update_layout(xaxis_tickangle=-45)
 st.plotly_chart(fig20, width="stretch")
-st.divider()
+st.markdown("   ")
 # ============================================
 # FOOTER
 # ============================================
