@@ -953,6 +953,213 @@
         "documentation": {}
     },
     {
+        "label": "era_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_counts = (filtered['era'].value_counts().reset_index())\nera_counts.columns = ['Era', 'Count']\nera_order = [\n    \"Prehistoric/Ancient\", \"Medieval/Early Modern\", \"Modern (Pre-20th Century)\", \"20th Century\", \"21st Century\"\n]\nera_counts['Era'] = pd.Categorical(era_counts['Era'], categories=era_order, ordered=True)\nera_counts = era_counts.sort_values('Era')\nfig_era = px.bar(\n    era_counts,\n    x='Era',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_counts.columns",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_counts.columns = ['Era', 'Count']\nera_order = [\n    \"Prehistoric/Ancient\", \"Medieval/Early Modern\", \"Modern (Pre-20th Century)\", \"20th Century\", \"21st Century\"\n]\nera_counts['Era'] = pd.Categorical(era_counts['Era'], categories=era_order, ordered=True)\nera_counts = era_counts.sort_values('Era')\nfig_era = px.bar(\n    era_counts,\n    x='Era',\n    y='Count',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_order",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_order = [\n    \"Prehistoric/Ancient\", \"Medieval/Early Modern\", \"Modern (Pre-20th Century)\", \"20th Century\", \"21st Century\"\n]\nera_counts['Era'] = pd.Categorical(era_counts['Era'], categories=era_order, ordered=True)\nera_counts = era_counts.sort_values('Era')\nfig_era = px.bar(\n    era_counts,\n    x='Era',\n    y='Count',\n    color='Count',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_counts['Era']",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_counts['Era'] = pd.Categorical(era_counts['Era'], categories=era_order, ordered=True)\nera_counts = era_counts.sort_values('Era')\nfig_era = px.bar(\n    era_counts,\n    x='Era',\n    y='Count',\n    color='Count',\n    color_continuous_scale='YlOrRd',\n    text='Count'\n)",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_counts = era_counts.sort_values('Era')\nfig_era = px.bar(\n    era_counts,\n    x='Era',\n    y='Count',\n    color='Count',\n    color_continuous_scale='YlOrRd',\n    text='Count'\n)\nfig_era.update_traces(textposition='outside')",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_era",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_era = px.bar(\n    era_counts,\n    x='Era',\n    y='Count',\n    color='Count',\n    color_continuous_scale='YlOrRd',\n    text='Count'\n)\nfig_era.update_traces(textposition='outside')\nfig_era.update_layout(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_vei",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_vei = (filtered.groupby(\"era\")[\"vei\"].mean().reset_index())\nera_vei.columns = [\"Era\", \"Avg VEI\"]\nera_vei[\"Era\"] = pd.Categorical(era_vei[\"Era\"], categories=era_order, ordered=True)\nera_vei = era_vei.sort_values(\"Era\")\nfig_era_vei = px.line(\n    era_vei,\n    x='Era',\n    y='Avg VEI',\n    markers=True,\n    line_shape='spline',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_vei.columns",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_vei.columns = [\"Era\", \"Avg VEI\"]\nera_vei[\"Era\"] = pd.Categorical(era_vei[\"Era\"], categories=era_order, ordered=True)\nera_vei = era_vei.sort_values(\"Era\")\nfig_era_vei = px.line(\n    era_vei,\n    x='Era',\n    y='Avg VEI',\n    markers=True,\n    line_shape='spline',\n    color_discrete_sequence=['#F1B961']",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_vei[\"Era\"]",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_vei[\"Era\"] = pd.Categorical(era_vei[\"Era\"], categories=era_order, ordered=True)\nera_vei = era_vei.sort_values(\"Era\")\nfig_era_vei = px.line(\n    era_vei,\n    x='Era',\n    y='Avg VEI',\n    markers=True,\n    line_shape='spline',\n    color_discrete_sequence=['#F1B961']\n)",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "era_vei",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "era_vei = era_vei.sort_values(\"Era\")\nfig_era_vei = px.line(\n    era_vei,\n    x='Era',\n    y='Avg VEI',\n    markers=True,\n    line_shape='spline',\n    color_discrete_sequence=['#F1B961']\n)\nfig_era_vei.update_traces(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_era_vei",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_era_vei = px.line(\n    era_vei,\n    x='Era',\n    y='Avg VEI',\n    markers=True,\n    line_shape='spline',\n    color_discrete_sequence=['#F1B961']\n)\nfig_era_vei.update_traces(\n    marker=dict(size=10, color=\"#BD470A\"),",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "modern",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "modern = filtered[filtered[\"year\"] > 1500].dropna(subset=[\"year\", \"vei\"])\nmodern[\"decade\"] = (modern[\"year\"] // 10 * 10).astype(int)\ndecade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "modern[\"decade\"]",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "modern[\"decade\"] = (modern[\"year\"] // 10 * 10).astype(int)\ndecade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],\n        y=decade_counts['eruption_count'],",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "decade_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "decade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],\n        y=decade_counts['eruption_count'],\n        name='Eruption Count',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_timeline",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],\n        y=decade_counts['eruption_count'],\n        name='Eruption Count',\n        marker_color='#F1B961',\n        opacity=0.75\n    ),\n    secondary_y=False",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "vei_cat_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "vei_cat_counts = (filtered[\"vei_category\"].value_counts().reset_index())\nvei_cat_counts.columns = [\"VEI Category\", \"Count\"]\nvei_order = [\n    \"Gentle\", \"Explosive\", \"Severe\", \"Cataclysmic\",\n    \"Paroxysmal\", \"Colossal\", \"Super-Colossal\", \"Mega-Colossal\"\n]\nvei_cat_counts[\"VEI Category\"] = pd.Categorical(vei_cat_counts[\"VEI Category\"],categories=vei_order,ordered=True)\nvei_cat_counts = vei_cat_counts.sort_values(\"VEI Category\")\nfig_vei_cat = px.bar(\n    vei_cat_counts,",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "vei_cat_counts.columns",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "vei_cat_counts.columns = [\"VEI Category\", \"Count\"]\nvei_order = [\n    \"Gentle\", \"Explosive\", \"Severe\", \"Cataclysmic\",\n    \"Paroxysmal\", \"Colossal\", \"Super-Colossal\", \"Mega-Colossal\"\n]\nvei_cat_counts[\"VEI Category\"] = pd.Categorical(vei_cat_counts[\"VEI Category\"],categories=vei_order,ordered=True)\nvei_cat_counts = vei_cat_counts.sort_values(\"VEI Category\")\nfig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "vei_order",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "vei_order = [\n    \"Gentle\", \"Explosive\", \"Severe\", \"Cataclysmic\",\n    \"Paroxysmal\", \"Colossal\", \"Super-Colossal\", \"Mega-Colossal\"\n]\nvei_cat_counts[\"VEI Category\"] = pd.Categorical(vei_cat_counts[\"VEI Category\"],categories=vei_order,ordered=True)\nvei_cat_counts = vei_cat_counts.sort_values(\"VEI Category\")\nfig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',\n    y='Count',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "vei_cat_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "vei_cat_counts = vei_cat_counts.sort_values(\"VEI Category\")\nfig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',\n    y='Count',\n    color='Count',\n    color_continuous_scale='Hot',\n    text='Count'\n)\nfig_vei_cat.update_traces(textposition='outside')",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_vei_cat",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',\n    y='Count',\n    color='Count',\n    color_continuous_scale='Hot',\n    text='Count'\n)\nfig_vei_cat.update_traces(textposition='outside')\nfig_vei_cat.update_layout(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "type_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "type_counts = (filtered[\"volcano_type\"].value_counts().head(10).reset_index())\ntype_counts.columns = [\"Volcano Type\", \"Count\"]\nfig_type = px.pie(\n    type_counts,\n    names=\"Volcano Type\",\n    values=\"Count\",\n    color_discrete_sequence=px.colors.sequential.Inferno_r,\n    hole=0.35\n)\nfig_type.update_layout(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "type_counts.columns",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "type_counts.columns = [\"Volcano Type\", \"Count\"]\nfig_type = px.pie(\n    type_counts,\n    names=\"Volcano Type\",\n    values=\"Count\",\n    color_discrete_sequence=px.colors.sequential.Inferno_r,\n    hole=0.35\n)\nfig_type.update_layout(\n    height=380,",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_type",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_type = px.pie(\n    type_counts,\n    names=\"Volcano Type\",\n    values=\"Count\",\n    color_discrete_sequence=px.colors.sequential.Inferno_r,\n    hole=0.35\n)\nfig_type.update_layout(\n    height=380,\n    margin=dict(l=0, r=0, t=10, b=0),",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
         "label": "Colors",
         "kind": 6,
         "importPath": "utils.theme",
