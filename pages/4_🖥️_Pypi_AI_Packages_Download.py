@@ -434,13 +434,7 @@ st.markdown("   ")
 with st.expander("📊 Statistical Summary"):
     st.write("Numeric Column Statistics:")
     st.dataframe(filtered_df.describe(), use_container_width=True)
-    
-with st.container():
-    st.markdown(
-        Components.insight_box(
-            "Market Dominance Analysis"
-        )
-    )
+
 # ============================================
 # FOOTER
 # ============================================
