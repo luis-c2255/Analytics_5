@@ -3012,6 +3012,96 @@
         "documentation": {}
     },
     {
+        "label": "risk_df[\"age_group\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "risk_df[\"age_group\"] = pd.cut(\n    risk_df[\"age\"],\n    bins=[18, 25, 30, 35, 40, 45, 50, 60],\n    labels=[\"18-25\", \"26-30\", \"31-35\", \"36-40\", \"41-45\", \"46-50\", \"51-60\"]\n)\nrisk_age = risk_df.groupby(\"age_group\", observed=True).agg(\n    avg_risk=(\"risk_score\", \"mean\"),\n    silent_count=(\"silent_sufferer\", \"sum\"),\n    total=(\"risk_score\", \"count\")\n).reset_index()",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "risk_age",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "risk_age = risk_df.groupby(\"age_group\", observed=True).agg(\n    avg_risk=(\"risk_score\", \"mean\"),\n    silent_count=(\"silent_sufferer\", \"sum\"),\n    total=(\"risk_score\", \"count\")\n).reset_index()\nrisk_age[\"silent_pct\"] = (risk_age[\"silent_count\"] / risk_age[\"total\"] * 100).round(2)\nfig32 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig32.add_trace(\n    go.Bar(\n        x=risk_age[\"age_group\"].astype(str),",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "risk_age[\"silent_pct\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "risk_age[\"silent_pct\"] = (risk_age[\"silent_count\"] / risk_age[\"total\"] * 100).round(2)\nfig32 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig32.add_trace(\n    go.Bar(\n        x=risk_age[\"age_group\"].astype(str),\n        y=risk_age[\"avg_risk\"],\n        name=\"Avg Risk Score\",\n        marker_color=\"#e74c3c\",\n        opacity=0.8),\nsecondary_y=False",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig32",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig32 = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig32.add_trace(\n    go.Bar(\n        x=risk_age[\"age_group\"].astype(str),\n        y=risk_age[\"avg_risk\"],\n        name=\"Avg Risk Score\",\n        marker_color=\"#e74c3c\",\n        opacity=0.8),\nsecondary_y=False\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "top_risk_role",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "top_risk_role = risk_df.groupby(\"job_role\")[\"risk_score\"].mean().idxmax()\ntop_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(\n        \"- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group.\"\n        \"- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort.\"",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "top_risk_mode",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "top_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(\n        \"- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group.\"\n        \"- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort.\"\n        \"- **Company Size most affected:** {top_risk_company} - consider scaling mental health programs.\"",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "top_risk_company",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "top_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(\n        \"- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group.\"\n        \"- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort.\"\n        \"- **Company Size most affected:** {top_risk_company} - consider scaling mental health programs.\"\n    )",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "silent_pct_total",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "silent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(\n        \"- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group.\"\n        \"- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort.\"\n        \"- **Company Size most affected:** {top_risk_company} - consider scaling mental health programs.\"\n    )\n# ============================================",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "avg_sleep_high_risk",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "avg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(\n        \"- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group.\"\n        \"- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort.\"\n        \"- **Company Size most affected:** {top_risk_company} - consider scaling mental health programs.\"\n    )\n# ============================================\n# FOOTER",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "avg_overtime_high_risk",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "avg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(\n        \"- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group.\"\n        \"- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort.\"\n        \"- **Company Size most affected:** {top_risk_company} - consider scaling mental health programs.\"\n    )\n# ============================================\n# FOOTER\n# ============================================",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
         "label": "Colors",
         "kind": 6,
         "importPath": "utils.theme",

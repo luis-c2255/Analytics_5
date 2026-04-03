@@ -870,23 +870,154 @@ fig29.update_layout(height=380, showlegend=False)
 fig29.update_traces(textposition="outside")
 st.plotly_chart(fig29, width="stretch")
 st.markdown("   ")
+col1, col2 = st.columns(2)
 
-st.markdown("💼 :yellow-background[Avg Risk Score by Work Mode]")
-
-st.markdown("🏢 :yellow-background[Avg Risk Score by Company Size]")
-
+with col1:
+    st.markdown("💼 :yellow-background[Avg Risk Score by Work Mode]")
+    risk_mode = risk_df.groupby("work_mode")["risk_score"].mean().reset_index()
+    fig30 = px.bar(
+        risk_mode, x="work_mode", y="risk_score",
+        color="risk_score", color_continuous_scale="RdYlGn_r",
+        text_auto=".1f",
+        labels={"risk_score": "Avg Risk Score", "work_mode": "Work Mode"}
+)
+    fig30.update_layout(height=380, showlegend=False)
+    fig30.update_traces(textposition="outside")
+    st.plotly_chart(fig30, width="stretch")
+with col2:
+    st.markdown("🏢 :yellow-background[Avg Risk Score by Company Size]")
+    risk_company = risk_df.groupby("company_size")["risk_score"].mean().reset_index()
+    fig31 = px.bar(
+        risk_company, x="company_size", y="risk_score",
+        color="risk_score", color_continuous_scale="RdYlGn_r",
+        text_auto=".1f",
+        labels={"risk_score": "Avg Risk Score", "company_size": "Company Size"}
+)
+    fig31.update_layout(height=380, showlegend=False)
+    fig31.update_traces(textposition="outside")
+    st.plotly_chart(fig31, width="stretch")
 
 st.markdown("👤 :yellow-background[Risk Score Across Age Groups]")
+risk_df["age_group"] = pd.cut(
+    risk_df["age"],
+    bins=[18, 25, 30, 35, 40, 45, 50, 60],
+    labels=["18-25", "26-30", "31-35", "36-40", "41-45", "46-50", "51-60"]
+)
+risk_age = risk_df.groupby("age_group", observed=True).agg(
+    avg_risk=("risk_score", "mean"),
+    silent_count=("silent_sufferer", "sum"),
+    total=("risk_score", "count")
+).reset_index()
+risk_age["silent_pct"] = (risk_age["silent_count"] / risk_age["total"] * 100).round(2)
+
+fig32 = make_subplots(specs=[[{"secondary_y": True}]])
+fig32.add_trace(
+    go.Bar(
+        x=risk_age["age_group"].astype(str),
+        y=risk_age["avg_risk"],
+        name="Avg Risk Score",
+        marker_color="#e74c3c",
+        opacity=0.8),
+secondary_y=False
+)
+fig32.add_trace(
+    go.Scatter(
+        x=risk_age["age_group"].astype(str),
+        y=risk_age["silent_pct"],
+        name="Silent Sufferers (%)",
+        mode="lines+markers",
+        line=dict(color="#3498db", width=3),
+        marker=dict(size=8)),
+secondary_y=True
+)
+fig32.update_layout(height=420, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+fig32.update_yaxes(title_text="Avg Risk Score", secondary_y=False)
+fig32.update_yaxes(title_text="Silent Sufferers (%)", secondary_y=True)
+fig32.update_xaxes(title_text="Age Group")
+st.plotly_chart(fig32, width="stretch")
+st.markdown("   ")
 
 st.subheader("🔬 :yellow[Risk Score Across Age Groups]")
+st.markdown("   ")
+col1, col2 = st.columns(2)
 
-st.markdown("😰 :yellow-background[Stress vs Burnout — High Risk Employees]")
-
-st.markdown("🛌 :yellow-background[Sleep vs Work Hours — High Risk Employees]")
+with col1:
+    st.markdown("😰 :yellow-background[Stress vs Burnout — High Risk Employees]")
+    sample_risk = high_risk.sample(min(2000, len(high_risk)), random_state=42)
+    fig33 = px.scatter(
+        sample_risk, x="stress_level", y="burnout_score",
+        color="work_mode", size="overtime_hours",
+        size_max=15, opacity=0.6,
+        hover_data=["job_role", "age", "sleep_hours", "company_size"],
+        labels={
+            "stress_level": "Stress Level",
+            "burnout_score": "Burnout Score",
+            "work_mode": "Work Mode"}
+)
+    fig33.update_layout(height=420)
+    st.plotly_chart(fig33, width="stretch")
+st.markdown("   ")
+with col2:
+    st.markdown("🛌 :yellow-background[Sleep vs Work Hours — High Risk Employees]")
+    fig34 = px.scatter(
+        sample_risk, x="work_hours_per_week", y="sleep_hours",
+        color="burnout_level", color_discrete_map=color_map,
+        size="risk_score", size_max=15, opacity=0.6,
+        hover_data=["job_role", "age", "stress_level", "company_size"],
+        labels={
+            "work_hours_per_week": "Work Hours / Week",
+            "sleep_hours": "Sleep Hours",
+            "burnout_level": "Burnout Level"}
+)
+    fig34.update_layout(height=420)
+    st.plotly_chart(fig34, width="stretch")
+st.markdown("   ")
 
 st.markdown("🤫 :yellow-background[Silent Sufferer Profile Summary]")
+st.markdown("   ")
+col1, col2 = st.columns(2)
 
-st.subheader("💡 :yellow-background[Silent Sufferer Profile Summary]")
+with col1:
+    silent_gender = (
+        silent.groupby("gender").size()
+        .reset_index(name="count")
+)
+    fig35 = px.pie(
+        silent_gender, values="count", names="gender",
+        title="Silent Sufferers by Gender",
+        hole=0.4,
+        color_discrete_sequence=px.colors.qualitative.Set3
+)
+    fig35.update_traces(textposition="inside", textinfo="percent+label")
+    fig35.update_layout(height=350)
+    st.plotly_chart(fig35, width="stretch")
+with col2:
+    silent_mode = (silent.groupby("work_mode").size().reset_index(name="count"))
+    fig36 = px.pie(
+        silent_mode, values="count", names="work_mode",
+        title="Silent Sufferers by Work Mode",
+        hole=0.4,
+        color_discrete_sequence=px.colors.qualitative.Pastel
+)
+    fig36.update_traces(textposition="inside", textinfo="percent+label")
+    fig36.update_layout(height=350)
+    st.plotly_chart(fig36, width="stretch")
+    
+st.subheader("💡 :orange[Intervention Recommendations]")
+top_risk_role = risk_df.groupby("job_role")["risk_score"].mean().idxmax()
+top_risk_mode = risk_df.groupby("work_mode")["risk_score"].mean().idxmax()
+top_risk_company = risk_df.groupby("company_size")["risk_score"].mean().idxmax()
+silent_pct_total = len(silent) / max(len(risk_df), 1) * 100
+avg_sleep_high_risk = high_risk["sleep_hours"].mean()
+avg_overtime_high_risk = high_risk["overtime_hours"].mean()
+
+with st.expander("🔴 Highest Burnout Risk Group", expanded=True):
+    st.markdown(
+        "- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group."
+        "- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort."
+        "- **Company Size most affected:** {top_risk_company} - consider scaling mental health programs."
+    )
+    
 # ============================================
 # FOOTER
 # ============================================
