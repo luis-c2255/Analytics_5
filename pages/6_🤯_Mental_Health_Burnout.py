@@ -1011,27 +1011,73 @@ silent_pct_total = len(silent) / max(len(risk_df), 1) * 100
 avg_sleep_high_risk = high_risk["sleep_hours"].mean()
 avg_overtime_high_risk = high_risk["overtime_hours"].mean()
 
-st.write(f"{top_risk_role}")
-st.write(f"{len(risk_df):,}")
-st.write(f"{top_risk_mode}")
-st.write(f"{top_risk_company}")
-st.write(f"{silent_pct_total:.1f}%")
-st.write(f"{avg_sleep_high_risk:.1f}")
-st.write(f"{avg_overtime_high_risk:.1f}")
 
-with st.expander("🔴 Highest Burnout Risk Group", expanded=True):
-    st.markdown(
+st.markdown("## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:", text_alignment="center")
+
+st.markdown("   ")
+st.markdown(
+    Components.insight_box(
+        "🔴 Highest Burnout Risk Group:",
         """
         <ul style='margin: 0; padding-left: 20px;'>
             <li><strong>Job Role at highest risk:</strong> Frontend Developer — prioritize wellness check-ins for this group.</li>
             <li><strong>Work Mode with highest risk:</strong> Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.</li>
             <li><strong>Company Size most affected:</strong> Large - consider scaling mental health programs.</li>
         </ul>
-        """)
-with st.expander("🤫 Silent Sufferers", expanded=True):
-    st.markdown(
-        "- **0.3%** of employees are classified as silent sufferers - high risk but not seeking help and not in therapy."
-    )
+        """, "error"
+    ), unsafe_allow_html=True
+)
+st.markdown("   ")
+st.markdown(
+    Components.insight_box(
+        "🤫 Silent Sufferers:",
+        """
+        <ul style='margin: 0; padding-left: 20px;'>
+            <li><strong>0.3%</strong> of employees are classified as silent sufferers high risk but not seeking help and not in therapy.</li>
+            <li>These employees need proactive outreach, not passive support programs.</li>
+            <li>Recommended actions:</li>
+            <li>Anonymous mental health check-ins embedded in performance reviews.</li>
+            <li>Manager training to identify early burnout signals.</li>
+            <li>Normalize help-seeking through leadership storytelling.</li>
+        </ul>
+        """,
+        "info"
+    ), unsafe_allow_html=True
+)
+st.markdown("   ")
+st.markdown(
+    Components.insight_box(
+        "😴 Sleep & Overtime Patterns:",
+        """
+        <ul style='margin: 0; padding-left: 20px;'>
+            <li>High-risk employees average only 5.5 hours of sleep per night.</li>
+            <li><strong>Average overtime for high-risk group:</strong> 10 hours/week.</li>
+            <li>Recommended actions:</li>
+            <li>Enforce maximum overtime policies.</li>
+            <li>Introduce flexible scheduling and mandatory recovery days.</li>
+            <li>Run sleep hygiene workshops.</li>
+        </ul>
+        """,
+        "warning"
+    ), unsafe_allow_html=True
+)
+st.markdown("   ")
+st.markdown(
+    Components.insight_box(
+        "📋 Immediate HR Action Items:",
+        """
+        <ul style='margin: 0; padding-left: 20px;'>
+            <li> </li>
+            <li>These employees need proactive outreach, not passive support programs.</li>
+            <li>Recommended actions:</li>
+            <li>Anonymous mental health check-ins embedded in performance reviews.</li>
+            <li>Manager training to identify early burnout signals.</li>
+            <li>Normalize help-seeking through leadership storytelling.</li>
+        </ul>
+        """,
+        "info"
+    ), unsafe_allow_html=True
+)
 # ============================================
 # FOOTER
 # ============================================
