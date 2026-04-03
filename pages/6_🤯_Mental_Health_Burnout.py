@@ -252,8 +252,132 @@ fig6.update_layout(height=450)
 st.plotly_chart(fig6, width="stretch")
 st.markdown("   ")
 
-st.subheader("🔗 :green[Correlations]", divider="green")
+st.subheader("🔗 :green[Correlation & Driver Analysis]", divider="green")
 st.markdown("   ")
+st.markdown(":green-background[Feature Correlation Matrix]")
+
+numeric_df = filtered.select_dtypes(include=np.number)
+corr = numeric_df.corr()
+
+fig7 = px.imshow(
+    corr, 
+    text_auto=".2f", 
+    color_continuous_scale="RdBu_r",
+    zmin=-1, zmax=1, aspect="auto",
+    labels={"color": "Correlation"}
+)
+fig7.update_layout(height=600)
+fig7.update_traces(textfont_size=8)
+st.plotly_chart(fig7, width="stretch")
+
+st.markdown("   ")
+st.markdown(":green-background[Top Drivers of Burnout Score]")
+burnout_corr = (
+    corr["burnout_score"].drop("burnout_score").sort_values(key=abs, ascending=False).head(12).reset_index())
+burnout_corr.columns = ["feature", "correlation"]
+burnout_corr["color"] = burnout_corr["correlation"].apply(lambda x: "#e74c3c" if x > 0 else "#2ecc71")
+fig8 = px.bar(
+    burnout_corr, 
+    x="correlation", 
+    y="feature",
+    orientation="h", 
+    color="color",
+    color_discrete_map="identity", 
+    text_auto=".2f",
+    labels={"correlation": "Pearson Correlation", "feature": "Feature"}
+)
+fig8.update_layout(height=450, showlegend=False)
+fig8.update_traces(textposition="outside")
+st.plotly_chart(fig8, width="stretch")
+st.markdown("   ")
+st.markdown(":green-background[Mental Health Score Distributions]")
+mental_cols = ["stress_level", "anxiety_score", "depression_score", "burnout_score"]
+fig9 = go.Figure()
+colors = ["#e74c3c", "#f39c12", "#9b59b6", "#3498db"]
+for col, color in zip(mental_cols, colors):
+    fig9.add_trace(go.Violin(
+        y=filtered[col], name=col.replace("_", " ").title(),
+        box_visible=True, meanline_visible=True,
+        fillcolor=color, opacity=0.7,
+        line_color="white"
+    ))
+    fig9.update_layout(
+        height=450, showlegend=True,
+        yaxis_title="Score",
+        violingap=0.2, violinmode="overlay"
+    )
+    st.plotly_chart(fig9, width="stretch")
+
+st.markdown("   ")
+st.markdown(":green-background[Pairwise Relationships — Key Variables]")
+pair_cols = ["work_hours_per_week", "sleep_hours", "stress_level",
+             "anxiety_score", "burnout_score", "work_life_balance"]
+sample_pair = filtered.sample(min(2000, len(filtered)), random_state=42)
+fig10 = px.scatter_matrix(
+    sample_pair, dimensions=pair_cols,
+    color="burnout_level", color_discrete_map=color_map,
+    opacity=0.4,
+    labels={col: col.replace("_", " ").title() for col in pair_cols}
+)
+fig10.update_traces(diagonal_visible=False, showupperhalf=False, marker=dict(size=3))
+fig10.update_layout(height=600)
+st.plotly_chart(fig10, width="stretch")
+
+st.markdown("   ")
+st.markdown(":green-background[Overtime Hours vs Burnout Score]")
+sample_ot = filtered.sample(min(3000, len(filtered)), random_state=42)
+fig11 = px.scatter(
+    sample_ot, x="overtime_hours", y="burnout_score",
+    color="work_mode", trendline="ols",
+    opacity=0.6,
+    labels={
+        "overtime_hours": "Overtime Hours",
+        "burnout_score": "Burnout Score",
+        "work_mode": "Work Mode"}
+)
+fig11.update_layout(height=400)
+st.plotly_chart(fig11, width="stretch")
+
+st.markdown("   ")
+st.markdown(":green-background[Work-Life Balance vs Burnout Score]")
+
+fig12 = px.scatter(
+    sample_ot, x="work_life_balance", y="burnout_score",
+    color="burnout_level", color_discrete_map=color_map,
+    trendline="ols", opacity=0.6,
+    labels={
+        "work_life_balance": "Work-Life Balance Score",
+        "burnout_score": "Burnout Score"}
+)
+fig12.update_layout(height=400)
+st.plotly_chart(fig12, width="stretch")
+st.markdown("   ")
+st.markdown(":green-background[Screen Time vs Anxiety Score]")
+fig13 = px.scatter(
+    sample_ot, x="screen_time_hours", y="anxiety_score",
+    color="burnout_level", color_discrete_map=color_map,
+    trendline="ols", opacity=0.6,
+    labels={
+        "screen_time_hours": "Screen Time (Hours/Day)",
+        "anxiety_score": "Anxiety Score"}
+)
+fig13.update_layout(height=400)
+st.plotly_chart(fig13, width="stretch")
+st.markdown("   ")
+st.markdown(":green-background[Caffeine Intake vs Stress Level]")
+caffeine_stress = (filtered.groupby("caffeine_intake")["stress_level"].mean().reset_index())
+fig14 = px.bar(
+    caffeine_stress, x="caffeine_intake", y="stress_level",
+    color="stress_level", color_continuous_scale="RdYlGn_r",
+    text_auto=".2f",
+    labels={
+        "caffeine_intake": "Caffeine Intake (cups/day)",
+        "stress_level": "Avg Stress Level"}
+)
+fig14.update_layout(height=400, showlegend=False)
+st.plotly_chart(fig14, width="stretch")
+st.markdown("   ")
+
 st.subheader("🤖 :blue[Predictive Model]", divider="blue")
 st.markdown("   ")
 st.subheader("👥 :violet[Employee Segments]", divider="violet")

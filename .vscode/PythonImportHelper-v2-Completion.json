@@ -2746,7 +2746,178 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "fig6 = px.imshow(\n    pivot, text_auto=\".2f\", \n    color_continuous_scale=\"RdYlGn_r\",\n    labels={\"color\": \"Avg Burnout Score\"}, \n    aspect=\"auto\"\n)\nfig6.update_layout(height=450)\nst.plotly_chart(fig6, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"🔗 :green[Correlations]\", divider=\"green\")",
+        "peekOfCode": "fig6 = px.imshow(\n    pivot, text_auto=\".2f\", \n    color_continuous_scale=\"RdYlGn_r\",\n    labels={\"color\": \"Avg Burnout Score\"}, \n    aspect=\"auto\"\n)\nfig6.update_layout(height=450)\nst.plotly_chart(fig6, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"🔗 :green[Correlation & Driver Analysis]\", divider=\"green\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "numeric_df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "numeric_df = filtered.select_dtypes(include=np.number)\ncorr = numeric_df.corr()\nfig7 = px.imshow(\n    corr, \n    text_auto=\".2f\", \n    color_continuous_scale=\"RdBu_r\",\n    zmin=-1, zmax=1, aspect=\"auto\",\n    labels={\"color\": \"Correlation\"}\n)\nfig7.update_layout(height=600)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "corr",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "corr = numeric_df.corr()\nfig7 = px.imshow(\n    corr, \n    text_auto=\".2f\", \n    color_continuous_scale=\"RdBu_r\",\n    zmin=-1, zmax=1, aspect=\"auto\",\n    labels={\"color\": \"Correlation\"}\n)\nfig7.update_layout(height=600)\nfig7.update_traces(textfont_size=8)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig7",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig7 = px.imshow(\n    corr, \n    text_auto=\".2f\", \n    color_continuous_scale=\"RdBu_r\",\n    zmin=-1, zmax=1, aspect=\"auto\",\n    labels={\"color\": \"Correlation\"}\n)\nfig7.update_layout(height=600)\nfig7.update_traces(textfont_size=8)\nst.plotly_chart(fig7, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_corr",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_corr = (\n    corr[\"burnout_score\"].drop(\"burnout_score\").sort_values(key=abs, ascending=False).head(12).reset_index())\nburnout_corr.columns = [\"feature\", \"correlation\"]\nburnout_corr[\"color\"] = burnout_corr[\"correlation\"].apply(lambda x: \"#e74c3c\" if x > 0 else \"#2ecc71\")\nfig8 = px.bar(\n    burnout_corr, \n    x=\"correlation\", \n    y=\"feature\",\n    orientation=\"h\", \n    color=\"color\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_corr.columns",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_corr.columns = [\"feature\", \"correlation\"]\nburnout_corr[\"color\"] = burnout_corr[\"correlation\"].apply(lambda x: \"#e74c3c\" if x > 0 else \"#2ecc71\")\nfig8 = px.bar(\n    burnout_corr, \n    x=\"correlation\", \n    y=\"feature\",\n    orientation=\"h\", \n    color=\"color\",\n    color_discrete_map=\"identity\", \n    text_auto=\".2f\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_corr[\"color\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_corr[\"color\"] = burnout_corr[\"correlation\"].apply(lambda x: \"#e74c3c\" if x > 0 else \"#2ecc71\")\nfig8 = px.bar(\n    burnout_corr, \n    x=\"correlation\", \n    y=\"feature\",\n    orientation=\"h\", \n    color=\"color\",\n    color_discrete_map=\"identity\", \n    text_auto=\".2f\",\n    labels={\"correlation\": \"Pearson Correlation\", \"feature\": \"Feature\"}",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig8",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig8 = px.bar(\n    burnout_corr, \n    x=\"correlation\", \n    y=\"feature\",\n    orientation=\"h\", \n    color=\"color\",\n    color_discrete_map=\"identity\", \n    text_auto=\".2f\",\n    labels={\"correlation\": \"Pearson Correlation\", \"feature\": \"Feature\"}\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "mental_cols",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "mental_cols = [\"stress_level\", \"anxiety_score\", \"depression_score\", \"burnout_score\"]\nfig9 = go.Figure()\ncolors = [\"#e74c3c\", \"#f39c12\", \"#9b59b6\", \"#3498db\"]\nfor col, color in zip(mental_cols, colors):\n    fig9.add_trace(go.Violin(\n        y=filtered[col], name=col.replace(\"_\", \" \").title(),\n        box_visible=True, meanline_visible=True,\n        fillcolor=color, opacity=0.7,\n        line_color=\"white\"\n    ))",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig9",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig9 = go.Figure()\ncolors = [\"#e74c3c\", \"#f39c12\", \"#9b59b6\", \"#3498db\"]\nfor col, color in zip(mental_cols, colors):\n    fig9.add_trace(go.Violin(\n        y=filtered[col], name=col.replace(\"_\", \" \").title(),\n        box_visible=True, meanline_visible=True,\n        fillcolor=color, opacity=0.7,\n        line_color=\"white\"\n    ))\n    fig9.update_layout(",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "colors",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "colors = [\"#e74c3c\", \"#f39c12\", \"#9b59b6\", \"#3498db\"]\nfor col, color in zip(mental_cols, colors):\n    fig9.add_trace(go.Violin(\n        y=filtered[col], name=col.replace(\"_\", \" \").title(),\n        box_visible=True, meanline_visible=True,\n        fillcolor=color, opacity=0.7,\n        line_color=\"white\"\n    ))\n    fig9.update_layout(\n        height=450, showlegend=True,",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "pair_cols",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "pair_cols = [\"work_hours_per_week\", \"sleep_hours\", \"stress_level\",\n             \"anxiety_score\", \"burnout_score\", \"work_life_balance\"]\nsample_pair = filtered.sample(min(2000, len(filtered)), random_state=42)\nfig10 = px.scatter_matrix(\n    sample_pair, dimensions=pair_cols,\n    color=\"burnout_level\", color_discrete_map=color_map,\n    opacity=0.4,\n    labels={col: col.replace(\"_\", \" \").title() for col in pair_cols}\n)\nfig10.update_traces(diagonal_visible=False, showupperhalf=False, marker=dict(size=3))",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "sample_pair",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "sample_pair = filtered.sample(min(2000, len(filtered)), random_state=42)\nfig10 = px.scatter_matrix(\n    sample_pair, dimensions=pair_cols,\n    color=\"burnout_level\", color_discrete_map=color_map,\n    opacity=0.4,\n    labels={col: col.replace(\"_\", \" \").title() for col in pair_cols}\n)\nfig10.update_traces(diagonal_visible=False, showupperhalf=False, marker=dict(size=3))\nfig10.update_layout(height=600)\nst.plotly_chart(fig10, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig10",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig10 = px.scatter_matrix(\n    sample_pair, dimensions=pair_cols,\n    color=\"burnout_level\", color_discrete_map=color_map,\n    opacity=0.4,\n    labels={col: col.replace(\"_\", \" \").title() for col in pair_cols}\n)\nfig10.update_traces(diagonal_visible=False, showupperhalf=False, marker=dict(size=3))\nfig10.update_layout(height=600)\nst.plotly_chart(fig10, width=\"stretch\")\nst.markdown(\"   \")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "sample_ot",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "sample_ot = filtered.sample(min(3000, len(filtered)), random_state=42)\nfig11 = px.scatter(\n    sample_ot, x=\"overtime_hours\", y=\"burnout_score\",\n    color=\"work_mode\", trendline=\"ols\",\n    opacity=0.6,\n    labels={\n        \"overtime_hours\": \"Overtime Hours\",\n        \"burnout_score\": \"Burnout Score\",\n        \"work_mode\": \"Work Mode\"}\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig11",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig11 = px.scatter(\n    sample_ot, x=\"overtime_hours\", y=\"burnout_score\",\n    color=\"work_mode\", trendline=\"ols\",\n    opacity=0.6,\n    labels={\n        \"overtime_hours\": \"Overtime Hours\",\n        \"burnout_score\": \"Burnout Score\",\n        \"work_mode\": \"Work Mode\"}\n)\nfig11.update_layout(height=400)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig12",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig12 = px.scatter(\n    sample_ot, x=\"work_life_balance\", y=\"burnout_score\",\n    color=\"burnout_level\", color_discrete_map=color_map,\n    trendline=\"ols\", opacity=0.6,\n    labels={\n        \"work_life_balance\": \"Work-Life Balance Score\",\n        \"burnout_score\": \"Burnout Score\"}\n)\nfig12.update_layout(height=400)\nst.plotly_chart(fig12, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig13",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig13 = px.scatter(\n    sample_ot, x=\"screen_time_hours\", y=\"anxiety_score\",\n    color=\"burnout_level\", color_discrete_map=color_map,\n    trendline=\"ols\", opacity=0.6,\n    labels={\n        \"screen_time_hours\": \"Screen Time (Hours/Day)\",\n        \"anxiety_score\": \"Anxiety Score\"}\n)\nfig13.update_layout(height=400)\nst.plotly_chart(fig13, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "caffeine_stress",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "caffeine_stress = (filtered.groupby(\"caffeine_intake\")[\"stress_level\"].mean().reset_index())\nfig14 = px.bar(\n    caffeine_stress, x=\"caffeine_intake\", y=\"stress_level\",\n    color=\"stress_level\", color_continuous_scale=\"RdYlGn_r\",\n    text_auto=\".2f\",\n    labels={\n        \"caffeine_intake\": \"Caffeine Intake (cups/day)\",\n        \"stress_level\": \"Avg Stress Level\"}\n)\nfig14.update_layout(height=400, showlegend=False)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig14",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig14 = px.bar(\n    caffeine_stress, x=\"caffeine_intake\", y=\"stress_level\",\n    color=\"stress_level\", color_continuous_scale=\"RdYlGn_r\",\n    text_auto=\".2f\",\n    labels={\n        \"caffeine_intake\": \"Caffeine Intake (cups/day)\",\n        \"stress_level\": \"Avg Stress Level\"}\n)\nfig14.update_layout(height=400, showlegend=False)\nst.plotly_chart(fig14, width=\"stretch\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
