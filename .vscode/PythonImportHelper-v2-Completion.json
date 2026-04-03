@@ -3052,7 +3052,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "top_risk_role = risk_df.groupby(\"job_role\")[\"risk_score\"].mean().idxmax()\ntop_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")",
+        "peekOfCode": "top_risk_role = risk_df.groupby(\"job_role\")[\"risk_score\"].mean().idxmax()\ntop_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{len(risk_df):,}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3061,7 +3061,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "top_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")",
+        "peekOfCode": "top_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{len(risk_df):,}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3070,7 +3070,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "top_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")\nst.write(f\"{avg_overtime_high_risk:.1f}\")",
+        "peekOfCode": "top_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{len(risk_df):,}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3079,7 +3079,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "silent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")\nst.write(f\"{avg_overtime_high_risk:.1f}\")\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):",
+        "peekOfCode": "silent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{len(risk_df):,}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")\nst.write(f\"{avg_overtime_high_risk:.1f}\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3088,7 +3088,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "avg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")\nst.write(f\"{avg_overtime_high_risk:.1f}\")\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(",
+        "peekOfCode": "avg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{len(risk_df):,}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")\nst.write(f\"{avg_overtime_high_risk:.1f}\")\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3097,7 +3097,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "avg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")\nst.write(f\"{avg_overtime_high_risk:.1f}\")\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(\n        \"- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group.\"",
+        "peekOfCode": "avg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.write(f\"{top_risk_role}\")\nst.write(f\"{len(risk_df):,}\")\nst.write(f\"{top_risk_mode}\")\nst.write(f\"{top_risk_company}\")\nst.write(f\"{silent_pct_total:.1f}%\")\nst.write(f\"{avg_sleep_high_risk:.1f}\")\nst.write(f\"{avg_overtime_high_risk:.1f}\")\nwith st.expander(\"🔴 Highest Burnout Risk Group\", expanded=True):\n    st.markdown(",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },

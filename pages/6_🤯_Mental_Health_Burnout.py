@@ -1012,6 +1012,7 @@ avg_sleep_high_risk = high_risk["sleep_hours"].mean()
 avg_overtime_high_risk = high_risk["overtime_hours"].mean()
 
 st.write(f"{top_risk_role}")
+st.write(f"{len(risk_df):,}")
 st.write(f"{top_risk_mode}")
 st.write(f"{top_risk_company}")
 st.write(f"{silent_pct_total:.1f}%")
@@ -1020,11 +1021,17 @@ st.write(f"{avg_overtime_high_risk:.1f}")
 
 with st.expander("🔴 Highest Burnout Risk Group", expanded=True):
     st.markdown(
-        "- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group."
-        "- **Work Mode with highest risk:** {top_risk_mode} employees show elevated risk scores - review workload distribution and communication policies for this cohort."
-        "- **Company Size most affected:** {top_risk_company} - consider scaling mental health programs."
+        """
+        <ul style='margin: 0; padding-left: 20px;'>
+            <li><strong>Job Role at highest risk:</strong> Frontend Developer — prioritize wellness check-ins for this group.</li>
+            <li><strong>Work Mode with highest risk:</strong> Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.</li>
+            <li><strong>Company Size most affected:</strong> Large - consider scaling mental health programs.</li>
+        </ul>
+        """), unsafe_allow_html=True
+with st.expander("🤫 Silent Sufferers", expanded=True):
+    st.markdown(
+        "- **0.3%** of employees are classified as silent sufferers - high risk but not seeking help and not in therapy."
     )
-    
 # ============================================
 # FOOTER
 # ============================================
