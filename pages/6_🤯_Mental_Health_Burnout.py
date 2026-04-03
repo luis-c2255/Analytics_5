@@ -1012,7 +1012,7 @@ avg_sleep_high_risk = high_risk["sleep_hours"].mean()
 avg_overtime_high_risk = high_risk["overtime_hours"].mean()
 
 
-st.markdown("## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:", text_alignment="center")
+st.markdown("#### Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:", text_alignment="center")
 
 st.markdown("   ")
 with st.expander("🔴 Highest Burnout Risk Group:", expanded=True):
