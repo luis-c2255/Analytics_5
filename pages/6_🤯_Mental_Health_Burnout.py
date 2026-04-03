@@ -440,14 +440,14 @@ if train_model:
             y_reg_pred = reg.predict(X_test)
             r2 = r2_score(y_reg_test, y_reg_pred)
             
-            # ── Classification Report ──
-            report = classification_report(
-                y_clf_test, y_clf_pred,
-                target_names=["Low", "Moderate", "High"],
-                output_dict=True
-            )
-            report_df = pd.DataFrame(report).transpose().round(3)
-            st.success("✅ Model trained successfully!")
+# ── Classification Report ──
+report = classification_report(
+    y_clf_test, y_clf_pred,
+    target_names=["Low", "Moderate", "High"],
+    output_dict=True
+)
+report_df = pd.DataFrame(report).transpose().round(3)
+st.success("✅ Model trained successfully!")
 
 # ── Model Performance KPIs ──
 m1, m2, m3, m4 = st.columns(4)

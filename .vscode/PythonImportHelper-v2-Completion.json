@@ -2939,6 +2939,24 @@
         "documentation": {}
     },
     {
+        "label": "report",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "report = classification_report(\n    y_clf_test, y_clf_pred,\n    target_names=[\"Low\", \"Moderate\", \"High\"],\n    output_dict=True\n)\nreport_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")\n# ── Model Performance KPIs ──\nm1, m2, m3, m4 = st.columns(4)\nwith m1:",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "report_df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "report_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")\n# ── Model Performance KPIs ──\nm1, m2, m3, m4 = st.columns(4)\nwith m1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Classifier Accuracy\",\n            value=f\"{report['accuracy']:.2%}\",\n            delta=\"🎯\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
         "label": "feat_imp",
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
