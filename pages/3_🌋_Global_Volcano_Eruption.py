@@ -179,7 +179,7 @@ fig_map.update_layout(
 )
 st.plotly_chart(fig_map, width="stretch")
 st.markdown("   ")
-st.subheader("🗺️ :green[Eruptions by Continent]", divider="green")
+st.subheader(":green-background[Eruptions by Continent]")
 
 continent_counts = (
     filtered['country_continent'].value_counts().reset_index()
@@ -207,7 +207,7 @@ fig_cont.update_layout(
 )
 st.plotly_chart(fig_cont, width="stretch")
 st.markdown("   ")
-st.subheader("🗺️ :green[Ring of Fire vs. Non-Ring of Fire]", divider="green")
+st.subheader(":green-background[Ring of Fire vs. Non-Ring of Fire]")
 
 rof_counts = filtered['ring_of_fire'].value_counts().reset_index()
 rof_counts.columns = ['Ring of Fire', 'Count']
@@ -229,7 +229,7 @@ fig_rof.update_layout(
 )
 st.plotly_chart(fig_rof, width="stretch")
 st.markdown("   ")
-st.subheader("🗺️ :green[Eruption Count by Country (Top 20)]", divider="green")
+st.subheader(":green-background[Eruption Count by Country (Top 20)]")
 
 top_countries = (
     filtered['country'].value_counts().head(20).reset_index()
