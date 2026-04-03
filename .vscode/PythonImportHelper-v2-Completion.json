@@ -2508,6 +2508,15 @@
         "documentation": {}
     },
     {
+        "label": "convert_df_to_csv",
+        "kind": 2,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "def convert_df_to_csv(data):\n    return data.to_csv(index=False).encode(\"utf-8\")\nhigh_risk_export = risk_df[risk_df[\"risk_score\"] >= 65][[\n\"age\", \"gender\", \"job_role\", \"work_mode\", \"company_size\",\n\"burnout_score\", \"burnout_level\", \"stress_level\", \"anxiety_score\",\n\"depression_score\", \"sleep_hours\", \"overtime_hours\",\n\"has_therapy\", \"seeks_professional_help\",\n\"risk_score\", \"silent_sufferer\"\n]].sort_values(\"risk_score\", ascending=False)\ncsv_data = convert_df_to_csv(high_risk_export)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
         "label": "df",
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
@@ -3052,7 +3061,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "top_risk_role = risk_df.groupby(\"job_role\")[\"risk_score\"].mean().idxmax()\ntop_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nst.markdown(\n    Components.insight_box(",
+        "peekOfCode": "top_risk_role = risk_df.groupby(\"job_role\")[\"risk_score\"].mean().idxmax()\ntop_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nwith st.expander(\"🔴 Highest Burnout Risk Group:\", expanded=True):\n    st.markdown(\"\"\"",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3061,7 +3070,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "top_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nst.markdown(\n    Components.insight_box(\n        \"🔴 Highest Burnout Risk Group:\",",
+        "peekOfCode": "top_risk_mode = risk_df.groupby(\"work_mode\")[\"risk_score\"].mean().idxmax()\ntop_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nwith st.expander(\"🔴 Highest Burnout Risk Group:\", expanded=True):\n    st.markdown(\"\"\"\n        - **Job Role at highest risk:** Frontend Developer — prioritize wellness check-ins for this group.",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3070,7 +3079,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "top_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nst.markdown(\n    Components.insight_box(\n        \"🔴 Highest Burnout Risk Group:\",\n        \"\"\"",
+        "peekOfCode": "top_risk_company = risk_df.groupby(\"company_size\")[\"risk_score\"].mean().idxmax()\nsilent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nwith st.expander(\"🔴 Highest Burnout Risk Group:\", expanded=True):\n    st.markdown(\"\"\"\n        - **Job Role at highest risk:** Frontend Developer — prioritize wellness check-ins for this group.\n        - **Work Mode with highest risk:** Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3079,7 +3088,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "silent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nst.markdown(\n    Components.insight_box(\n        \"🔴 Highest Burnout Risk Group:\",\n        \"\"\"\n        <ul style='margin: 0; padding-left: 20px;'>",
+        "peekOfCode": "silent_pct_total = len(silent) / max(len(risk_df), 1) * 100\navg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nwith st.expander(\"🔴 Highest Burnout Risk Group:\", expanded=True):\n    st.markdown(\"\"\"\n        - **Job Role at highest risk:** Frontend Developer — prioritize wellness check-ins for this group.\n        - **Work Mode with highest risk:** Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.\n        - **Company Size most affected:** Large - consider scaling mental health programs.",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3088,7 +3097,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "avg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nst.markdown(\n    Components.insight_box(\n        \"🔴 Highest Burnout Risk Group:\",\n        \"\"\"\n        <ul style='margin: 0; padding-left: 20px;'>\n            <li><strong>Job Role at highest risk:</strong> Frontend Developer — prioritize wellness check-ins for this group.</li>",
+        "peekOfCode": "avg_sleep_high_risk = high_risk[\"sleep_hours\"].mean()\navg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nwith st.expander(\"🔴 Highest Burnout Risk Group:\", expanded=True):\n    st.markdown(\"\"\"\n        - **Job Role at highest risk:** Frontend Developer — prioritize wellness check-ins for this group.\n        - **Work Mode with highest risk:** Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.\n        - **Company Size most affected:** Large - consider scaling mental health programs.\n        \"\"\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -3097,7 +3106,34 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "avg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nst.markdown(\n    Components.insight_box(\n        \"🔴 Highest Burnout Risk Group:\",\n        \"\"\"\n        <ul style='margin: 0; padding-left: 20px;'>\n            <li><strong>Job Role at highest risk:</strong> Frontend Developer — prioritize wellness check-ins for this group.</li>\n            <li><strong>Work Mode with highest risk:</strong> Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.</li>",
+        "peekOfCode": "avg_overtime_high_risk = high_risk[\"overtime_hours\"].mean()\nst.markdown(\"## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:\", text_alignment=\"center\")\nst.markdown(\"   \")\nwith st.expander(\"🔴 Highest Burnout Risk Group:\", expanded=True):\n    st.markdown(\"\"\"\n        - **Job Role at highest risk:** Frontend Developer — prioritize wellness check-ins for this group.\n        - **Work Mode with highest risk:** Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.\n        - **Company Size most affected:** Large - consider scaling mental health programs.\n        \"\"\")\nst.markdown(\"   \")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "high_risk_export",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "high_risk_export = risk_df[risk_df[\"risk_score\"] >= 65][[\n\"age\", \"gender\", \"job_role\", \"work_mode\", \"company_size\",\n\"burnout_score\", \"burnout_level\", \"stress_level\", \"anxiety_score\",\n\"depression_score\", \"sleep_hours\", \"overtime_hours\",\n\"has_therapy\", \"seeks_professional_help\",\n\"risk_score\", \"silent_sufferer\"\n]].sort_values(\"risk_score\", ascending=False)\ncsv_data = convert_df_to_csv(high_risk_export)\ncol1, col2 = st.columns(2)\nwith col1:",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "csv_data",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "csv_data = convert_df_to_csv(high_risk_export)\ncol1, col2 = st.columns(2)\nwith col1:\n    st.download_button(\nlabel=\"⬇️ Download High-Risk Employees CSV\",\ndata=csv_data,\nfile_name=\"high_risk_employees.csv\",\nmime=\"text/csv\",\ntype=\"primary\"\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "silent_csv",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "silent_csv = convert_df_to_csv(silent_export)\nst.download_button(\n            label=\"⬇️ Download Silent Sufferers CSV\",\n            data=silent_csv,\n            file_name=\"silent_sufferers.csv\",\n            mime=\"text/csv\",\n            type=\"primary\"\n        )\n# ── Raw High-Risk Data Preview ──\nst.subheader(\"🔎 High-Risk Employee Data Preview\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },

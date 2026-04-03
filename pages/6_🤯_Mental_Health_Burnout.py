@@ -1015,69 +1015,93 @@ avg_overtime_high_risk = high_risk["overtime_hours"].mean()
 st.markdown("## Based on the current filtered dataset of 150,000 employees, the analysys has surfaced the following actionable findings:", text_alignment="center")
 
 st.markdown("   ")
-st.markdown(
-    Components.insight_box(
-        "🔴 Highest Burnout Risk Group:",
-        """
-        <ul style='margin: 0; padding-left: 20px;'>
-            <li><strong>Job Role at highest risk:</strong> Frontend Developer — prioritize wellness check-ins for this group.</li>
-            <li><strong>Work Mode with highest risk:</strong> Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.</li>
-            <li><strong>Company Size most affected:</strong> Large - consider scaling mental health programs.</li>
-        </ul>
-        """, "error"
-    ), unsafe_allow_html=True
-)
+with st.expander("🔴 Highest Burnout Risk Group:", expanded=True):
+    st.markdown("""
+        - **Job Role at highest risk:** Frontend Developer — prioritize wellness check-ins for this group.
+        - **Work Mode with highest risk:** Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.
+        - **Company Size most affected:** Large - consider scaling mental health programs.
+        """)
 st.markdown("   ")
-st.markdown(
-    Components.insight_box(
-        "🤫 Silent Sufferers:",
-        """
-        <ul style='margin: 0; padding-left: 20px;'>
-            <li><strong>0.3%</strong> of employees are classified as silent sufferers high risk but not seeking help and not in therapy.</li>
-            <li>These employees need proactive outreach, not passive support programs.</li>
-            <li>Recommended actions:</li>
-            <li>Anonymous mental health check-ins embedded in performance reviews.</li>
-            <li>Manager training to identify early burnout signals.</li>
-            <li>Normalize help-seeking through leadership storytelling.</li>
-        </ul>
-        """,
-        "info"
-    ), unsafe_allow_html=True
-)
+with st.expander("🤫 Silent Sufferers:", expanded=True):
+    st.markdown("""
+        - **0.3%** of employees are classified as silent sufferers high risk but not seeking help and not in therapy.
+        - These employees need proactive outreach, not passive support programs.
+        
+        - Recommended actions:
+            - Anonymous mental health check-ins embedded in performance reviews.
+            - Manager training to identify early burnout signals.
+            - Normalize help-seeking through leadership storytelling.
+            """)
 st.markdown("   ")
-st.markdown(
-    Components.insight_box(
-        "😴 Sleep & Overtime Patterns:",
-        """
-        <ul style='margin: 0; padding-left: 20px;'>
-            <li>High-risk employees average only 5.5 hours of sleep per night.</li>
-            <li><strong>Average overtime for high-risk group:</strong> 10 hours/week.</li>
-            <li>Recommended actions:</li>
-            <li>Enforce maximum overtime policies.</li>
-            <li>Introduce flexible scheduling and mandatory recovery days.</li>
-            <li>Run sleep hygiene workshops.</li>
-        </ul>
-        """,
-        "warning"
-    ), unsafe_allow_html=True
-)
+with st.expander("😴 Sleep & Overtime Patterns:", expanded=True):
+    st.markdown("""
+        - High-risk employees average only **5.5** hours of sleep per night.
+        - **Average overtime for high-risk group:** 10 hours/week.
+        
+        - Recommended actions:
+            - Enforce maximum overtime policies.
+            - Introduce flexible scheduling and mandatory recovery days.
+            - Run sleep hygiene workshops.
+        """)
 st.markdown("   ")
-st.markdown(
-    Components.insight_box(
-        "📋 Immediate HR Action Items:",
-        """
-        <ul style='margin: 0; padding-left: 20px;'>
-            <li> </li>
-            <li>These employees need proactive outreach, not passive support programs.</li>
-            <li>Recommended actions:</li>
-            <li>Anonymous mental health check-ins embedded in performance reviews.</li>
-            <li>Manager training to identify early burnout signals.</li>
-            <li>Normalize help-seeking through leadership storytelling.</li>
-        </ul>
-        """,
-        "info"
-    ), unsafe_allow_html=True
+with st.expander("📋 Immediate HR Action Items:", expanded=True):
+    st.markdown("""
+        1. Flag all employees with risk_score >= 65 and seeks_professional_help == 0 for manager review.
+        2. Deploy an anonymous pulse survey targeting high-risk job roles.
+        3. Audit work hour policies for **Onsite** employees — review meeting loads and deadlines.
+        4. Expand therapy and EAP (Employee Assistance Program) access with active enrollment campaigns.
+        5. Track burnout score trends quarterly — establish early warning thresholds.        
+        """)
+st.markdown("   ")
+# ── Downloadable High-Risk Employee Report ──
+st.subheader("📥 :red[Download High-Risk Employee Report]")
+@st.cache_data
+def convert_df_to_csv(data):
+    return data.to_csv(index=False).encode("utf-8")
+
+high_risk_export = risk_df[risk_df["risk_score"] >= 65][[
+"age", "gender", "job_role", "work_mode", "company_size",
+"burnout_score", "burnout_level", "stress_level", "anxiety_score",
+"depression_score", "sleep_hours", "overtime_hours",
+"has_therapy", "seeks_professional_help",
+"risk_score", "silent_sufferer"
+]].sort_values("risk_score", ascending=False)
+
+csv_data = convert_df_to_csv(high_risk_export)
+
+col1, col2 = st.columns(2)
+with col1:
+    st.download_button(
+label="⬇️ Download High-Risk Employees CSV",
+data=csv_data,
+file_name="high_risk_employees.csv",
+mime="text/csv",
+type="primary"
 )
+
+with col2:
+    silent_export = risk_df[risk_df["silent_sufferer"] == 1][[
+            "age", "gender", "job_role", "work_mode", "company_size",
+            "burnout_score", "burnout_level", "stress_level", "anxiety_score",
+            "depression_score", "sleep_hours", "overtime_hours",
+            "risk_score"
+        ]].sort_values("risk_score", ascending=False)
+silent_csv = convert_df_to_csv(silent_export)
+st.download_button(
+            label="⬇️ Download Silent Sufferers CSV",
+            data=silent_csv,
+            file_name="silent_sufferers.csv",
+            mime="text/csv",
+            type="primary"
+        )
+# ── Raw High-Risk Data Preview ──
+st.subheader("🔎 High-Risk Employee Data Preview")
+st.dataframe(
+        high_risk_export.head(50).style.background_gradient(
+            cmap="Reds", subset=["risk_score", "burnout_score", "stress_level"]
+        ),
+        width="stretch"
+    )
 # ============================================
 # FOOTER
 # ============================================
