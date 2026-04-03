@@ -222,6 +222,14 @@
         "documentation": {}
     },
     {
+        "label": "confusion_matrix",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
         "label": "warnings",
         "kind": 6,
         "isExtraImport": true,
@@ -2918,6 +2926,231 @@
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
         "peekOfCode": "fig14 = px.bar(\n    caffeine_stress, x=\"caffeine_intake\", y=\"stress_level\",\n    color=\"stress_level\", color_continuous_scale=\"RdYlGn_r\",\n    text_auto=\".2f\",\n    labels={\n        \"caffeine_intake\": \"Caffeine Intake (cups/day)\",\n        \"stress_level\": \"Avg Stress Level\"}\n)\nfig14.update_layout(height=400, showlegend=False)\nst.plotly_chart(fig14, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "train_model",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "train_model = st.button(\"🚀 Train Model\", type=\"primary\")\nif train_model:\n    with st.spinner(\"Training Random Forest model on your dataset...\"):\n        model_df = filtered.copy()\n        # Encode categorical columns\nle = LabelEncoder()\ncat_cols_model = [\"gender\", \"job_role\", \"company_size\", \"work_mode\"]\nfor col in cat_cols_model:\n    model_df[col] = le.fit_transform(model_df[col].astype(str))\n# Encode target",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "le",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "le = LabelEncoder()\ncat_cols_model = [\"gender\", \"job_role\", \"company_size\", \"work_mode\"]\nfor col in cat_cols_model:\n    model_df[col] = le.fit_transform(model_df[col].astype(str))\n# Encode target\nlevel_map = {\"Low\": 0, \"Moderate\": 1, \"High\": 2}\nmodel_df[\"burnout_level_enc\"] = model_df[\"burnout_level\"].map(level_map)\nfeature_cols = [\n\"age\", \"gender\", \"job_role\", \"experience_years\", \"company_size\",\n\"work_mode\", \"work_hours_per_week\", \"overtime_hours\", \"meetings_per_day\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cat_cols_model",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cat_cols_model = [\"gender\", \"job_role\", \"company_size\", \"work_mode\"]\nfor col in cat_cols_model:\n    model_df[col] = le.fit_transform(model_df[col].astype(str))\n# Encode target\nlevel_map = {\"Low\": 0, \"Moderate\": 1, \"High\": 2}\nmodel_df[\"burnout_level_enc\"] = model_df[\"burnout_level\"].map(level_map)\nfeature_cols = [\n\"age\", \"gender\", \"job_role\", \"experience_years\", \"company_size\",\n\"work_mode\", \"work_hours_per_week\", \"overtime_hours\", \"meetings_per_day\",\n\"deadlines_missed\", \"job_satisfaction\", \"manager_support\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "level_map",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "level_map = {\"Low\": 0, \"Moderate\": 1, \"High\": 2}\nmodel_df[\"burnout_level_enc\"] = model_df[\"burnout_level\"].map(level_map)\nfeature_cols = [\n\"age\", \"gender\", \"job_role\", \"experience_years\", \"company_size\",\n\"work_mode\", \"work_hours_per_week\", \"overtime_hours\", \"meetings_per_day\",\n\"deadlines_missed\", \"job_satisfaction\", \"manager_support\",\n\"work_life_balance\", \"sleep_hours\", \"physical_activity_days\",\n\"screen_time_hours\", \"caffeine_intake\", \"social_support_score\",\n\"has_therapy\", \"stress_level\", \"anxiety_score\", \"depression_score\"\n]",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "model_df[\"burnout_level_enc\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "model_df[\"burnout_level_enc\"] = model_df[\"burnout_level\"].map(level_map)\nfeature_cols = [\n\"age\", \"gender\", \"job_role\", \"experience_years\", \"company_size\",\n\"work_mode\", \"work_hours_per_week\", \"overtime_hours\", \"meetings_per_day\",\n\"deadlines_missed\", \"job_satisfaction\", \"manager_support\",\n\"work_life_balance\", \"sleep_hours\", \"physical_activity_days\",\n\"screen_time_hours\", \"caffeine_intake\", \"social_support_score\",\n\"has_therapy\", \"stress_level\", \"anxiety_score\", \"depression_score\"\n]\nX = model_df[feature_cols]",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "feature_cols",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "feature_cols = [\n\"age\", \"gender\", \"job_role\", \"experience_years\", \"company_size\",\n\"work_mode\", \"work_hours_per_week\", \"overtime_hours\", \"meetings_per_day\",\n\"deadlines_missed\", \"job_satisfaction\", \"manager_support\",\n\"work_life_balance\", \"sleep_hours\", \"physical_activity_days\",\n\"screen_time_hours\", \"caffeine_intake\", \"social_support_score\",\n\"has_therapy\", \"stress_level\", \"anxiety_score\", \"depression_score\"\n]\nX = model_df[feature_cols]\ny_clf = model_df[\"burnout_level_enc\"]",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "X",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "X = model_df[feature_cols]\ny_clf = model_df[\"burnout_level_enc\"]\ny_reg = model_df[\"burnout_score\"]\nX_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)\n# ── Train Classifier ──\nclf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_clf",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_clf = model_df[\"burnout_level_enc\"]\ny_reg = model_df[\"burnout_score\"]\nX_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)\n# ── Train Classifier ──\nclf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_reg",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_reg = model_df[\"burnout_score\"]\nX_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)\n# ── Train Classifier ──\nclf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nclf.fit(X_train, y_clf_train)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "clf",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "clf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nclf.fit(X_train, y_clf_train)\ny_clf_pred = clf.predict(X_test)\n# ── Train Regressor ──\nreg = RandomForestRegressor(",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_clf_pred",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_clf_pred = clf.predict(X_test)\n# ── Train Regressor ──\nreg = RandomForestRegressor(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nreg.fit(X_train, y_reg_train)\ny_reg_pred = reg.predict(X_test)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "reg",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "reg = RandomForestRegressor(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nreg.fit(X_train, y_reg_train)\ny_reg_pred = reg.predict(X_test)\nr2 = r2_score(y_reg_test, y_reg_pred)\n# ── Classification Report ──",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_reg_pred",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_reg_pred = reg.predict(X_test)\nr2 = r2_score(y_reg_test, y_reg_pred)\n# ── Classification Report ──\nreport = classification_report(\n    y_clf_test, y_clf_pred,\n    target_names=[\"Low\", \"Moderate\", \"High\"],\n    output_dict=True\n)\nreport_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "r2",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "r2 = r2_score(y_reg_test, y_reg_pred)\n# ── Classification Report ──\nreport = classification_report(\n    y_clf_test, y_clf_pred,\n    target_names=[\"Low\", \"Moderate\", \"High\"],\n    output_dict=True\n)\nreport_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")\n# ── Model Performance KPIs ──",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "report",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "report = classification_report(\n    y_clf_test, y_clf_pred,\n    target_names=[\"Low\", \"Moderate\", \"High\"],\n    output_dict=True\n)\nreport_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")\n# ── Model Performance KPIs ──\nm1, m2, m3, m4 = st.columns(4)\nwith m1:",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "report_df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "report_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")\n# ── Model Performance KPIs ──\nm1, m2, m3, m4 = st.columns(4)\nwith m1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Classifier Accuracy\",\n            value=f\"{report['accuracy']:.2%}\",\n            delta=\"🎯\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "feat_imp",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "feat_imp = pd.DataFrame({\n    \"feature\": feature_cols,\n    \"importance\": clf.feature_importances_\n}).sort_values(\"importance\", ascending=True).tail(15)\nfig15 = px.bar(\n    feat_imp, x=\"importance\", y=\"feature\",\n    orientation=\"h\", color=\"importance\",\n    color_continuous_scale=\"Blues\",\n    text_auto=\".3f\",\n    labels={\"importance\": \"Feature Importance\", \"feature\": \"Feature\"}",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig15",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig15 = px.bar(\n    feat_imp, x=\"importance\", y=\"feature\",\n    orientation=\"h\", color=\"importance\",\n    color_continuous_scale=\"Blues\",\n    text_auto=\".3f\",\n    labels={\"importance\": \"Feature Importance\", \"feature\": \"Feature\"}\n)\nfig15.update_layout(height=500, showlegend=False)\nfig15.update_traces(textposition=\"outside\")\nst.plotly_chart(fig15, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "feat_imp_reg",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "feat_imp_reg = pd.DataFrame({\n    \"feature\": feature_cols,\n    \"importance\": reg.feature_importances_\n}).sort_values(\"importance\", ascending=True).tail(15)\nfig16 = px.bar(\n    feat_imp_reg, x=\"importance\", y=\"feature\",\n    orientation=\"h\", color=\"importance\",\n    color_continuous_scale=\"Oranges\",\n    text_auto=\".3f\",\n    labels={\"importance\": \"Feature Importance\", \"feature\": \"Feature\"}",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig16",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig16 = px.bar(\n    feat_imp_reg, x=\"importance\", y=\"feature\",\n    orientation=\"h\", color=\"importance\",\n    color_continuous_scale=\"Oranges\",\n    text_auto=\".3f\",\n    labels={\"importance\": \"Feature Importance\", \"feature\": \"Feature\"}\n)\nfig16.update_layout(height=500, showlegend=False)\nfig16.update_traces(textposition=\"outside\")\nst.plotly_chart(fig16, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "pred_df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "pred_df = pd.DataFrame({\n    \"Actual\": y_reg_test.values,\n    \"Predicted\": y_reg_pred\n}).sample(min(1000, len(y_reg_test)), random_state=42)\nfig17 = px.scatter(\n    pred_df, x=\"Actual\", y=\"Predicted\",\n    opacity=0.5, trendline=\"ols\",\n    color_discrete_sequence=[\"#3498db\"],\n    labels={\"Actual\": \"Actual Burnout Score\", \"Predicted\": \"Predicted Burnout Score\"}\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig17",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig17 = px.scatter(\n    pred_df, x=\"Actual\", y=\"Predicted\",\n    opacity=0.5, trendline=\"ols\",\n    color_discrete_sequence=[\"#3498db\"],\n    labels={\"Actual\": \"Actual Burnout Score\", \"Predicted\": \"Predicted Burnout Score\"}\n)\nfig17.add_shape(\n    type=\"line\", x0=pred_df[\"Actual\"].min(), y0=pred_df[\"Actual\"].min(),\n    x1=pred_df[\"Actual\"].max(), y1=pred_df[\"Actual\"].max(),\n    line=dict(color=\"red\", dash=\"dash\", width=2)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cm",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cm = confusion_matrix(y_clf_test, y_clf_pred)\ncm_df = pd.DataFrame(\n    cm,\n    index=[\"Actual: Low\", \"Actual: Moderate\", \"Actual: High\"],\n    columns=[\"Pred: Low\", \"Pred: Moderate\", \"Pred: High\"]\n)\nfig18 = px.imshow(\n    cm_df, text_auto=True,\n    color_continuous_scale=\"Blues\",\n    labels={\"color\": \"Count\"},",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cm_df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cm_df = pd.DataFrame(\n    cm,\n    index=[\"Actual: Low\", \"Actual: Moderate\", \"Actual: High\"],\n    columns=[\"Pred: Low\", \"Pred: Moderate\", \"Pred: High\"]\n)\nfig18 = px.imshow(\n    cm_df, text_auto=True,\n    color_continuous_scale=\"Blues\",\n    labels={\"color\": \"Count\"},\n    aspect=\"auto\"",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig18",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig18 = px.imshow(\n    cm_df, text_auto=True,\n    color_continuous_scale=\"Blues\",\n    labels={\"color\": \"Count\"},\n    aspect=\"auto\"\n)\nfig18.update_layout(height=400)\nst.plotly_chart(fig18, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"👥 :violet[Employee Segments]\", divider=\"violet\")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },

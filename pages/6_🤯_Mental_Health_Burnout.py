@@ -378,7 +378,201 @@ fig14.update_layout(height=400, showlegend=False)
 st.plotly_chart(fig14, width="stretch")
 st.markdown("   ")
 
-st.subheader("🤖 :blue[Predictive Model]", divider="blue")
+st.subheader("🤖 :blue[Burnout Prediction — Random Forest Model]", divider="blue")
+st.markdown("#### Train a Random Forest model to predict burnout level and identify the most important features.")
+st.markdown("   ")
+
+# Model config
+col1, col2, col3 = st.columns(3)
+with col1:
+    n_estimators = st.slider("Number of Trees", 50, 300, 100, step=50)
+with col2:
+    max_depth = st.slider("Max Tree Depth", 3, 20, 8)
+with col3:
+    test_size = st.slider("Test Set Size (%)", 10, 40, 20, step=5)
+    
+train_model = st.button("🚀 Train Model", type="primary")
+
+if train_model:
+    with st.spinner("Training Random Forest model on your dataset..."):
+        model_df = filtered.copy()
+        # Encode categorical columns
+le = LabelEncoder()
+cat_cols_model = ["gender", "job_role", "company_size", "work_mode"]
+for col in cat_cols_model:
+    model_df[col] = le.fit_transform(model_df[col].astype(str))
+    
+# Encode target
+level_map = {"Low": 0, "Moderate": 1, "High": 2}
+model_df["burnout_level_enc"] = model_df["burnout_level"].map(level_map)
+
+feature_cols = [
+"age", "gender", "job_role", "experience_years", "company_size",
+"work_mode", "work_hours_per_week", "overtime_hours", "meetings_per_day",
+"deadlines_missed", "job_satisfaction", "manager_support",
+"work_life_balance", "sleep_hours", "physical_activity_days",
+"screen_time_hours", "caffeine_intake", "social_support_score",
+"has_therapy", "stress_level", "anxiety_score", "depression_score"
+]
+
+X = model_df[feature_cols]
+y_clf = model_df["burnout_level_enc"]
+y_reg = model_df["burnout_score"]
+
+X_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)
+
+# ── Train Classifier ──
+clf = RandomForestClassifier(
+    n_estimators=n_estimators,
+    max_depth=max_depth,
+    random_state=42,
+    n_jobs=-1
+)
+clf.fit(X_train, y_clf_train)
+y_clf_pred = clf.predict(X_test)
+
+# ── Train Regressor ──
+reg = RandomForestRegressor(
+    n_estimators=n_estimators,
+    max_depth=max_depth,
+    random_state=42,
+    n_jobs=-1
+)
+reg.fit(X_train, y_reg_train)
+y_reg_pred = reg.predict(X_test)
+r2 = r2_score(y_reg_test, y_reg_pred)
+
+# ── Classification Report ──
+report = classification_report(
+    y_clf_test, y_clf_pred,
+    target_names=["Low", "Moderate", "High"],
+    output_dict=True
+)
+report_df = pd.DataFrame(report).transpose().round(3)
+
+st.success("✅ Model trained successfully!")
+
+# ── Model Performance KPIs ──
+m1, m2, m3, m4 = st.columns(4)
+with m1:
+    st.markdown(
+        Components.metric_card(
+            title="Classifier Accuracy",
+            value=f"{report['accuracy']:.2%}",
+            delta="🎯",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with m2:
+    st.markdown(
+        Components.metric_card(
+            title="Regression R² Score",
+            value=f"{r2:.4f}",
+            delta="📊",
+            card_type="warning"
+        ), unsafe_allow_html=True
+    )
+with m3:
+    st.markdown(
+        Components.metric_card(
+            title="Trees Trained",
+            value=f"{n_estimators}",
+            delta="🌲",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+with m4:
+    st.markdown(
+        Components.metric_card(
+            title="Test Samples",
+            value=f"{len(y_clf_test):,}",
+            delta="🧪",
+            card_type="success"
+        ), unsafe_allow_html=True
+    )
+st.markdown("   ")
+st.markdown("🔑 :blue-background[Top Feature Importances (Classifier)]")
+
+feat_imp = pd.DataFrame({
+    "feature": feature_cols,
+    "importance": clf.feature_importances_
+}).sort_values("importance", ascending=True).tail(15)
+
+fig15 = px.bar(
+    feat_imp, x="importance", y="feature",
+    orientation="h", color="importance",
+    color_continuous_scale="Blues",
+    text_auto=".3f",
+    labels={"importance": "Feature Importance", "feature": "Feature"}
+)
+fig15.update_layout(height=500, showlegend=False)
+fig15.update_traces(textposition="outside")
+st.plotly_chart(fig15, width="stretch")
+
+st.markdown("   ")
+st.markdown("🔑 :blue-background[Top Feature Importances (Regressor)]")
+
+feat_imp_reg = pd.DataFrame({
+    "feature": feature_cols,
+    "importance": reg.feature_importances_
+}).sort_values("importance", ascending=True).tail(15)
+
+fig16 = px.bar(
+    feat_imp_reg, x="importance", y="feature",
+    orientation="h", color="importance",
+    color_continuous_scale="Oranges",
+    text_auto=".3f",
+    labels={"importance": "Feature Importance", "feature": "Feature"}
+)
+fig16.update_layout(height=500, showlegend=False)
+fig16.update_traces(textposition="outside")
+st.plotly_chart(fig16, width="stretch")
+
+st.markdown("   ")
+st.markdown("📋 :blue-background[Classification Report]")
+st.dataframe(report_df.style.background_gradient(cmap="Blues", subset=["precision", "recall", "f1-score"]),width="stretch")
+
+st.markdown("   ")
+st.markdown("📈 :blue-background[Actual vs Predicted Burnout Score]")
+
+pred_df = pd.DataFrame({
+    "Actual": y_reg_test.values,
+    "Predicted": y_reg_pred
+}).sample(min(1000, len(y_reg_test)), random_state=42)
+
+fig17 = px.scatter(
+    pred_df, x="Actual", y="Predicted",
+    opacity=0.5, trendline="ols",
+    color_discrete_sequence=["#3498db"],
+    labels={"Actual": "Actual Burnout Score", "Predicted": "Predicted Burnout Score"}
+)
+fig17.add_shape(
+    type="line", x0=pred_df["Actual"].min(), y0=pred_df["Actual"].min(),
+    x1=pred_df["Actual"].max(), y1=pred_df["Actual"].max(),
+    line=dict(color="red", dash="dash", width=2)
+)
+fig17.update_layout(height=450)
+st.plotly_chart(fig17, width="stretch")
+
+st.markdown("   ")
+st.markdown("🔢 :blue-background[Confusion Matrix]")
+
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(y_clf_test, y_clf_pred)
+cm_df = pd.DataFrame(
+    cm,
+    index=["Actual: Low", "Actual: Moderate", "Actual: High"],
+    columns=["Pred: Low", "Pred: Moderate", "Pred: High"]
+)
+fig18 = px.imshow(
+    cm_df, text_auto=True,
+    color_continuous_scale="Blues",
+    labels={"color": "Count"},
+    aspect="auto"
+)
+fig18.update_layout(height=400)
+st.plotly_chart(fig18, width="stretch")
+
 st.markdown("   ")
 st.subheader("👥 :violet[Employee Segments]", divider="violet")
 st.markdown("   ")
