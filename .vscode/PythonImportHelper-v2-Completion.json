@@ -872,6 +872,87 @@
         "documentation": {}
     },
     {
+        "label": "continent_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "continent_counts = (\n    filtered['country_continent'].value_counts().reset_index()\n)\ncontinent_counts.columns = ['Continent', 'Count']\nfig_cont = px.bar(\n    continent_counts,\n    x='Count',\n    y='Continent',\n    orientation='h',    \n    color='Count',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "continent_counts.columns",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "continent_counts.columns = ['Continent', 'Count']\nfig_cont = px.bar(\n    continent_counts,\n    x='Count',\n    y='Continent',\n    orientation='h',    \n    color='Count',\n    text_auto=True,\n    color_continuous_scale=\"Oranges\",\n    text='Count'",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_cont",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_cont = px.bar(\n    continent_counts,\n    x='Count',\n    y='Continent',\n    orientation='h',    \n    color='Count',\n    text_auto=True,\n    color_continuous_scale=\"Oranges\",\n    text='Count'\n)",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "rof_counts",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "rof_counts = filtered['ring_of_fire'].value_counts().reset_index()\nrof_counts.columns = ['Ring of Fire', 'Count']\nrof_counts['Ring of Fire'] = rof_counts['Ring of Fire'].map(\n    {True: 'Ring of Fire', False: 'Non-Ring of Fire'}\n)\nfig_rof = px.pie(\n    rof_counts,\n    names='Ring of Fire',\n    values='Count',\n    color_discrete_sequence=['#ff4b4b', '#4b8bff'],",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "rof_counts.columns",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "rof_counts.columns = ['Ring of Fire', 'Count']\nrof_counts['Ring of Fire'] = rof_counts['Ring of Fire'].map(\n    {True: 'Ring of Fire', False: 'Non-Ring of Fire'}\n)\nfig_rof = px.pie(\n    rof_counts,\n    names='Ring of Fire',\n    values='Count',\n    color_discrete_sequence=['#ff4b4b', '#4b8bff'],\n    hole=0.4",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_rof",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_rof = px.pie(\n    rof_counts,\n    names='Ring of Fire',\n    values='Count',\n    color_discrete_sequence=['#ff4b4b', '#4b8bff'],\n    hole=0.4\n)\nfig_rof.update_layout(\n    height=250,\n    margin=dict(l=0, r=0, t=10, b=0),",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "top_countries",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "top_countries = (\n    filtered['country'].value_counts().head(20).reset_index()\n)\ntop_countries.columns = ['Country', 'Count']\nfig_country = px.bar(\n    top_countries,\n    x='Country',\n    y='Count',\n    color='Count',\n    color_continuous_scale='Reds',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "top_countries.columns",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "top_countries.columns = ['Country', 'Count']\nfig_country = px.bar(\n    top_countries,\n    x='Country',\n    y='Count',\n    color='Count',\n    color_continuous_scale='Reds',\n    text='Count'\n)\nfig_country.update_traces(textposition='outside')",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_country",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_country = px.bar(\n    top_countries,\n    x='Country',\n    y='Count',\n    color='Count',\n    color_continuous_scale='Reds',\n    text='Count'\n)\nfig_country.update_traces(textposition='outside')\nfig_country.update_layout(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
         "label": "Colors",
         "kind": 6,
         "importPath": "utils.theme",

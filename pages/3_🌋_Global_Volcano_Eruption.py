@@ -178,6 +178,82 @@ fig_map.update_layout(
     geo=dict(bgcolor='#0e1117', landcolor="#183723", oceancolor="#183a5e")
 )
 st.plotly_chart(fig_map, width="stretch")
+st.markdown("   ")
+st.subheader("🗺️ :green[Eruptions by Continent]", divider="green")
+
+continent_counts = (
+    filtered['country_continent'].value_counts().reset_index()
+)
+continent_counts.columns = ['Continent', 'Count']
+fig_cont = px.bar(
+    continent_counts,
+    x='Count',
+    y='Continent',
+    orientation='h',    
+    color='Count',
+    text_auto=True,
+    color_continuous_scale="Oranges",
+    text='Count'
+)
+fig_cont.update_traces(textposition='outside')
+fig_cont.update_layout(
+    height=300,
+    showlegend=False,
+    coloraxis_showscale=False,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor='#0e1117',
+    plot_bgcolor='#0e1117',
+    font=dict(color='white')
+)
+st.plotly_chart(fig_cont, width="stretch")
+st.markdown("   ")
+st.subheader("🗺️ :green[Ring of Fire vs. Non-Ring of Fire]", divider="green")
+
+rof_counts = filtered['ring_of_fire'].value_counts().reset_index()
+rof_counts.columns = ['Ring of Fire', 'Count']
+rof_counts['Ring of Fire'] = rof_counts['Ring of Fire'].map(
+    {True: 'Ring of Fire', False: 'Non-Ring of Fire'}
+)
+fig_rof = px.pie(
+    rof_counts,
+    names='Ring of Fire',
+    values='Count',
+    color_discrete_sequence=['#ff4b4b', '#4b8bff'],
+    hole=0.4
+)
+fig_rof.update_layout(
+    height=250,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor='#0e1117',
+    font=dict(color='white')
+)
+st.plotly_chart(fig_rof, width="stretch")
+st.markdown("   ")
+st.subheader("🗺️ :green[Eruption Count by Country (Top 20)]", divider="green")
+
+top_countries = (
+    filtered['country'].value_counts().head(20).reset_index()
+)
+top_countries.columns = ['Country', 'Count']
+fig_country = px.bar(
+    top_countries,
+    x='Country',
+    y='Count',
+    color='Count',
+    color_continuous_scale='Reds',
+    text='Count'
+)
+fig_country.update_traces(textposition='outside')
+fig_country.update_layout(
+    height=400,
+    coloraxis_showscale=False,
+    margin=dict(l=0, r=0, t=10, b=40),
+    paper_bgcolor='#0e1117',
+    plot_bgcolor='#0e1117',
+    font=dict(color='white'),
+    xaxis=dict(tickangle=-35)
+)
+st.plotly_chart(fig_country, width="stretch")
 
 st.subheader("📈 :yellow[Temporal Patterns]", divider="yellow")
 st.markdown("   ")
