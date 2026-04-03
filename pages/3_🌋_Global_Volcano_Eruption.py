@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from utils.theme import Components
-from pages.1_📽_Netflix_Content_Analysis import filtered_df
+
 
 st.set_page_config(
         page_title=f"Global Volcano Eruption Analysis",

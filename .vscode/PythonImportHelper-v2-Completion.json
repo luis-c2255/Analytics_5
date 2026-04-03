@@ -125,14 +125,6 @@
         "documentation": {}
     },
     {
-        "label": "filtered_df",
-        "importPath": "pages.1_📽_Netflix_Content_Analysis",
-        "description": "pages.1_📽_Netflix_Content_Analysis",
-        "isExtraImport": true,
-        "detail": "pages.1_📽_Netflix_Content_Analysis",
-        "documentation": {}
-    },
-    {
         "label": "load_data",
         "kind": 2,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
