@@ -490,85 +490,85 @@ if train_model:
         st.markdown("   ")
         st.markdown("🔑 :blue-background[Top Feature Importances (Classifier)]")
 
-feat_imp = pd.DataFrame({
+        feat_imp = pd.DataFrame({
             "feature": feature_cols,
             "importance": clf.feature_importances_
         }).sort_values("importance", ascending=True).tail(15)
 
-fig15 = px.bar(
-    feat_imp, x="importance", y="feature",
-    orientation="h", color="importance",
-    color_continuous_scale="Blues",
-    text_auto=".3f",
-    labels={"importance": "Feature Importance", "feature": "Feature"}
-)
-fig15.update_layout(height=500, showlegend=False)
-fig15.update_traces(textposition="outside")
-st.plotly_chart(fig15, width="stretch")
+        fig15 = px.bar(
+            feat_imp, x="importance", y="feature",
+            orientation="h", color="importance",
+            color_continuous_scale="Blues",
+            text_auto=".3f",
+            labels={"importance": "Feature Importance", "feature": "Feature"}
+    )
+        fig15.update_layout(height=500, showlegend=False)
+        fig15.update_traces(textposition="outside")
+        st.plotly_chart(fig15, width="stretch")
 
-st.markdown("   ")
-st.markdown("🔑 :blue-background[Top Feature Importances (Regressor)]")
+        st.markdown("   ")
+        st.markdown("🔑 :blue-background[Top Feature Importances (Regressor)]")
 
-feat_imp_reg = pd.DataFrame({
-    "feature": feature_cols,
-    "importance": reg.feature_importances_
-}).sort_values("importance", ascending=True).tail(15)
+        feat_imp_reg = pd.DataFrame({
+            "feature": feature_cols,
+            "importance": reg.feature_importances_
+        }).sort_values("importance", ascending=True).tail(15)
 
-fig16 = px.bar(
+        fig16 = px.bar(
     feat_imp_reg, x="importance", y="feature",
     orientation="h", color="importance",
     color_continuous_scale="Oranges",
     text_auto=".3f",
     labels={"importance": "Feature Importance", "feature": "Feature"}
 )
-fig16.update_layout(height=500, showlegend=False)
-fig16.update_traces(textposition="outside")
-st.plotly_chart(fig16, width="stretch")
+        fig16.update_layout(height=500, showlegend=False)
+        fig16.update_traces(textposition="outside")
+        st.plotly_chart(fig16, width="stretch")
 
-st.markdown("   ")
-st.markdown("📋 :blue-background[Classification Report]")
-st.dataframe(report_df.style.background_gradient(cmap="Blues", subset=["precision", "recall", "f1-score"]),width="stretch")
+        st.markdown("   ")
+        st.markdown("📋 :blue-background[Classification Report]")
+        st.dataframe(report_df.style.background_gradient(cmap="Blues", subset=["precision", "recall", "f1-score"]),width="stretch")
 
-st.markdown("   ")
-st.markdown("📈 :blue-background[Actual vs Predicted Burnout Score]")
+        st.markdown("   ")
+        st.markdown("📈 :blue-background[Actual vs Predicted Burnout Score]")
 
-pred_df = pd.DataFrame({
+        pred_df = pd.DataFrame({
     "Actual": y_reg_test.values,
     "Predicted": y_reg_pred
 }).sample(min(1000, len(y_reg_test)), random_state=42)
 
-fig17 = px.scatter(
+        fig17 = px.scatter(
     pred_df, x="Actual", y="Predicted",
     opacity=0.5, trendline="ols",
     color_discrete_sequence=["#3498db"],
     labels={"Actual": "Actual Burnout Score", "Predicted": "Predicted Burnout Score"}
 )
-fig17.add_shape(
+        fig17.add_shape(
     type="line", x0=pred_df["Actual"].min(), y0=pred_df["Actual"].min(),
     x1=pred_df["Actual"].max(), y1=pred_df["Actual"].max(),
     line=dict(color="red", dash="dash", width=2)
 )
-fig17.update_layout(height=450)
-st.plotly_chart(fig17, width="stretch")
+        fig17.update_layout(height=450)
+        st.plotly_chart(fig17, width="stretch")
 
-st.markdown("   ")
-st.markdown("🔢 :blue-background[Confusion Matrix]")
+        st.markdown("   ")
+        st.markdown("🔢 :blue-background[Confusion Matrix]")
 
-from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_clf_test, y_clf_pred)
-cm_df = pd.DataFrame(
+        from sklearn.metrics import confusion_matrix
+        cm = confusion_matrix(y_clf_test, y_clf_pred)
+        cm_df = pd.DataFrame(
     cm,
     index=["Actual: Low", "Actual: Moderate", "Actual: High"],
     columns=["Pred: Low", "Pred: Moderate", "Pred: High"]
 )
-fig18 = px.imshow(
+        fig18 = px.imshow(
     cm_df, text_auto=True,
     color_continuous_scale="Blues",
     labels={"color": "Count"},
     aspect="auto"
 )
-fig18.update_layout(height=400)
-st.plotly_chart(fig18, width="stretch")
+        fig18.update_layout(height=400)
+        st.plotly_chart(fig18, width="stretch")
 
 st.markdown("   ")
 st.subheader("👥 :violet[Employee Segments]", divider="violet")
