@@ -165,7 +165,7 @@ fig_map = px.scatter_geo(
         'latitude': False,
         'longitude': False
     },
-    color_continuous_scale="Reds",
+    color_continuous_scale="greens",
     size=map_color,
     size_max=18,
     projection='natural earth',
