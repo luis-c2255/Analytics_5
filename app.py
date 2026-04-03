@@ -41,7 +41,7 @@ with col3:
     icon="🖥️", icon_position="left", width="stretch"
     )
 st.markdown("   ")
-col4, col5, col6 = st.columns(3)
+col4, col5 = st.columns(2)
 with col4:
     st.link_button("Amazon Sales Analysis",
     "https:",
@@ -52,11 +52,7 @@ with col5:
     "https:",
     icon="🤯", icon_position="left", width="stretch"
     )
-with col6:
-    st.link_button("Spotify Wrapped 2025",
-    "https:",
-    icon="🎶", icon_position="left", width="stretch"
-    )
+
 
 # ============================================
 # FOOTER

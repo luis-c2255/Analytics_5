@@ -132,14 +132,6 @@
         "documentation": {}
     },
     {
-        "label": "Components",
-        "importPath": "utils.theme",
-        "description": "utils.theme",
-        "isExtraImport": true,
-        "detail": "utils.theme",
-        "documentation": {}
-    },
-    {
         "label": "numpy",
         "kind": 6,
         "isExtraImport": true,
