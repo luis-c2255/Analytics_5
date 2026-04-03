@@ -1011,6 +1011,13 @@ silent_pct_total = len(silent) / max(len(risk_df), 1) * 100
 avg_sleep_high_risk = high_risk["sleep_hours"].mean()
 avg_overtime_high_risk = high_risk["overtime_hours"].mean()
 
+st.write(f"{top_risk_role}")
+st.write(f"{top_risk_mode}")
+st.write(f"{top_risk_company}")
+st.write(f"{silent_pct_total:.1f}%")
+st.write(f"{avg_sleep_high_risk:.1f}")
+st.write(f"{avg_overtime_high_risk:.1f}")
+
 with st.expander("🔴 Highest Burnout Risk Group", expanded=True):
     st.markdown(
         "- **Job Role at higher risk:** {top_risk_role} - prioritize welness check-ins for this group."
