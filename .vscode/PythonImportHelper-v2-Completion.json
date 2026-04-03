@@ -2499,6 +2499,15 @@
         "documentation": {}
     },
     {
+        "label": "compute_risk_scores",
+        "kind": 2,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "def compute_risk_scores(data):\n    risk_df = data.copy()\n    # Normalize key risk indicators to 0-1\n    def norm(series):\n        return (series - series.min()) / (series.max() - series.min() + 1e-9)\n    risk_df[\"risk_score\"] = (\n        norm(risk_df[\"burnout_score\"]) * 0.30 +\n        norm(risk_df[\"stress_level\"]) * 0.20 +\n        norm(risk_df[\"anxiety_score\"]) * 0.15 +\n        norm(risk_df[\"depression_score\"]) * 0.15 +",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
         "label": "df",
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
@@ -2927,6 +2936,240 @@
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
         "peekOfCode": "train_model = st.button(\"🚀 Train Model\", type=\"primary\")\nif train_model:\n    with st.spinner(\"Training Random Forest model on your dataset...\"):\n        model_df = filtered.copy()\n        # Encode categorical columns\n        le = LabelEncoder()\n        cat_cols_model = [\"gender\", \"job_role\", \"company_size\", \"work_mode\"]\n        for col in cat_cols_model:\n            model_df[col] = le.fit_transform(model_df[col].astype(str))\n            # Encode target",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "run_clustering",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "run_clustering = st.button(\"🔍 Run Clustering\", type=\"primary\")\nif run_clustering and len(cluster_features) >= 2:\n    with st.spinner(\"Running K-Means clustering...\"):\n        # Prepare data\n        cluster_df = filtered[cluster_features].dropna()\n        scaler = StandardScaler()\n        X_scaled = scaler.fit_transform(cluster_df)\n        # Elbow method data\n        inertias = []\n        k_range = range(2, 9)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "kmeans",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)\ncluster_labels = kmeans.fit_predict(X_scaled)\ncluster_df = filtered.loc[cluster_df.index].copy()\ncluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cluster_labels",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cluster_labels = kmeans.fit_predict(X_scaled)\ncluster_df = filtered.loc[cluster_df.index].copy()\ncluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")\n    elbow_df = pd.DataFrame({\"K\": list(k_range), \"Inertia\": inertias})",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cluster_df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cluster_df = filtered.loc[cluster_df.index].copy()\ncluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")\n    elbow_df = pd.DataFrame({\"K\": list(k_range), \"Inertia\": inertias})\n    fig19 = px.line(",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cluster_df[\"Cluster\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")\n    elbow_df = pd.DataFrame({\"K\": list(k_range), \"Inertia\": inertias})\n    fig19 = px.line(\n        elbow_df, x=\"K\", y=\"Inertia\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "radar_features",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "radar_features = [f for f in cluster_features if f in cluster_df.columns]\ncluster_means = cluster_df.groupby(\"Cluster\")[radar_features].mean()\n# Normalize for radar (0-1 scale)\ncluster_means_norm = (cluster_means - cluster_means.min()) / (cluster_means.max() - cluster_means.min() + 1e-9)\nfig21 = go.Figure()\ncolors_radar = px.colors.qualitative.Set2\nfor i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):\n    fig21.add_trace(go.Scatterpolar(\n        r=row.values.tolist() + [row.values[0]],\n        theta=radar_features + [radar_features[0]],",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cluster_means",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cluster_means = cluster_df.groupby(\"Cluster\")[radar_features].mean()\n# Normalize for radar (0-1 scale)\ncluster_means_norm = (cluster_means - cluster_means.min()) / (cluster_means.max() - cluster_means.min() + 1e-9)\nfig21 = go.Figure()\ncolors_radar = px.colors.qualitative.Set2\nfor i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):\n    fig21.add_trace(go.Scatterpolar(\n        r=row.values.tolist() + [row.values[0]],\n        theta=radar_features + [radar_features[0]],\n        fill=\"toself\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cluster_means_norm",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cluster_means_norm = (cluster_means - cluster_means.min()) / (cluster_means.max() - cluster_means.min() + 1e-9)\nfig21 = go.Figure()\ncolors_radar = px.colors.qualitative.Set2\nfor i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):\n    fig21.add_trace(go.Scatterpolar(\n        r=row.values.tolist() + [row.values[0]],\n        theta=radar_features + [radar_features[0]],\n        fill=\"toself\",\n        name=cluster_name,\n        line_color=colors_radar[i % len(colors_radar)],",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig21",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig21 = go.Figure()\ncolors_radar = px.colors.qualitative.Set2\nfor i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):\n    fig21.add_trace(go.Scatterpolar(\n        r=row.values.tolist() + [row.values[0]],\n        theta=radar_features + [radar_features[0]],\n        fill=\"toself\",\n        name=cluster_name,\n        line_color=colors_radar[i % len(colors_radar)],\n        opacity=0.7",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "colors_radar",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "colors_radar = px.colors.qualitative.Set2\nfor i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):\n    fig21.add_trace(go.Scatterpolar(\n        r=row.values.tolist() + [row.values[0]],\n        theta=radar_features + [radar_features[0]],\n        fill=\"toself\",\n        name=cluster_name,\n        line_color=colors_radar[i % len(colors_radar)],\n        opacity=0.7\n))",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "cluster_means_display",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "cluster_means_display = cluster_df.groupby(\"Cluster\")[cluster_features].mean().round(2)\nst.dataframe(cluster_means_display.style.background_gradient(cmap=\"RdYlGn_r\", axis=0),width=\"stretch\")\n# ── Burnout Score by Cluster ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.subheader(\"🔥 :violet-background[Burnout Score by Segment]\")\n    fig22 = px.box(\n        cluster_df, x=\"Cluster\", y=\"burnout_score\",\n        color=\"Cluster\",\n        color_discrete_sequence=px.colors.qualitative.Set2,",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "sample_cluster",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "sample_cluster = cluster_df.sample(min(3000, len(cluster_df)), random_state=42)\nfig24 = px.scatter(\n    sample_cluster, x=\"stress_level\", y=\"burnout_score\",\n    color=\"Cluster\",\n    color_discrete_sequence=px.colors.qualitative.Set2,\n    opacity=0.6,\n    labels={\"stress_level\": \"Stress Level\", \"burnout_score\": \"Burnout Score\"},\n    hover_data=[\"job_role\", \"work_mode\", \"sleep_hours\", \"work_hours_per_week\"]\n)\nfig24.update_layout(height=450)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig24",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig24 = px.scatter(\n    sample_cluster, x=\"stress_level\", y=\"burnout_score\",\n    color=\"Cluster\",\n    color_discrete_sequence=px.colors.qualitative.Set2,\n    opacity=0.6,\n    labels={\"stress_level\": \"Stress Level\", \"burnout_score\": \"Burnout Score\"},\n    hover_data=[\"job_role\", \"work_mode\", \"sleep_hours\", \"work_hours_per_week\"]\n)\nfig24.update_layout(height=450)\nst.plotly_chart(fig24, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "help_cluster",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "help_cluster = cluster_df.groupby(\"Cluster\").agg(pct_therapy=(\"has_therapy\", \"mean\"),pct_seeks_help=(\"seeks_professional_help\", \"mean\")).reset_index()\nhelp_cluster[\"pct_therapy\"] = (help_cluster[\"pct_therapy\"] * 100).round(2)\nhelp_cluster[\"pct_seeks_help\"] = (help_cluster[\"pct_seeks_help\"] * 100).round(2)\nhelp_melted = help_cluster.melt(\n    id_vars=\"Cluster\",\n    value_vars=[\"pct_therapy\", \"pct_seeks_help\"],\n    var_name=\"Metric\", value_name=\"Percentage\"\n)\nhelp_melted[\"Metric\"] = help_melted[\"Metric\"].map({\n    \"pct_therapy\": \"In Therapy (%)\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "help_cluster[\"pct_therapy\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "help_cluster[\"pct_therapy\"] = (help_cluster[\"pct_therapy\"] * 100).round(2)\nhelp_cluster[\"pct_seeks_help\"] = (help_cluster[\"pct_seeks_help\"] * 100).round(2)\nhelp_melted = help_cluster.melt(\n    id_vars=\"Cluster\",\n    value_vars=[\"pct_therapy\", \"pct_seeks_help\"],\n    var_name=\"Metric\", value_name=\"Percentage\"\n)\nhelp_melted[\"Metric\"] = help_melted[\"Metric\"].map({\n    \"pct_therapy\": \"In Therapy (%)\",\n    \"pct_seeks_help\": \"Seeks Professional Help (%)\"",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "help_cluster[\"pct_seeks_help\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "help_cluster[\"pct_seeks_help\"] = (help_cluster[\"pct_seeks_help\"] * 100).round(2)\nhelp_melted = help_cluster.melt(\n    id_vars=\"Cluster\",\n    value_vars=[\"pct_therapy\", \"pct_seeks_help\"],\n    var_name=\"Metric\", value_name=\"Percentage\"\n)\nhelp_melted[\"Metric\"] = help_melted[\"Metric\"].map({\n    \"pct_therapy\": \"In Therapy (%)\",\n    \"pct_seeks_help\": \"Seeks Professional Help (%)\"\n})",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "help_melted",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "help_melted = help_cluster.melt(\n    id_vars=\"Cluster\",\n    value_vars=[\"pct_therapy\", \"pct_seeks_help\"],\n    var_name=\"Metric\", value_name=\"Percentage\"\n)\nhelp_melted[\"Metric\"] = help_melted[\"Metric\"].map({\n    \"pct_therapy\": \"In Therapy (%)\",\n    \"pct_seeks_help\": \"Seeks Professional Help (%)\"\n})\nfig27 = px.bar(",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "help_melted[\"Metric\"]",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "help_melted[\"Metric\"] = help_melted[\"Metric\"].map({\n    \"pct_therapy\": \"In Therapy (%)\",\n    \"pct_seeks_help\": \"Seeks Professional Help (%)\"\n})\nfig27 = px.bar(\n    help_melted, x=\"Cluster\", y=\"Percentage\",\n    color=\"Metric\", barmode=\"group\",\n    color_discrete_sequence=[\"#3498db\", \"#e74c3c\"],\n    text_auto=\".1f\",\n    labels={\"Percentage\": \"Percentage (%)\", \"Cluster\": \"Segment\"}",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig27",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig27 = px.bar(\n    help_melted, x=\"Cluster\", y=\"Percentage\",\n    color=\"Metric\", barmode=\"group\",\n    color_discrete_sequence=[\"#3498db\", \"#e74c3c\"],\n    text_auto=\".1f\",\n    labels={\"Percentage\": \"Percentage (%)\", \"Cluster\": \"Segment\"}\n)\nfig27.update_layout(height=400)\nfig27.update_traces(textposition=\"outside\")\nst.plotly_chart(fig27, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "risk_df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "risk_df = compute_risk_scores(filtered)\n# ── Risk KPIs ──\ncol1, col2, col3, col4 = st.columns(4)\nhigh_risk = risk_df[risk_df[\"risk_score\"] >= 65]\nsilent = risk_df[risk_df[\"silent_sufferer\"] == 1]\navg_risk = risk_df[\"risk_score\"].mean()\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"High-Risk Employees\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "high_risk",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "high_risk = risk_df[risk_df[\"risk_score\"] >= 65]\nsilent = risk_df[risk_df[\"silent_sufferer\"] == 1]\navg_risk = risk_df[\"risk_score\"].mean()\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"High-Risk Employees\",\n            value=f\"{len(high_risk):,}\",\n            delta=\"🔴\",\n            card_type=\"error\"",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "silent",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "silent = risk_df[risk_df[\"silent_sufferer\"] == 1]\navg_risk = risk_df[\"risk_score\"].mean()\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"High-Risk Employees\",\n            value=f\"{len(high_risk):,}\",\n            delta=\"🔴\",\n            card_type=\"error\"\n        ), unsafe_allow_html=True",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "avg_risk",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "avg_risk = risk_df[\"risk_score\"].mean()\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"High-Risk Employees\",\n            value=f\"{len(high_risk):,}\",\n            delta=\"🔴\",\n            card_type=\"error\"\n        ), unsafe_allow_html=True\n    )",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig28",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig28 = px.histogram(\n    risk_df, x=\"risk_score\", nbins=50,\n    color_discrete_sequence=[\"#e74c3c\"],\n    labels={\"risk_score\": \"Risk Score (0-100)\", \"count\": \"Employee Count\"}\n)\nfig28.add_vline(x=65, line_dash=\"dash\", line_color=\"darkred\",\nannotation_text=\"High Risk Threshold (65)\",\nannotation_position=\"top right\")\nfig28.update_layout(height=380)\nst.plotly_chart(fig28, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "silent_role",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "silent_role = (\n    risk_df[risk_df[\"silent_sufferer\"] == 1]\n    .groupby(\"job_role\").size()\n    .sort_values(ascending=True)\n    .reset_index(name=\"count\")\n)\nfig29 = px.bar(\n    silent_role, x=\"count\", y=\"job_role\",\n    orientation=\"h\", color=\"count\",\n    color_continuous_scale=\"Reds\", text_auto=True,",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig29",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig29 = px.bar(\n    silent_role, x=\"count\", y=\"job_role\",\n    orientation=\"h\", color=\"count\",\n    color_continuous_scale=\"Reds\", text_auto=True,\n    labels={\"count\": \"Silent Sufferers\", \"job_role\": \"Job Role\"}\n)\nfig29.update_layout(height=380, showlegend=False)\nfig29.update_traces(textposition=\"outside\")\nst.plotly_chart(fig29, width=\"stretch\")\nst.markdown(\"   \")",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },

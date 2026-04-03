@@ -571,10 +571,322 @@ if train_model:
         st.plotly_chart(fig18, width="stretch")
 
 st.markdown("   ")
-st.subheader("👥 :violet[Employee Segments]", divider="violet")
+st.subheader("👥 :violet[Employee Segmentation — K-Means Clustering]", divider="violet")
+st.markdown("#### Discover natural groupings of employees based on their work habits, lifestyle, and mental health scores.")
 st.markdown("   ")
-st.subheader("⚠️ :yellow[Risk Profiles]", divider="yellow")
+# Clustering config
+col1, col2 = st.columns(2)
+with col1:
+    n_clusters = st.slider("Number of Clusters (K)", 2, 8, 4)
+with col2:
+    cluster_features = st.multiselect(
+        "Select Features for Clustering",
+        options=[
+            "work_hours_per_week", "overtime_hours", "sleep_hours",
+            "stress_level", "anxiety_score", "depression_score",
+            "burnout_score", "work_life_balance", "job_satisfaction",
+            "manager_support", "social_support_score", "screen_time_hours",
+            "caffeine_intake", "physical_activity_days", "meetings_per_day"
+        ],
+        default=[
+            "work_hours_per_week", "sleep_hours", "stress_level",
+            "anxiety_score", "burnout_score", "work_life_balance",
+            "job_satisfaction", "social_support_score"]
+)
+run_clustering = st.button("🔍 Run Clustering", type="primary")
+if run_clustering and len(cluster_features) >= 2:
+    with st.spinner("Running K-Means clustering..."):
+        # Prepare data
+        cluster_df = filtered[cluster_features].dropna()
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(cluster_df)
+        # Elbow method data
+        inertias = []
+        k_range = range(2, 9)
+        for k in k_range:
+            km_temp = KMeans(n_clusters=k, random_state=42, n_init=10)
+            km_temp.fit(X_scaled)
+            inertias.append(km_temp.inertia_)
+# Final clustering
+kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+cluster_labels = kmeans.fit_predict(X_scaled)
+cluster_df = filtered.loc[cluster_df.index].copy()
+cluster_df["Cluster"] = [f"Segment {i+1}" for i in cluster_labels]
+
+st.success(f"✅ Identified {n_clusters} employee segments!")
 st.markdown("   ")
+# ── Elbow Curve ──
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("📐 :violet-background[Elbow Curve — Optimal K]")
+    elbow_df = pd.DataFrame({"K": list(k_range), "Inertia": inertias})
+    fig19 = px.line(
+        elbow_df, x="K", y="Inertia",
+        markers=True, color_discrete_sequence=["#3498db"],
+        labels={"K": "Number of Clusters", "Inertia": "Inertia (WCSS)"}
+)
+    fig19.add_vline(
+        x=n_clusters, line_dash="dash",
+        line_color="red", annotation_text=f"Selected K={n_clusters}"
+)
+    fig19.update_layout(height=380)
+    st.plotly_chart(fig19, width="stretch")
+with col2:
+    st.subheader("🥧 :violet-background[Segment Size Distribution]")
+    seg_counts = cluster_df["Cluster"].value_counts().reset_index()
+    seg_counts.columns = ["Cluster", "Count"]
+    fig20 = px.pie(
+        seg_counts, values="Count", names="Cluster",
+        hole=0.4,
+        color_discrete_sequence=px.colors.qualitative.Set2
+)
+    fig20.update_traces(textposition="inside", textinfo="percent+label")
+    fig20.update_layout(height=380)
+    st.plotly_chart(fig20, width="stretch")
+# ── Cluster Profile Radar Chart ──
+st.markdown("🕸️ :violet-background[Cluster Profile Radar Chart]")
+radar_features = [f for f in cluster_features if f in cluster_df.columns]
+cluster_means = cluster_df.groupby("Cluster")[radar_features].mean()
+
+# Normalize for radar (0-1 scale)
+cluster_means_norm = (cluster_means - cluster_means.min()) / (cluster_means.max() - cluster_means.min() + 1e-9)
+
+fig21 = go.Figure()
+colors_radar = px.colors.qualitative.Set2
+for i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):
+    fig21.add_trace(go.Scatterpolar(
+        r=row.values.tolist() + [row.values[0]],
+        theta=radar_features + [radar_features[0]],
+        fill="toself",
+        name=cluster_name,
+        line_color=colors_radar[i % len(colors_radar)],
+        opacity=0.7
+))
+fig21.update_layout(
+    polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
+    showlegend=True, height=500
+)
+st.plotly_chart(fig21, width="stretch")
+
+# ── Cluster Means Table ──
+st.markdown("📊 :violet-background[Cluster Feature Averages]")
+cluster_means_display = cluster_df.groupby("Cluster")[cluster_features].mean().round(2)
+st.dataframe(cluster_means_display.style.background_gradient(cmap="RdYlGn_r", axis=0),width="stretch")
+
+# ── Burnout Score by Cluster ──
+col1, col2 = st.columns(2)
+
+with col1:
+    st.subheader("🔥 :violet-background[Burnout Score by Segment]")
+    fig22 = px.box(
+        cluster_df, x="Cluster", y="burnout_score",
+        color="Cluster",
+        color_discrete_sequence=px.colors.qualitative.Set2,
+        labels={"burnout_score": "Burnout Score", "Cluster": "Segment"}
+)
+    fig22.update_layout(height=400, showlegend=False)
+    st.plotly_chart(fig22, width="stretch")
+
+with col2:
+    st.subheader("😴 Sleep Hours by Segment")
+    fig23 = px.box(
+        cluster_df, x="Cluster", y="sleep_hours",
+        color="Cluster",
+        color_discrete_sequence=px.colors.qualitative.Set2,
+        labels={"sleep_hours": "Sleep Hours", "Cluster": "Segment"}
+)
+    fig23.update_layout(height=400, showlegend=False)
+    st.plotly_chart(fig23, width="stretch")
+
+# ── Scatter: Burnout vs Stress colored by Cluster ──
+st.markdown("🔵 :violet-background[Burnout vs Stress Level — By Segment]")
+sample_cluster = cluster_df.sample(min(3000, len(cluster_df)), random_state=42)
+fig24 = px.scatter(
+    sample_cluster, x="stress_level", y="burnout_score",
+    color="Cluster",
+    color_discrete_sequence=px.colors.qualitative.Set2,
+    opacity=0.6,
+    labels={"stress_level": "Stress Level", "burnout_score": "Burnout Score"},
+    hover_data=["job_role", "work_mode", "sleep_hours", "work_hours_per_week"]
+)
+fig24.update_layout(height=450)
+st.plotly_chart(fig24, width="stretch")
+
+# ── Work Mode Distribution by Cluster ──
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("💼 :violet-background[Work Mode Distribution by Segment]")
+    work_mode_cluster = (
+        cluster_df.groupby(["Cluster", "work_mode"])
+        .size().reset_index(name="count")
+)
+    fig25 = px.bar(
+        work_mode_cluster, x="Cluster", y="count",
+        color="work_mode", barmode="group",
+        color_discrete_sequence=px.colors.qualitative.Pastel,
+        labels={"count": "Employee Count", "work_mode": "Work Mode"}
+)
+    fig25.update_layout(height=400)
+    st.plotly_chart(fig25, width="stretch")
+
+with col2:
+    st.markdown("🏢 :violet-background[Company Size Distribution by Segment]")
+    company_cluster = (
+        cluster_df.groupby(["Cluster", "company_size"])
+        .size().reset_index(name="count")
+)
+    fig26 = px.bar(
+        company_cluster, x="Cluster", y="count",
+        color="company_size", barmode="group",
+        color_discrete_sequence=px.colors.qualitative.Pastel1,
+        labels={"count": "Employee Count", "company_size": "Company Size"}
+)
+    fig26.update_layout(height=400)
+    st.plotly_chart(fig26, width="stretch")
+
+# ── Therapy & Help-Seeking by Cluster ──
+st.markdown("🧘 :violet-background[Therapy & Help-Seeking Behavior by Segment]")
+help_cluster = cluster_df.groupby("Cluster").agg(pct_therapy=("has_therapy", "mean"),pct_seeks_help=("seeks_professional_help", "mean")).reset_index()
+help_cluster["pct_therapy"] = (help_cluster["pct_therapy"] * 100).round(2)
+help_cluster["pct_seeks_help"] = (help_cluster["pct_seeks_help"] * 100).round(2)
+
+help_melted = help_cluster.melt(
+    id_vars="Cluster",
+    value_vars=["pct_therapy", "pct_seeks_help"],
+    var_name="Metric", value_name="Percentage"
+)
+help_melted["Metric"] = help_melted["Metric"].map({
+    "pct_therapy": "In Therapy (%)",
+    "pct_seeks_help": "Seeks Professional Help (%)"
+})
+fig27 = px.bar(
+    help_melted, x="Cluster", y="Percentage",
+    color="Metric", barmode="group",
+    color_discrete_sequence=["#3498db", "#e74c3c"],
+    text_auto=".1f",
+    labels={"Percentage": "Percentage (%)", "Cluster": "Segment"}
+)
+fig27.update_layout(height=400)
+fig27.update_traces(textposition="outside")
+st.plotly_chart(fig27, width="stretch")
+
+st.subheader("⚠️ :yellow[High-Risk Employee Profiles]", divider="yellow")
+st.markdown("#### Identify employees most vulnerable to burnout who are not seeking help — critical for HR intervention.")
+
+# ── Risk Scoring ──
+@st.cache_data
+def compute_risk_scores(data):
+    risk_df = data.copy()
+    # Normalize key risk indicators to 0-1
+    def norm(series):
+        return (series - series.min()) / (series.max() - series.min() + 1e-9)
+    risk_df["risk_score"] = (
+        norm(risk_df["burnout_score"]) * 0.30 +
+        norm(risk_df["stress_level"]) * 0.20 +
+        norm(risk_df["anxiety_score"]) * 0.15 +
+        norm(risk_df["depression_score"]) * 0.15 +
+        norm(risk_df["overtime_hours"]) * 0.10 +
+        (1 - norm(risk_df["sleep_hours"])) * 0.05 +
+        (1 - norm(risk_df["work_life_balance"])) * 0.05
+    ) * 100
+    # Flag silent sufferers: high risk but not seeking help
+    risk_df["silent_sufferer"] = (
+        (risk_df["risk_score"] >= 65) &
+        (risk_df["seeks_professional_help"] == 0) &
+        (risk_df["has_therapy"] == 0)
+    ).astype(int)
+    return risk_df
+risk_df = compute_risk_scores(filtered)
+# ── Risk KPIs ──
+col1, col2, col3, col4 = st.columns(4)
+high_risk = risk_df[risk_df["risk_score"] >= 65]
+silent = risk_df[risk_df["silent_sufferer"] == 1]
+avg_risk = risk_df["risk_score"].mean()
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="High-Risk Employees",
+            value=f"{len(high_risk):,}",
+            delta="🔴",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Silent Sufferers",
+            value=f"{len(silent):,}",
+            delta="🤫",
+            card_type="warning"
+        ), unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Avg Risk Score",
+            value=f"{avg_risk:.1f}/100",
+            delta="📊",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="🆘 Untreated High-Risk",
+            value=f"{len(high_risk[high_risk['seeks_professional_help']==0]):,}",
+            delta=f"{len(high_risk[high_risk['seeks_professional_help']==0])/max(len(high_risk),1)*100:.1f}% of high-risk",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+st.markdown("   ")
+st.markdown("📊 :yellow-background[Risk Score Distribution]")
+fig28 = px.histogram(
+    risk_df, x="risk_score", nbins=50,
+    color_discrete_sequence=["#e74c3c"],
+    labels={"risk_score": "Risk Score (0-100)", "count": "Employee Count"}
+)
+fig28.add_vline(x=65, line_dash="dash", line_color="darkred",
+annotation_text="High Risk Threshold (65)",
+annotation_position="top right")
+fig28.update_layout(height=380)
+st.plotly_chart(fig28, width="stretch")
+st.markdown("   ")
+
+st.markdown("🤫 :yellow-background[Silent Sufferers by Job Role]")
+silent_role = (
+    risk_df[risk_df["silent_sufferer"] == 1]
+    .groupby("job_role").size()
+    .sort_values(ascending=True)
+    .reset_index(name="count")
+)
+fig29 = px.bar(
+    silent_role, x="count", y="job_role",
+    orientation="h", color="count",
+    color_continuous_scale="Reds", text_auto=True,
+    labels={"count": "Silent Sufferers", "job_role": "Job Role"}
+)
+fig29.update_layout(height=380, showlegend=False)
+fig29.update_traces(textposition="outside")
+st.plotly_chart(fig29, width="stretch")
+st.markdown("   ")
+
+st.markdown("💼 :yellow-background[Avg Risk Score by Work Mode]")
+
+st.markdown("🏢 :yellow-background[Avg Risk Score by Company Size]")
+
+
+st.markdown("👤 :yellow-background[Risk Score Across Age Groups]")
+
+st.subheader("🔬 :yellow[Risk Score Across Age Groups]")
+
+st.markdown("😰 :yellow-background[Stress vs Burnout — High Risk Employees]")
+
+st.markdown("🛌 :yellow-background[Sleep vs Work Hours — High Risk Employees]")
+
+st.markdown("🤫 :yellow-background[Silent Sufferer Profile Summary]")
+
+st.subheader("💡 :yellow-background[Silent Sufferer Profile Summary]")
 # ============================================
 # FOOTER
 # ============================================
