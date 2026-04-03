@@ -1,5 +1,11 @@
 import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from utils.theme import Components
+from pages.1_📽_Netflix_Content_Analysis import filtered_df
 
 st.set_page_config(
         page_title=f"Global Volcano Eruption Analysis",
@@ -13,12 +19,176 @@ try:
 except FileNotFoundError:
     pass
 
+@st.cache_data
+def load_data():
+    df = pd.read_csv('volcanoes_cleaned.csv')
+    df.replace('Unknown', np.nan, inplace=True)
+    numeric_cols = [
+        "deaths_total", "tsunami_runups", "tsunami_magnitude",
+        "tsunami_intensity", "earthquake_magnitude",
+        "avg_eruption_return_period_years", "vei", "elevation_m",
+        "human_impact_score", "composite_hazard_score", "year"
+    ]
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+    
+    bool_cols = [
+        'ring_of_fire', 'island_volcano', 'has_casualties',
+        'tsunami_confirmed', 'earthquake_confirmed'
+    ]
+    for col in bool_cols:
+        df[col] = df[col].map(
+            {True: True, False: False, 'True': True, 'False': False}
+        ).astype(bool)
+    return df
 
+df = load_data()
+
+# ─────────────────────────────────────────────
+# SIDEBAR FILTERS
+# ─────────────────────────────────────────────
+
+st.sidebar.image(
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/"
+    "e/e3/Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg/"
+    "320px-Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg",
+    width="stretch"
+)
+st.sidebar.title("🌋 Filter Options")
+
+# Era filter
+all_eras = sorted(df['era'].dropna().unique().tolist())
+selected_eras = st.sidebar.multiselect(
+    "Select Era(s)", all_eras, default=all_eras
+)
+
+# Continent filter
+all_continents = sorted(df['country_continent'].dropna().unique().tolistK())
+selected_continents = st.sidebar.multiselect(
+    "Select Continent(s)", all_continents, default=all_continents
+)
+
+# VEI range filter
+vei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())
+vei_range = st.sidebar.slider(
+    "VEI Range", vei_min, vei_max, (vei_min, vei_max)
+)
+
+# Ring of Fire filter
+rof_filter = st.sidebar.radio(
+    "Ring of Fire", ['All', 'Ring of Fire Only', 'Non-Ring of Fire']
+)
+
+# Apply filters
+filtered = df[
+    df["era"].isin(selected_eras) &
+    df['country_continent'].isin(selected_continents) &
+    df["vei"].between(vei_range[0], vei_range[1])
+]
+if rof_filter == "Ring of Fire Only":
+    filtered = filtered[filtered['ring_of_fire'] == True]
+elif rof_filter == "Non-Ring of Fire":
+    filtered = filtered[filtered["ring_of_fire"] == False]
+    
 st.markdown(
     Components.page_header("🌋 Global Volcano Eruption Analysis"), unsafe_allow_html=True
 )
+st.markdown("Explore 895 eruption events spanning prehistoric times to modern day."
+            "Use the sidebar to filter by era, continent, VEI, and tectonic region", text_alignment="center"
+        )
 
+# KPI Row
+col1, col2, col3, col4, col5 = st.columns(5)
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Total Eruptions",
+            value=f"{len(filtered):,}",
+            delta="🌋",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Unique Volcanoes",
+            value=f"{filtered['volcano_name'].nunique():,}",
+            delta="🗻",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Avg VEI",
+            value=f"{filtered['vei'].mean():.2f}",
+            delta="💥",
+            card_type="error"
+        ), unsafe_allow_html=True
+    )
+with col4:
+    st.markdown(
+        Components.metric_card(
+            title="Avg Hazard Score",
+            value=f"{filtered['composite_hazard_score'].mean():.1f}",
+            delta="⚠️",
+            card_type="warning"
+        ), unsafe_allow_html=True
+    )
+with col5:
+    st.markdown(
+        Components.metric_card(
+            title="Casualties Recorded",
+            value=f"{filtered['has_casualties'].sum():,}",
+            delta="☠️",
+            card_type="warning"
+        ), unsafe_allow_html=True
+    )
+st.markdown("   ")
+st.subheader("🗺️ :green[Geographic Distribution of Eruptions]", divider="green")
+st.markdown("   ")
+st.markdown(":green-background[Global Eruption Map]")
+map_color = st.selectbox(
+    "Color points by",
+    ['vei', 'composite_hazard_score', 'human_impact_score'],
+    key='map_color'
+)
+map_df = filtered.dropna(subset=['latitude', 'longitude', map_color])
+fig_map = px.scatter_geo(
+    map_df,
+    lat='latitude',
+    lon='longitude',
+    color=map_color,
+    hover_name='volcano_name',
+    hover_data={
+        'country': True,
+        'vei': True,
+        'era': True,
+        'volcano_type': True,
+        'composite_hazard_score': True,
+        'latitude': False,
+        'longitude': False
+    },
+    color_continuous_scale="Inferno",
+    size=map_color,
+    size_max=18,
+    projection='natural earth',
+    title=f"Eruptions colored by {map_color.replace('_', ' ').title()}"
+)
+fig_map.update_layout(
+    height=500,
+    margin=dict(l=0, r=0, t=40, b=0),
+    paper_bgcolor='#0e1117',
+    geo=dict(bgcolor='#0e1117', landcolor='#1e2a38', oceancolor='#0d1b2a')
+)
+st.plotly_chart(fig_map, width="stretch")
 
+st.subheader("📈 :yellow[Temporal Patterns]", divider="yellow")
+st.markdown("   ")
+st.subheader("⚠️ :orange[Hazard & Risk]", divider="orange")
+st.markdown("   ")
+st.subheader("🌊 :blue[Tsunami & Earthquake Links]", divider="blue")
+st.markdown("   ")
 
 # ============================================
 # FOOTER

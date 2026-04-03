@@ -44,6 +44,14 @@
         "documentation": {}
     },
     {
+        "label": "make_subplots",
+        "importPath": "plotly.subplots",
+        "description": "plotly.subplots",
+        "isExtraImport": true,
+        "detail": "plotly.subplots",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -105,6 +113,23 @@
         "description": "utils.theme",
         "isExtraImport": true,
         "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "filtered_df",
+        "importPath": "pages.1_📽_Netflix_Content_Analysis",
+        "description": "pages.1_📽_Netflix_Content_Analysis",
+        "isExtraImport": true,
+        "detail": "pages.1_📽_Netflix_Content_Analysis",
         "documentation": {}
     },
     {
@@ -744,6 +769,114 @@
         "description": "pages.1_📽_Netflix_Content_Analysis",
         "peekOfCode": "csv = filtered_df.to_csv(index=False).encode('utf-8')\nst.download_button(\n    label=\"Download Filtered Dataset as CSV\",\n    data=csv,\n    file_name=f'netflix_filtered_{datetime.now().strftime(\"%Y%m%d\")}.csv',\n    mime='text/csv',\n)\n# ============================================\n# FOOTER\n# ============================================",
         "detail": "pages.1_📽_Netflix_Content_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "load_data",
+        "kind": 2,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "def load_data():\n    df = pd.read_csv('volcanoes_cleaned.csv')\n    df.replace('Unknown', np.nan, inplace=True)\n    numeric_cols = [\n        \"deaths_total\", \"tsunami_runups\", \"tsunami_magnitude\",\n        \"tsunami_intensity\", \"earthquake_magnitude\",\n        \"avg_eruption_return_period_years\", \"vei\", \"elevation_m\",\n        \"human_impact_score\", \"composite_hazard_score\", \"year\"\n    ]\n    for col in numeric_cols:",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "df = load_data()\n# ─────────────────────────────────────────────\n# SIDEBAR FILTERS\n# ─────────────────────────────────────────────\nst.sidebar.image(\n    \"https://upload.wikimedia.org/wikipedia/commons/thumb/\"\n    \"e/e3/Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg/\"\n    \"320px-Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg\",\n    width=\"stretch\"\n)",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "all_eras",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "all_eras = sorted(df['era'].dropna().unique().tolist())\nselected_eras = st.sidebar.multiselect(\n    \"Select Era(s)\", all_eras, default=all_eras\n)\n# Continent filter\nall_continents = sorted(df['country_continent'].dropna().unique().tolistK())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "selected_eras",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "selected_eras = st.sidebar.multiselect(\n    \"Select Era(s)\", all_eras, default=all_eras\n)\n# Continent filter\nall_continents = sorted(df['country_continent'].dropna().unique().tolistK())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter\nvei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "all_continents",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "all_continents = sorted(df['country_continent'].dropna().unique().tolistK())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter\nvei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())\nvei_range = st.sidebar.slider(\n    \"VEI Range\", vei_min, vei_max, (vei_min, vei_max)\n)\n# Ring of Fire filter",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "selected_continents",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "selected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter\nvei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())\nvei_range = st.sidebar.slider(\n    \"VEI Range\", vei_min, vei_max, (vei_min, vei_max)\n)\n# Ring of Fire filter\nrof_filter = st.sidebar.radio(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "vei_range",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "vei_range = st.sidebar.slider(\n    \"VEI Range\", vei_min, vei_max, (vei_min, vei_max)\n)\n# Ring of Fire filter\nrof_filter = st.sidebar.radio(\n    \"Ring of Fire\", ['All', 'Ring of Fire Only', 'Non-Ring of Fire']\n)\n# Apply filters\nfiltered = df[\n    df[\"era\"].isin(selected_eras) &",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "rof_filter",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "rof_filter = st.sidebar.radio(\n    \"Ring of Fire\", ['All', 'Ring of Fire Only', 'Non-Ring of Fire']\n)\n# Apply filters\nfiltered = df[\n    df[\"era\"].isin(selected_eras) &\n    df['country_continent'].isin(selected_continents) &\n    df[\"vei\"].between(vei_range[0], vei_range[1])\n]\nif rof_filter == \"Ring of Fire Only\":",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "filtered",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "filtered = df[\n    df[\"era\"].isin(selected_eras) &\n    df['country_continent'].isin(selected_continents) &\n    df[\"vei\"].between(vei_range[0], vei_range[1])\n]\nif rof_filter == \"Ring of Fire Only\":\n    filtered = filtered[filtered['ring_of_fire'] == True]\nelif rof_filter == \"Non-Ring of Fire\":\n    filtered = filtered[filtered[\"ring_of_fire\"] == False]\nst.markdown(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "map_color",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "map_color = st.selectbox(\n    \"Color points by\",\n    ['vei', 'composite_hazard_score', 'human_impact_score'],\n    key='map_color'\n)\nmap_df = filtered.dropna(subset=['latitude', 'longitude', map_color])\nfig_map = px.scatter_geo(\n    map_df,\n    lat='latitude',\n    lon='longitude',",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "map_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "map_df = filtered.dropna(subset=['latitude', 'longitude', map_color])\nfig_map = px.scatter_geo(\n    map_df,\n    lat='latitude',\n    lon='longitude',\n    color=map_color,\n    hover_name='volcano_name',\n    hover_data={\n        'country': True,\n        'vei': True,",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_map",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_map = px.scatter_geo(\n    map_df,\n    lat='latitude',\n    lon='longitude',\n    color=map_color,\n    hover_name='volcano_name',\n    hover_data={\n        'country': True,\n        'vei': True,\n        'era': True,",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
     {
