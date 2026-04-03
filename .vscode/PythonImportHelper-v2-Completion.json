@@ -68,6 +68,14 @@
         "documentation": {}
     },
     {
+        "label": "make_subplots",
+        "importPath": "plotly.subplots",
+        "description": "plotly.subplots",
+        "isExtraImport": true,
+        "detail": "plotly.subplots",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -147,6 +155,79 @@
         "importPath": "statsmodels",
         "description": "statsmodels",
         "detail": "statsmodels",
+        "documentation": {}
+    },
+    {
+        "label": "RandomForestClassifier",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "RandomForestRegressor",
+        "importPath": "sklearn.ensemble",
+        "description": "sklearn.ensemble",
+        "isExtraImport": true,
+        "detail": "sklearn.ensemble",
+        "documentation": {}
+    },
+    {
+        "label": "LabelEncoder",
+        "importPath": "sklearn.preprocessing",
+        "description": "sklearn.preprocessing",
+        "isExtraImport": true,
+        "detail": "sklearn.preprocessing",
+        "documentation": {}
+    },
+    {
+        "label": "StandardScaler",
+        "importPath": "sklearn.preprocessing",
+        "description": "sklearn.preprocessing",
+        "isExtraImport": true,
+        "detail": "sklearn.preprocessing",
+        "documentation": {}
+    },
+    {
+        "label": "KMeans",
+        "importPath": "sklearn.cluster",
+        "description": "sklearn.cluster",
+        "isExtraImport": true,
+        "detail": "sklearn.cluster",
+        "documentation": {}
+    },
+    {
+        "label": "train_test_split",
+        "importPath": "sklearn.model_selection",
+        "description": "sklearn.model_selection",
+        "isExtraImport": true,
+        "detail": "sklearn.model_selection",
+        "documentation": {}
+    },
+    {
+        "label": "classification_report",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
+        "label": "r2_score",
+        "importPath": "sklearn.metrics",
+        "description": "sklearn.metrics",
+        "isExtraImport": true,
+        "detail": "sklearn.metrics",
+        "documentation": {}
+    },
+    {
+        "label": "warnings",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "warnings",
+        "description": "warnings",
+        "detail": "warnings",
         "documentation": {}
     },
     {
@@ -2406,6 +2487,267 @@
         "description": "pages.5_🛒_Amazon_Sales_Analysis",
         "peekOfCode": "fig20 = px.line(\n    price_rating,\n    x='price_bin',\n    y='rating',\n    title='Average Rating by Price Range',\n    markers=True,\n    text='rating'\n)\nfig20.update_traces(texttemplate='%{text:.2f}', textposition='top center')\nfig20.update_layout(xaxis_tickangle=-45)",
         "detail": "pages.5_🛒_Amazon_Sales_Analysis",
+        "documentation": {}
+    },
+    {
+        "label": "load_data",
+        "kind": 2,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "def load_data():\n    df = pd.read_csv(\"tech_mental_health_burnout.csv\")\n    df = df.drop_duplicates()\n    numeric_cols = df.select_dtypes(include=np.number).columns\n    df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].median())\n    cat_cols = df.select_dtypes(include=\"object\").columns\n    for col in cat_cols:\n        df[col] = df[col].fillna(df[col].mode()[0])\n        df[col] = df[col].str.strip().str.title()\n    return df",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "df = load_data()\nst.sidebar.image(\"https://img.icons8.com/fluency/96/brain.png\", width=60)\nst.sidebar.title(\"🔍 Filters\")\nwork_modes = [\"All\"] + sorted(df[\"work_mode\"].unique().tolist())\nselected_work_mode = st.sidebar.selectbox(\"Work Mode\", work_modes)\ncompany_sizes = [\"All\"] + sorted(df[\"company_size\"].unique().tolist())\nselected_company_size = st.sidebar.selectbox(\"Company Size\", company_sizes)\njob_roles = [\"All\"] + sorted(df[\"job_role\"].unique().tolist())\nselected_job_role = st.sidebar.selectbox(\"Job Role\", job_roles)\ngenders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "work_modes",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "work_modes = [\"All\"] + sorted(df[\"work_mode\"].unique().tolist())\nselected_work_mode = st.sidebar.selectbox(\"Work Mode\", work_modes)\ncompany_sizes = [\"All\"] + sorted(df[\"company_size\"].unique().tolist())\nselected_company_size = st.sidebar.selectbox(\"Company Size\", company_sizes)\njob_roles = [\"All\"] + sorted(df[\"job_role\"].unique().tolist())\nselected_job_role = st.sidebar.selectbox(\"Job Role\", job_roles)\ngenders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())\nselected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "selected_work_mode",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "selected_work_mode = st.sidebar.selectbox(\"Work Mode\", work_modes)\ncompany_sizes = [\"All\"] + sorted(df[\"company_size\"].unique().tolist())\nselected_company_size = st.sidebar.selectbox(\"Company Size\", company_sizes)\njob_roles = [\"All\"] + sorted(df[\"job_role\"].unique().tolist())\nselected_job_role = st.sidebar.selectbox(\"Job Role\", job_roles)\ngenders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())\nselected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "company_sizes",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "company_sizes = [\"All\"] + sorted(df[\"company_size\"].unique().tolist())\nselected_company_size = st.sidebar.selectbox(\"Company Size\", company_sizes)\njob_roles = [\"All\"] + sorted(df[\"job_role\"].unique().tolist())\nselected_job_role = st.sidebar.selectbox(\"Job Role\", job_roles)\ngenders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())\nselected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "selected_company_size",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "selected_company_size = st.sidebar.selectbox(\"Company Size\", company_sizes)\njob_roles = [\"All\"] + sorted(df[\"job_role\"].unique().tolist())\nselected_job_role = st.sidebar.selectbox(\"Job Role\", job_roles)\ngenders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())\nselected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "job_roles",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "job_roles = [\"All\"] + sorted(df[\"job_role\"].unique().tolist())\nselected_job_role = st.sidebar.selectbox(\"Job Role\", job_roles)\ngenders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())\nselected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")\nst.sidebar.markdown(f\"Records after filters:\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "selected_job_role",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "selected_job_role = st.sidebar.selectbox(\"Job Role\", job_roles)\ngenders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())\nselected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")\nst.sidebar.markdown(f\"Records after filters:\")\n# Apply filters",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "genders",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "genders = [\"All\"] + sorted(df[\"gender\"].unique().tolist())\nselected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")\nst.sidebar.markdown(f\"Records after filters:\")\n# Apply filters\nfiltered = df.copy()",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "selected_gender",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "selected_gender = st.sidebar.selectbox(\"Gender\", genders)\nage_min, age_max = int(df[\"age\"].min()), int(df[\"age\"].max())\nselected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")\nst.sidebar.markdown(f\"Records after filters:\")\n# Apply filters\nfiltered = df.copy()\nif selected_work_mode != \"All\":",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "selected_age",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "selected_age = st.sidebar.slider(\"Age Range\", age_min, age_max, (age_min, age_max))\nburnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")\nst.sidebar.markdown(f\"Records after filters:\")\n# Apply filters\nfiltered = df.copy()\nif selected_work_mode != \"All\":\n    filtered = filtered[filtered[\"work_mode\"] == selected_work_mode]\nif selected_company_size != \"All\":",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_levels",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_levels = [\"All\"] + sorted(df[\"burnout_level\"].unique().tolist())\nselected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")\nst.sidebar.markdown(f\"Records after filters:\")\n# Apply filters\nfiltered = df.copy()\nif selected_work_mode != \"All\":\n    filtered = filtered[filtered[\"work_mode\"] == selected_work_mode]\nif selected_company_size != \"All\":\n    filtered = filtered[filtered[\"company_size\"] == selected_company_size]",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "selected_burnout",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "selected_burnout = st.sidebar.selectbox(\"Burnout Level\", burnout_levels)\nst.sidebar.markdown(\"   \")\nst.sidebar.markdown(f\"Records after filters:\")\n# Apply filters\nfiltered = df.copy()\nif selected_work_mode != \"All\":\n    filtered = filtered[filtered[\"work_mode\"] == selected_work_mode]\nif selected_company_size != \"All\":\n    filtered = filtered[filtered[\"company_size\"] == selected_company_size]\nif selected_job_role != \"All\":",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "filtered",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "filtered = df.copy()\nif selected_work_mode != \"All\":\n    filtered = filtered[filtered[\"work_mode\"] == selected_work_mode]\nif selected_company_size != \"All\":\n    filtered = filtered[filtered[\"company_size\"] == selected_company_size]\nif selected_job_role != \"All\":\n    filtered = filtered[filtered[\"job_role\"] == selected_job_role]\nif selected_gender != \"All\":\n    filtered = filtered[filtered[\"gender\"] == selected_gender]\nif selected_burnout != \"All\":",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_counts",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_counts = filtered[\"burnout_level\"].value_counts().reset_index()\nburnout_counts.columns = [\"burnout_level\", \"count\"]\ncolor_map = {\"Low\": \"#2ecc71\", \"Moderate\": \"#f39c12\", \"High\": \"#e74c3c\"}\nfig = px.pie(\n    burnout_counts, \n    values=\"count\", \n    names=\"burnout_level\",\n    color=\"burnout_level\", \n    color_discrete_map=color_map,\n    hole=0.45",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_counts.columns",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_counts.columns = [\"burnout_level\", \"count\"]\ncolor_map = {\"Low\": \"#2ecc71\", \"Moderate\": \"#f39c12\", \"High\": \"#e74c3c\"}\nfig = px.pie(\n    burnout_counts, \n    values=\"count\", \n    names=\"burnout_level\",\n    color=\"burnout_level\", \n    color_discrete_map=color_map,\n    hole=0.45\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "color_map",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "color_map = {\"Low\": \"#2ecc71\", \"Moderate\": \"#f39c12\", \"High\": \"#e74c3c\"}\nfig = px.pie(\n    burnout_counts, \n    values=\"count\", \n    names=\"burnout_level\",\n    color=\"burnout_level\", \n    color_discrete_map=color_map,\n    hole=0.45\n)\nfig.update_traces(textposition=\"inside\", textinfo=\"percent+label\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig = px.pie(\n    burnout_counts, \n    values=\"count\", \n    names=\"burnout_level\",\n    color=\"burnout_level\", \n    color_discrete_map=color_map,\n    hole=0.45\n)\nfig.update_traces(textposition=\"inside\", textinfo=\"percent+label\")\nfig.update_layout(showlegend=True, height=380)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_mode",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_mode = filtered.groupby(\"work_mode\")[\"burnout_score\"].mean().reset_index()\nfig1 = px.bar(\n    burnout_mode, \n    x=\"work_mode\", \n    y=\"burnout_score\",\n    color=\"burnout_score\", \n    color_continuous_scale=\"RdYlGn_r\",\n    text_auto=\".2f\", \n    labels={\"burnout_score\": \"Avg Burnout Score\", \"work_mode\": \"Work Mode\"}\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig1",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig1 = px.bar(\n    burnout_mode, \n    x=\"work_mode\", \n    y=\"burnout_score\",\n    color=\"burnout_score\", \n    color_continuous_scale=\"RdYlGn_r\",\n    text_auto=\".2f\", \n    labels={\"burnout_score\": \"Avg Burnout Score\", \"work_mode\": \"Work Mode\"}\n)\nfig1.update_layout(height=380, showlegend=False)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_role",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_role = (filtered.groupby(\"job_role\")[\"burnout_score\"].mean().sort_values(ascending=True).reset_index())\nfig2 = px.bar(\n    burnout_role, \n    x=\"burnout_score\", \n    y=\"job_role\",\n    orientation=\"h\", \n    color=\"burnout_score\",\n    color_continuous_scale=\"RdYlGn_r\", \n    text_auto=\".2f\",\n    labels={\"burnout_score\": \"Avg Burnout Score\", \"job_role\": \"Job Role\"}",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig2",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig2 = px.bar(\n    burnout_role, \n    x=\"burnout_score\", \n    y=\"job_role\",\n    orientation=\"h\", \n    color=\"burnout_score\",\n    color_continuous_scale=\"RdYlGn_r\", \n    text_auto=\".2f\",\n    labels={\"burnout_score\": \"Avg Burnout Score\", \"job_role\": \"Job Role\"}\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "burnout_gender",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "burnout_gender = (filtered.groupby([\"gender\", \"burnout_level\"]).size().reset_index(name=\"count\"))\nfig3 = px.bar(\n    burnout_gender, \n    x=\"gender\", \n    y=\"count\", \n    color=\"burnout_level\",\n    barmode=\"group\", \n    color_discrete_map=color_map,\n    labels={\"count\": \"Number of Employees\", \"gender\": \"Gender\"}\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig3",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig3 = px.bar(\n    burnout_gender, \n    x=\"gender\", \n    y=\"count\", \n    color=\"burnout_level\",\n    barmode=\"group\", \n    color_discrete_map=color_map,\n    labels={\"count\": \"Number of Employees\", \"gender\": \"Gender\"}\n)\nfig3.update_layout(height=420)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "sample",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "sample = filtered.sample(min(3000, len(filtered)), random_state=42)\nfig4 = px.scatter(\n    sample, \n    x=\"work_hours_per_week\", \n    y=\"burnout_score\",\n    color=\"burnout_level\", \n    color_discrete_map=color_map,\n    opacity=0.6, \n    trendline=\"ols\",\n    labels={",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig4",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig4 = px.scatter(\n    sample, \n    x=\"work_hours_per_week\", \n    y=\"burnout_score\",\n    color=\"burnout_level\", \n    color_discrete_map=color_map,\n    opacity=0.6, \n    trendline=\"ols\",\n    labels={\n        \"work_hours_per_week\": \"Work Hours / Week\",",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig5",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig5 = px.box(\n    filtered, \n    x=\"burnout_level\", \n    y=\"sleep_hours\",\n    color=\"burnout_level\", \n    color_discrete_map=color_map,\n    labels={\"sleep_hours\": \"Sleep Hours\", \"burnout_level\": \"Burnout Level\"}\n)\nfig5.update_layout(height=400, showlegend=False)\nst.plotly_chart(fig5, width=\"stretch\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "pivot",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "pivot = (\n    filtered.groupby([\"job_role\", \"company_size\"])[\"burnout_score\"].mean().reset_index().pivot(index=\"job_role\", columns=\"company_size\", values=\"burnout_score\")\n)\nfig6 = px.imshow(\n    pivot, text_auto=\".2f\", \n    color_continuous_scale=\"RdYlGn_r\",\n    labels={\"color\": \"Avg Burnout Score\"}, \n    aspect=\"auto\"\n)\nfig6.update_layout(height=450)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "fig6",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "fig6 = px.imshow(\n    pivot, text_auto=\".2f\", \n    color_continuous_scale=\"RdYlGn_r\",\n    labels={\"color\": \"Avg Burnout Score\"}, \n    aspect=\"auto\"\n)\nfig6.update_layout(height=450)\nst.plotly_chart(fig6, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"🔗 :green[Correlations]\", divider=\"green\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
     {
