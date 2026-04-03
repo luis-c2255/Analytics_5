@@ -388,7 +388,7 @@ fig_vei_cat = px.bar(
     x='VEI Category',
     y='Count',
     color='Count',
-    color_continuous_scale='Hot',
+    color_continuous_scale='sunsetdark',
     text='Count'
 )
 fig_vei_cat.update_traces(textposition='outside')

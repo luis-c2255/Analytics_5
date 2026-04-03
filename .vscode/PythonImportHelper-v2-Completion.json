@@ -1119,7 +1119,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "vei_cat_counts = vei_cat_counts.sort_values(\"VEI Category\")\nfig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',\n    y='Count',\n    color='Count',\n    color_continuous_scale='Hot',\n    text='Count'\n)\nfig_vei_cat.update_traces(textposition='outside')",
+        "peekOfCode": "vei_cat_counts = vei_cat_counts.sort_values(\"VEI Category\")\nfig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',\n    y='Count',\n    color='Count',\n    color_continuous_scale='sunsetdark',\n    text='Count'\n)\nfig_vei_cat.update_traces(textposition='outside')",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
@@ -1128,7 +1128,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "fig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',\n    y='Count',\n    color='Count',\n    color_continuous_scale='Hot',\n    text='Count'\n)\nfig_vei_cat.update_traces(textposition='outside')\nfig_vei_cat.update_layout(",
+        "peekOfCode": "fig_vei_cat = px.bar(\n    vei_cat_counts,\n    x='VEI Category',\n    y='Count',\n    color='Count',\n    color_continuous_scale='sunsetdark',\n    text='Count'\n)\nfig_vei_cat.update_traces(textposition='outside')\nfig_vei_cat.update_layout(",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
