@@ -419,81 +419,81 @@ if train_model:
         y_reg = model_df["burnout_score"]
             
         X_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)
-# ── Train Classifier ──
-clf = RandomForestClassifier(
-    n_estimators=n_estimators,
-    max_depth=max_depth,
-    random_state=42,
-    n_jobs=-1
-)
-clf.fit(X_train, y_clf_train)
-y_clf_pred = clf.predict(X_test)
+        # ── Train Classifier ──
+        clf = RandomForestClassifier(
+            n_estimators=n_estimators,
+            max_depth=max_depth,
+            random_state=42,
+            n_jobs=-1
+        )
+        clf.fit(X_train, y_clf_train)
+        y_clf_pred = clf.predict(X_test)
             
-# ── Train Regressor ──
-reg = RandomForestRegressor(
-    n_estimators=n_estimators,
-    max_depth=max_depth,
-    random_state=42,
-    n_jobs=-1
-)
-reg.fit(X_train, y_reg_train)
-y_reg_pred = reg.predict(X_test)
-r2 = r2_score(y_reg_test, y_reg_pred)
+        # ── Train Regressor ──
+        reg = RandomForestRegressor(
+            n_estimators=n_estimators,
+            max_depth=max_depth,
+            random_state=42,
+            n_jobs=-1
+        )
+        reg.fit(X_train, y_reg_train)
+        y_reg_pred = reg.predict(X_test)
+        r2 = r2_score(y_reg_test, y_reg_pred)
             
-# ── Classification Report ──
-report = classification_report(
-    y_clf_test, y_clf_pred,
-    target_names=["Low", "Moderate", "High"],
-    output_dict=True
-)
-report_df = pd.DataFrame(report).transpose().round(3)
-st.success("✅ Model trained successfully!")
+        # ── Classification Report ──
+        report = classification_report(
+            y_clf_test, y_clf_pred,
+            target_names=["Low", "Moderate", "High"],
+            output_dict=True
+        )
+        report_df = pd.DataFrame(report).transpose().round(3)
+        st.success("✅ Model trained successfully!")
 
-# ── Model Performance KPIs ──
-m1, m2, m3, m4 = st.columns(4)
-with m1:
-    st.markdown(
-        Components.metric_card(
-            title="Classifier Accuracy",
-            value=f"{report['accuracy']:.2%}",
-            delta="🎯",
-            card_type="info"
-        ), unsafe_allow_html=True
-    )
-with m2:
-    st.markdown(
-        Components.metric_card(
+        # ── Model Performance KPIs ──
+        m1, m2, m3, m4 = st.columns(4)
+        with m1:
+            st.markdown(
+                Components.metric_card(
+                    title="Classifier Accuracy",
+                    value=f"{report['accuracy']:.2%}",
+                    delta="🎯",
+                    card_type="info"
+                ), unsafe_allow_html=True
+        )
+        with m2:
+            st.markdown(
+                Components.metric_card(
             title="Regression R² Score",
             value=f"{r2:.4f}",
             delta="📊",
             card_type="warning"
         ), unsafe_allow_html=True
     )
-with m3:
-    st.markdown(
-        Components.metric_card(
+        with m3:
+            st.markdown(
+                Components.metric_card(
             title="Trees Trained",
             value=f"{n_estimators}",
             delta="🌲",
             card_type="success"
         ), unsafe_allow_html=True
     )
-with m4:
-    st.markdown(
-        Components.metric_card(
+        with m4:
+            st.markdown(
+                Components.metric_card(
             title="Test Samples",
             value=f"{len(y_clf_test):,}",
             delta="🧪",
             card_type="success"
         ), unsafe_allow_html=True
     )
-st.markdown("   ")
-st.markdown("🔑 :blue-background[Top Feature Importances (Classifier)]")
+        st.markdown("   ")
+        st.markdown("🔑 :blue-background[Top Feature Importances (Classifier)]")
 
 feat_imp = pd.DataFrame({
-    "feature": feature_cols,
-    "importance": clf.feature_importances_
-}).sort_values("importance", ascending=True).tail(15)
+            "feature": feature_cols,
+            "importance": clf.feature_importances_
+        }).sort_values("importance", ascending=True).tail(15)
 
 fig15 = px.bar(
     feat_imp, x="importance", y="feature",
