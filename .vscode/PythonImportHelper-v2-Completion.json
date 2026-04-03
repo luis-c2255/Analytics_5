@@ -2949,42 +2949,6 @@
         "documentation": {}
     },
     {
-        "label": "kmeans",
-        "kind": 5,
-        "importPath": "pages.6_🤯_Mental_Health_Burnout",
-        "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)\ncluster_labels = kmeans.fit_predict(X_scaled)\ncluster_df = filtered.loc[cluster_df.index].copy()\ncluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")",
-        "detail": "pages.6_🤯_Mental_Health_Burnout",
-        "documentation": {}
-    },
-    {
-        "label": "cluster_labels",
-        "kind": 5,
-        "importPath": "pages.6_🤯_Mental_Health_Burnout",
-        "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "cluster_labels = kmeans.fit_predict(X_scaled)\ncluster_df = filtered.loc[cluster_df.index].copy()\ncluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")\n    elbow_df = pd.DataFrame({\"K\": list(k_range), \"Inertia\": inertias})",
-        "detail": "pages.6_🤯_Mental_Health_Burnout",
-        "documentation": {}
-    },
-    {
-        "label": "cluster_df",
-        "kind": 5,
-        "importPath": "pages.6_🤯_Mental_Health_Burnout",
-        "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "cluster_df = filtered.loc[cluster_df.index].copy()\ncluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")\n    elbow_df = pd.DataFrame({\"K\": list(k_range), \"Inertia\": inertias})\n    fig19 = px.line(",
-        "detail": "pages.6_🤯_Mental_Health_Burnout",
-        "documentation": {}
-    },
-    {
-        "label": "cluster_df[\"Cluster\"]",
-        "kind": 5,
-        "importPath": "pages.6_🤯_Mental_Health_Burnout",
-        "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "cluster_df[\"Cluster\"] = [f\"Segment {i+1}\" for i in cluster_labels]\nst.success(f\"✅ Identified {n_clusters} employee segments!\")\nst.markdown(\"   \")\n# ── Elbow Curve ──\ncol1, col2 = st.columns(2)\nwith col1:\n    st.markdown(\"📐 :violet-background[Elbow Curve — Optimal K]\")\n    elbow_df = pd.DataFrame({\"K\": list(k_range), \"Inertia\": inertias})\n    fig19 = px.line(\n        elbow_df, x=\"K\", y=\"Inertia\",",
-        "detail": "pages.6_🤯_Mental_Health_Burnout",
-        "documentation": {}
-    },
-    {
         "label": "radar_features",
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",

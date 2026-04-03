@@ -607,42 +607,42 @@ if run_clustering and len(cluster_features) >= 2:
             km_temp = KMeans(n_clusters=k, random_state=42, n_init=10)
             km_temp.fit(X_scaled)
             inertias.append(km_temp.inertia_)
-# Final clustering
-kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-cluster_labels = kmeans.fit_predict(X_scaled)
-cluster_df = filtered.loc[cluster_df.index].copy()
-cluster_df["Cluster"] = [f"Segment {i+1}" for i in cluster_labels]
+            # Final clustering
+            kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
+            cluster_labels = kmeans.fit_predict(X_scaled)
+            cluster_df = filtered.loc[cluster_df.index].copy()
+            cluster_df["Cluster"] = [f"Segment {i+1}" for i in cluster_labels]
 
-st.success(f"✅ Identified {n_clusters} employee segments!")
-st.markdown("   ")
-# ── Elbow Curve ──
-col1, col2 = st.columns(2)
-with col1:
-    st.markdown("📐 :violet-background[Elbow Curve — Optimal K]")
-    elbow_df = pd.DataFrame({"K": list(k_range), "Inertia": inertias})
-    fig19 = px.line(
+        st.success(f"✅ Identified {n_clusters} employee segments!")
+        st.markdown("   ")
+        # ── Elbow Curve ──
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("📐 :violet-background[Elbow Curve — Optimal K]")
+            elbow_df = pd.DataFrame({"K": list(k_range), "Inertia": inertias})
+            fig19 = px.line(
         elbow_df, x="K", y="Inertia",
         markers=True, color_discrete_sequence=["#3498db"],
         labels={"K": "Number of Clusters", "Inertia": "Inertia (WCSS)"}
 )
-    fig19.add_vline(
+            fig19.add_vline(
         x=n_clusters, line_dash="dash",
         line_color="red", annotation_text=f"Selected K={n_clusters}"
 )
-    fig19.update_layout(height=380)
-    st.plotly_chart(fig19, width="stretch")
-with col2:
-    st.subheader("🥧 :violet-background[Segment Size Distribution]")
-    seg_counts = cluster_df["Cluster"].value_counts().reset_index()
-    seg_counts.columns = ["Cluster", "Count"]
-    fig20 = px.pie(
-        seg_counts, values="Count", names="Cluster",
-        hole=0.4,
-        color_discrete_sequence=px.colors.qualitative.Set2
+            fig19.update_layout(height=380)
+            st.plotly_chart(fig19, width="stretch")
+        with col2:
+            st.subheader("🥧 :violet-background[Segment Size Distribution]")
+            seg_counts = cluster_df["Cluster"].value_counts().reset_index()
+            seg_counts.columns = ["Cluster", "Count"]
+            fig20 = px.pie(
+                seg_counts, values="Count", names="Cluster",
+                hole=0.4,
+                color_discrete_sequence=px.colors.qualitative.Set2
 )
-    fig20.update_traces(textposition="inside", textinfo="percent+label")
-    fig20.update_layout(height=380)
-    st.plotly_chart(fig20, width="stretch")
+            fig20.update_traces(textposition="inside", textinfo="percent+label")
+            fig20.update_layout(height=380)
+            st.plotly_chart(fig20, width="stretch")
 # ── Cluster Profile Radar Chart ──
 st.markdown("🕸️ :violet-background[Cluster Profile Radar Chart]")
 radar_features = [f for f in cluster_features if f in cluster_df.columns]
