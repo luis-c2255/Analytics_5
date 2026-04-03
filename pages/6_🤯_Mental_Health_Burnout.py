@@ -418,7 +418,7 @@ if train_model:
         y_clf = model_df["burnout_level_enc"]
         y_reg = model_df["burnout_score"]
             
-X_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)
+        X_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)
 # ── Train Classifier ──
 clf = RandomForestClassifier(
     n_estimators=n_estimators,
