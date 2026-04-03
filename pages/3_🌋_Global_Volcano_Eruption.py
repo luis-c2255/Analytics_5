@@ -612,7 +612,250 @@ st.plotly_chart(fig_casualty, width="stretch")
 st.markdown("   ")
 st.subheader("🌊 :blue[Tsunami & Earthquake Links]", divider="blue")
 st.markdown("   ")
+col1, col2, col3 = st.columns(3)
+tsunami_total = filtered["tsunami_confirmed"].sum()
+earthquake_total = filtered["earthquake_confirmed"].sum()
+both_total = filtered[
+    (filtered["tsunami_confirmed"] == True) &
+    (filtered["earthquake_confirmed"] == True)].shape[0]
 
+with col1:
+    st.markdown(
+        Components.metric_card(
+            title="Tsunami-Linked Eruptions",
+            value=f"{tsunami_total:,}",
+            delta="🌊",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col2:
+    st.markdown(
+        Components.metric_card(
+            title="Earthquake-Linked Eruptions",
+            value=f"{earthquake_total:,}",
+            delta="〰️",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+with col3:
+    st.markdown(
+        Components.metric_card(
+            title="Both Tsunami & Earthquake",
+            value=f"{both_total:,}",
+            delta="⚠️",
+            card_type="info"
+        ), unsafe_allow_html=True
+    )
+st.markdown("   ")
+st.markdown(":violet-background[Tsunami Confirmation Rate by VEI Category]")
+tsunami_vei = (filtered.dropna(subset=["vei_category"])
+               .groupby("vei_category")
+               .agg(
+                   total=("volcano_event_id", "count"),
+                   tsunami_confirmed=("tsunami_confirmed", "sum"))
+               .reset_index()
+)
+tsunami_vei["tsunami_rate"] = (
+    tsunami_vei["tsunami_confirmed"] / tsunami_vei["total"] * 100).round(2)
+tsunami_vei["vei_category"] = pd.Categorical(
+    tsunami_vei["vei_category"],
+    categories=vei_order,
+    ordered=True
+)
+tsunami_vei = tsunami_vei.sort_values("vei_category")
+
+fig_ts_vei = px.bar(
+    tsunami_vei,
+    x="vei_category",
+    y="tsunami_rate",
+    color="tsunami_rate",
+    color_continuous_scale="Blues",
+    text="tsunami_rate",
+    labels={
+        "vei_category": "VEI Category",
+        "tsunami_rate": "Tsunami Confirmation Rate (%)"}
+)
+fig_ts_vei.update_traces(
+    texttemplate="%{text:.1f}%",
+    textposition="outside"
+)
+fig_ts_vei.update_layout(
+    height=400,
+    coloraxis_showscale=False,
+    margin=dict(l=0, r=0, t=10, b=60),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    xaxis=dict(tickangle=-30, gridcolor="#2a2a2a"),
+    yaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_ts_vei, width="stretch")
+st.markdown("   ")
+st.markdown(":violet-background[Earthquake Confirmation Rate by Tectonic Region]")
+eq_tectonic = (filtered.dropna(subset=["tectonic_region"])
+               .groupby("tectonic_region")
+               .agg(
+                   total=("volcano_event_id", "count"),
+                   eq_confirmed=("earthquake_confirmed", "sum"))
+               .reset_index()
+)
+eq_tectonic["eq_rate"] = (eq_tectonic["eq_confirmed"] / eq_tectonic["total"] * 100).round(2)
+eq_tectonic = eq_tectonic.sort_values("eq_rate", ascending=False).head(12)
+
+fig_eq_tec = px.bar(
+    eq_tectonic,
+    x="eq_rate",
+    y="tectonic_region",
+    orientation="h",
+    color="eq_rate",
+    color_continuous_scale="Purples",
+    text="eq_rate",
+    labels={
+        "tectonic_region": "Tectonic Region",
+        "eq_rate": "Earthquake Rate (%)"}
+)
+fig_eq_tec.update_traces(
+    texttemplate="%{text:.1f}%",
+    textposition="outside"
+)
+fig_eq_tec.update_layout(
+    height=400,
+    coloraxis_showscale=False,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    yaxis=dict(autorange="reversed", gridcolor="#2a2a2a"),
+    xaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_eq_tec, width="stretch")
+st.markdown("   ")
+st.markdown(":violet-background[Tsunami Magnitude Distribution by VEI Risk Tier]")
+ts_mag_df = filtered.dropna(subset=["tsunami_magnitude", "vei_risk_tier"])
+fig_ts_mag = px.violin(
+    ts_mag_df,
+    x="vei_risk_tier",
+    y="tsunami_magnitude",
+    color="vei_risk_tier",
+    category_orders={"vei_risk_tier": risk_order},
+    color_discrete_sequence=["#2ecc71", "#f1c40f", "#e67e22", "#e74c3c", "#8e44ad"],
+    box=True,
+    points="all",
+    labels={
+        "vei_risk_tier": "VEI Risk Tier",
+        "tsunami_magnitude": "Tsunami Magnitude"}
+)
+fig_ts_mag.update_layout(
+    height=420,
+    showlegend=False,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    xaxis=dict(gridcolor="#2a2a2a"),
+    yaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_ts_mag, width="stretch")
+st.markdown("   ")
+
+st.markdown(":violet-background[Top 10 Volcanoes by Tsunami Runups]")
+ts_runup_df = (filtered.dropna(subset=["tsunami_runups"])
+               .groupby("volcano_name")
+               .agg(
+                   total_runups=("tsunami_runups", "sum"),
+                   eruption_count=("volcano_event_id", "count"))
+               .reset_index()
+               .sort_values("total_runups", ascending=False)
+               .head(10)
+)
+fig_runup = px.bar(
+    ts_runup_df,
+    x="total_runups",
+    y="volcano_name",
+    orientation="h",
+    color="total_runups",
+    color_continuous_scale="Teal",
+    text="total_runups",
+    labels={
+        "total_runups": "Total Tsunami Runups",
+        "volcano_name": "Volcano"}
+)
+fig_runup.update_traces(
+    texttemplate="%{text:.0f}",
+    textposition="outside"
+)
+fig_runup.update_layout(
+    height=380,
+    coloraxis_showscale=False,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    yaxis=dict(autorange="reversed", gridcolor="#2a2a2a"),
+    xaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_runup, width="stretch")
+st.markdown("   ")
+
+st.markdown(":violet-background[Earthquake Magnitude Distribution]")
+
+eq_mag_df = filtered.dropna(subset=["earthquake_magnitude"])
+fig_eq_mag = px.histogram(
+    eq_mag_df,
+    x="earthquake_magnitude",
+    nbins=20,
+    color_discrete_sequence=["#a855f7"],
+    labels={
+        "earthquake_magnitude": "Earthquake Magnitude",
+        "count": "Number of Eruptions"}
+)
+fig_eq_mag.update_traces(
+    marker_line_color="#7c3aed",
+    marker_line_width=1.5,
+    opacity=0.85
+)
+fig_eq_mag.update_layout(
+    height=380,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    xaxis=dict(gridcolor="#2a2a2a"),
+    yaxis=dict(gridcolor="#2a2a2a", title="Number of Eruptions")
+)
+st.plotly_chart(fig_eq_mag, width="stretch")
+st.markdown("   ")
+
+st.markdown(":violet-background[Co-occurrence Heatmap — Tsunami & Earthquake by Continent]")
+
+heatmap_df = (
+    filtered.groupby("country_continent")
+    .agg(
+        tsunami_rate=("tsunami_confirmed", "mean"),
+        earthquake_rate=("earthquake_confirmed", "mean"),
+        total=("volcano_event_id", "count")
+    ).reset_index()
+)
+heatmap_df["tsunami_rate"] = (heatmap_df["tsunami_rate"] * 100).round(2)
+heatmap_df["earthquake_rate"] = (heatmap_df["earthquake_rate"] * 100).round(2)
+heatmap_pivot = heatmap_df.set_index("country_continent")[["tsunami_rate", "earthquake_rate"]].rename(columns={"tsunami_rate": "Tsunami Rate (%)", "earthquake_rate": "Earthquake Rate (%)"})
+fig_heatmap = px.imshow(
+        heatmap_pivot,
+        color_continuous_scale="YlOrRd",
+        text_auto=".1f",
+        aspect="auto",
+        labels={"color": "Rate (%)"},
+    )
+fig_heatmap.update_layout(
+        height=380,
+        margin=dict(l=0, r=0, t=10, b=0),
+        paper_bgcolor="#0e1117",
+        plot_bgcolor="#0e1117",
+        font=dict(color="white"),
+        coloraxis_colorbar=dict(title="Rate (%)")
+    )
+st.plotly_chart(fig_heatmap, width="stretch")
+st.markdown("   ")
 # ============================================
 # FOOTER
 # ============================================

@@ -1259,6 +1259,213 @@
         "documentation": {}
     },
     {
+        "label": "tsunami_total",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "tsunami_total = filtered[\"tsunami_confirmed\"].sum()\nearthquake_total = filtered[\"earthquake_confirmed\"].sum()\nboth_total = filtered[\n    (filtered[\"tsunami_confirmed\"] == True) &\n    (filtered[\"earthquake_confirmed\"] == True)].shape[0]\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Tsunami-Linked Eruptions\",\n            value=f\"{tsunami_total:,}\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "earthquake_total",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "earthquake_total = filtered[\"earthquake_confirmed\"].sum()\nboth_total = filtered[\n    (filtered[\"tsunami_confirmed\"] == True) &\n    (filtered[\"earthquake_confirmed\"] == True)].shape[0]\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Tsunami-Linked Eruptions\",\n            value=f\"{tsunami_total:,}\",\n            delta=\"🌊\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "both_total",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "both_total = filtered[\n    (filtered[\"tsunami_confirmed\"] == True) &\n    (filtered[\"earthquake_confirmed\"] == True)].shape[0]\nwith col1:\n    st.markdown(\n        Components.metric_card(\n            title=\"Tsunami-Linked Eruptions\",\n            value=f\"{tsunami_total:,}\",\n            delta=\"🌊\",\n            card_type=\"info\"",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "tsunami_vei",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "tsunami_vei = (filtered.dropna(subset=[\"vei_category\"])\n               .groupby(\"vei_category\")\n               .agg(\n                   total=(\"volcano_event_id\", \"count\"),\n                   tsunami_confirmed=(\"tsunami_confirmed\", \"sum\"))\n               .reset_index()\n)\ntsunami_vei[\"tsunami_rate\"] = (\n    tsunami_vei[\"tsunami_confirmed\"] / tsunami_vei[\"total\"] * 100).round(2)\ntsunami_vei[\"vei_category\"] = pd.Categorical(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "tsunami_vei[\"tsunami_rate\"]",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "tsunami_vei[\"tsunami_rate\"] = (\n    tsunami_vei[\"tsunami_confirmed\"] / tsunami_vei[\"total\"] * 100).round(2)\ntsunami_vei[\"vei_category\"] = pd.Categorical(\n    tsunami_vei[\"vei_category\"],\n    categories=vei_order,\n    ordered=True\n)\ntsunami_vei = tsunami_vei.sort_values(\"vei_category\")\nfig_ts_vei = px.bar(\n    tsunami_vei,",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "tsunami_vei[\"vei_category\"]",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "tsunami_vei[\"vei_category\"] = pd.Categorical(\n    tsunami_vei[\"vei_category\"],\n    categories=vei_order,\n    ordered=True\n)\ntsunami_vei = tsunami_vei.sort_values(\"vei_category\")\nfig_ts_vei = px.bar(\n    tsunami_vei,\n    x=\"vei_category\",\n    y=\"tsunami_rate\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "tsunami_vei",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "tsunami_vei = tsunami_vei.sort_values(\"vei_category\")\nfig_ts_vei = px.bar(\n    tsunami_vei,\n    x=\"vei_category\",\n    y=\"tsunami_rate\",\n    color=\"tsunami_rate\",\n    color_continuous_scale=\"Blues\",\n    text=\"tsunami_rate\",\n    labels={\n        \"vei_category\": \"VEI Category\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_ts_vei",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_ts_vei = px.bar(\n    tsunami_vei,\n    x=\"vei_category\",\n    y=\"tsunami_rate\",\n    color=\"tsunami_rate\",\n    color_continuous_scale=\"Blues\",\n    text=\"tsunami_rate\",\n    labels={\n        \"vei_category\": \"VEI Category\",\n        \"tsunami_rate\": \"Tsunami Confirmation Rate (%)\"}",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "eq_tectonic",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "eq_tectonic = (filtered.dropna(subset=[\"tectonic_region\"])\n               .groupby(\"tectonic_region\")\n               .agg(\n                   total=(\"volcano_event_id\", \"count\"),\n                   eq_confirmed=(\"earthquake_confirmed\", \"sum\"))\n               .reset_index()\n)\neq_tectonic[\"eq_rate\"] = (eq_tectonic[\"eq_confirmed\"] / eq_tectonic[\"total\"] * 100).round(2)\neq_tectonic = eq_tectonic.sort_values(\"eq_rate\", ascending=False).head(12)\nfig_eq_tec = px.bar(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "eq_tectonic[\"eq_rate\"]",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "eq_tectonic[\"eq_rate\"] = (eq_tectonic[\"eq_confirmed\"] / eq_tectonic[\"total\"] * 100).round(2)\neq_tectonic = eq_tectonic.sort_values(\"eq_rate\", ascending=False).head(12)\nfig_eq_tec = px.bar(\n    eq_tectonic,\n    x=\"eq_rate\",\n    y=\"tectonic_region\",\n    orientation=\"h\",\n    color=\"eq_rate\",\n    color_continuous_scale=\"Purples\",\n    text=\"eq_rate\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "eq_tectonic",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "eq_tectonic = eq_tectonic.sort_values(\"eq_rate\", ascending=False).head(12)\nfig_eq_tec = px.bar(\n    eq_tectonic,\n    x=\"eq_rate\",\n    y=\"tectonic_region\",\n    orientation=\"h\",\n    color=\"eq_rate\",\n    color_continuous_scale=\"Purples\",\n    text=\"eq_rate\",\n    labels={",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_eq_tec",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_eq_tec = px.bar(\n    eq_tectonic,\n    x=\"eq_rate\",\n    y=\"tectonic_region\",\n    orientation=\"h\",\n    color=\"eq_rate\",\n    color_continuous_scale=\"Purples\",\n    text=\"eq_rate\",\n    labels={\n        \"tectonic_region\": \"Tectonic Region\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "ts_mag_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "ts_mag_df = filtered.dropna(subset=[\"tsunami_magnitude\", \"vei_risk_tier\"])\nfig_ts_mag = px.violin(\n    ts_mag_df,\n    x=\"vei_risk_tier\",\n    y=\"tsunami_magnitude\",\n    color=\"vei_risk_tier\",\n    category_orders={\"vei_risk_tier\": risk_order},\n    color_discrete_sequence=[\"#2ecc71\", \"#f1c40f\", \"#e67e22\", \"#e74c3c\", \"#8e44ad\"],\n    box=True,\n    points=\"all\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_ts_mag",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_ts_mag = px.violin(\n    ts_mag_df,\n    x=\"vei_risk_tier\",\n    y=\"tsunami_magnitude\",\n    color=\"vei_risk_tier\",\n    category_orders={\"vei_risk_tier\": risk_order},\n    color_discrete_sequence=[\"#2ecc71\", \"#f1c40f\", \"#e67e22\", \"#e74c3c\", \"#8e44ad\"],\n    box=True,\n    points=\"all\",\n    labels={",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "ts_runup_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "ts_runup_df = (filtered.dropna(subset=[\"tsunami_runups\"])\n               .groupby(\"volcano_name\")\n               .agg(\n                   total_runups=(\"tsunami_runups\", \"sum\"),\n                   eruption_count=(\"volcano_event_id\", \"count\"))\n               .reset_index()\n               .sort_values(\"total_runups\", ascending=False)\n               .head(10)\n)\nfig_runup = px.bar(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_runup",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_runup = px.bar(\n    ts_runup_df,\n    x=\"total_runups\",\n    y=\"volcano_name\",\n    orientation=\"h\",\n    color=\"total_runups\",\n    color_continuous_scale=\"Teal\",\n    text=\"total_runups\",\n    labels={\n        \"total_runups\": \"Total Tsunami Runups\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "eq_mag_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "eq_mag_df = filtered.dropna(subset=[\"earthquake_magnitude\"])\nfig_eq_mag = px.histogram(\n    eq_mag_df,\n    x=\"earthquake_magnitude\",\n    nbins=20,\n    color_discrete_sequence=[\"#a855f7\"],\n    labels={\n        \"earthquake_magnitude\": \"Earthquake Magnitude\",\n        \"count\": \"Number of Eruptions\"}\n)",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_eq_mag",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_eq_mag = px.histogram(\n    eq_mag_df,\n    x=\"earthquake_magnitude\",\n    nbins=20,\n    color_discrete_sequence=[\"#a855f7\"],\n    labels={\n        \"earthquake_magnitude\": \"Earthquake Magnitude\",\n        \"count\": \"Number of Eruptions\"}\n)\nfig_eq_mag.update_traces(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "heatmap_df = (\n    filtered.groupby(\"country_continent\")\n    .agg(\n        tsunami_rate=(\"tsunami_confirmed\", \"mean\"),\n        earthquake_rate=(\"earthquake_confirmed\", \"mean\"),\n        total=(\"volcano_event_id\", \"count\")\n    ).reset_index()\n)\nheatmap_df[\"tsunami_rate\"] = (heatmap_df[\"tsunami_rate\"] * 100).round(2)\nheatmap_df[\"earthquake_rate\"] = (heatmap_df[\"earthquake_rate\"] * 100).round(2)",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap_df[\"tsunami_rate\"]",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "heatmap_df[\"tsunami_rate\"] = (heatmap_df[\"tsunami_rate\"] * 100).round(2)\nheatmap_df[\"earthquake_rate\"] = (heatmap_df[\"earthquake_rate\"] * 100).round(2)\nheatmap_pivot = heatmap_df.set_index(\"country_continent\")[[\"tsunami_rate\", \"earthquake_rate\"]].rename(columns={\"tsunami_rate\": \"Tsunami Rate (%)\", \"earthquake_rate\": \"Earthquake Rate (%)\"})\nfig_heatmap = px.imshow(\n        heatmap_pivot,\n        color_continuous_scale=\"YlOrRd\",\n        text_auto=\".1f\",\n        aspect=\"auto\",\n        labels={\"color\": \"Rate (%)\"},\n    )",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap_df[\"earthquake_rate\"]",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "heatmap_df[\"earthquake_rate\"] = (heatmap_df[\"earthquake_rate\"] * 100).round(2)\nheatmap_pivot = heatmap_df.set_index(\"country_continent\")[[\"tsunami_rate\", \"earthquake_rate\"]].rename(columns={\"tsunami_rate\": \"Tsunami Rate (%)\", \"earthquake_rate\": \"Earthquake Rate (%)\"})\nfig_heatmap = px.imshow(\n        heatmap_pivot,\n        color_continuous_scale=\"YlOrRd\",\n        text_auto=\".1f\",\n        aspect=\"auto\",\n        labels={\"color\": \"Rate (%)\"},\n    )\nfig_heatmap.update_layout(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "heatmap_pivot",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "heatmap_pivot = heatmap_df.set_index(\"country_continent\")[[\"tsunami_rate\", \"earthquake_rate\"]].rename(columns={\"tsunami_rate\": \"Tsunami Rate (%)\", \"earthquake_rate\": \"Earthquake Rate (%)\"})\nfig_heatmap = px.imshow(\n        heatmap_pivot,\n        color_continuous_scale=\"YlOrRd\",\n        text_auto=\".1f\",\n        aspect=\"auto\",\n        labels={\"color\": \"Rate (%)\"},\n    )\nfig_heatmap.update_layout(\n        height=380,",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_heatmap",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_heatmap = px.imshow(\n        heatmap_pivot,\n        color_continuous_scale=\"YlOrRd\",\n        text_auto=\".1f\",\n        aspect=\"auto\",\n        labels={\"color\": \"Rate (%)\"},\n    )\nfig_heatmap.update_layout(\n        height=380,\n        margin=dict(l=0, r=0, t=10, b=0),",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
         "label": "Colors",
         "kind": 6,
         "importPath": "utils.theme",
