@@ -2939,6 +2939,87 @@
         "documentation": {}
     },
     {
+        "label": "feature_cols",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "feature_cols = [\n    \"age\", \"gender\", \"job_role\", \"experience_years\", \"company_size\",\n    \"work_mode\", \"work_hours_per_week\", \"overtime_hours\", \"meetings_per_day\",\n    \"deadlines_missed\", \"job_satisfaction\", \"manager_support\",\n    \"work_life_balance\", \"sleep_hours\", \"physical_activity_days\",\n    \"screen_time_hours\", \"caffeine_intake\", \"social_support_score\",\n    \"has_therapy\", \"stress_level\", \"anxiety_score\", \"depression_score\"\n]\nX = model_df[feature_cols]\ny_clf = model_df[\"burnout_level_enc\"]",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "X",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "X = model_df[feature_cols]\ny_clf = model_df[\"burnout_level_enc\"]\ny_reg = model_df[\"burnout_score\"]\nX_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)\n# ── Train Classifier ──\nclf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_clf",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_clf = model_df[\"burnout_level_enc\"]\ny_reg = model_df[\"burnout_score\"]\nX_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)\n# ── Train Classifier ──\nclf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_reg",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_reg = model_df[\"burnout_score\"]\nX_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)\n# ── Train Classifier ──\nclf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nclf.fit(X_train, y_clf_train)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "clf",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "clf = RandomForestClassifier(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nclf.fit(X_train, y_clf_train)\ny_clf_pred = clf.predict(X_test)\n# ── Train Regressor ──\nreg = RandomForestRegressor(",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_clf_pred",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_clf_pred = clf.predict(X_test)\n# ── Train Regressor ──\nreg = RandomForestRegressor(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nreg.fit(X_train, y_reg_train)\ny_reg_pred = reg.predict(X_test)",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "reg",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "reg = RandomForestRegressor(\n    n_estimators=n_estimators,\n    max_depth=max_depth,\n    random_state=42,\n    n_jobs=-1\n)\nreg.fit(X_train, y_reg_train)\ny_reg_pred = reg.predict(X_test)\nr2 = r2_score(y_reg_test, y_reg_pred)\n# ── Classification Report ──",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "y_reg_pred",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "y_reg_pred = reg.predict(X_test)\nr2 = r2_score(y_reg_test, y_reg_pred)\n# ── Classification Report ──\nreport = classification_report(\n    y_clf_test, y_clf_pred,\n    target_names=[\"Low\", \"Moderate\", \"High\"],\n    output_dict=True\n)\nreport_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
+        "label": "r2",
+        "kind": 5,
+        "importPath": "pages.6_🤯_Mental_Health_Burnout",
+        "description": "pages.6_🤯_Mental_Health_Burnout",
+        "peekOfCode": "r2 = r2_score(y_reg_test, y_reg_pred)\n# ── Classification Report ──\nreport = classification_report(\n    y_clf_test, y_clf_pred,\n    target_names=[\"Low\", \"Moderate\", \"High\"],\n    output_dict=True\n)\nreport_df = pd.DataFrame(report).transpose().round(3)\nst.success(\"✅ Model trained successfully!\")\n# ── Model Performance KPIs ──",
+        "detail": "pages.6_🤯_Mental_Health_Burnout",
+        "documentation": {}
+    },
+    {
         "label": "report",
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",

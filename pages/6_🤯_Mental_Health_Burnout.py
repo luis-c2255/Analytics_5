@@ -406,39 +406,39 @@ if train_model:
             level_map = {"Low": 0, "Moderate": 1, "High": 2}
             model_df["burnout_level_enc"] = model_df["burnout_level"].map(level_map)
 
-            feature_cols = [
-                "age", "gender", "job_role", "experience_years", "company_size",
-                "work_mode", "work_hours_per_week", "overtime_hours", "meetings_per_day",
-                "deadlines_missed", "job_satisfaction", "manager_support",
-                "work_life_balance", "sleep_hours", "physical_activity_days",
-                "screen_time_hours", "caffeine_intake", "social_support_score",
-                "has_therapy", "stress_level", "anxiety_score", "depression_score"
-                ]
-            X = model_df[feature_cols]
-            y_clf = model_df["burnout_level_enc"]
-            y_reg = model_df["burnout_score"]
+feature_cols = [
+    "age", "gender", "job_role", "experience_years", "company_size",
+    "work_mode", "work_hours_per_week", "overtime_hours", "meetings_per_day",
+    "deadlines_missed", "job_satisfaction", "manager_support",
+    "work_life_balance", "sleep_hours", "physical_activity_days",
+    "screen_time_hours", "caffeine_intake", "social_support_score",
+    "has_therapy", "stress_level", "anxiety_score", "depression_score"
+]
+X = model_df[feature_cols]
+y_clf = model_df["burnout_level_enc"]
+y_reg = model_df["burnout_score"]
             
-            X_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)
-            # ── Train Classifier ──
-            clf = RandomForestClassifier(
-                n_estimators=n_estimators,
-                max_depth=max_depth,
-                random_state=42,
-                n_jobs=-1
-            )
-            clf.fit(X_train, y_clf_train)
-            y_clf_pred = clf.predict(X_test)
+X_train, X_test, y_clf_train, y_clf_test, y_reg_train, y_reg_test = train_test_split(X, y_clf, y_reg, test_size=test_size / 100, random_state=42)
+# ── Train Classifier ──
+clf = RandomForestClassifier(
+    n_estimators=n_estimators,
+    max_depth=max_depth,
+    random_state=42,
+    n_jobs=-1
+)
+clf.fit(X_train, y_clf_train)
+y_clf_pred = clf.predict(X_test)
             
-            # ── Train Regressor ──
-            reg = RandomForestRegressor(
-                n_estimators=n_estimators,
-                max_depth=max_depth,
-                random_state=42,
-                n_jobs=-1
-            )
-            reg.fit(X_train, y_reg_train)
-            y_reg_pred = reg.predict(X_test)
-            r2 = r2_score(y_reg_test, y_reg_pred)
+# ── Train Regressor ──
+reg = RandomForestRegressor(
+    n_estimators=n_estimators,
+    max_depth=max_depth,
+    random_state=42,
+    n_jobs=-1
+)
+reg.fit(X_train, y_reg_train)
+y_reg_pred = reg.predict(X_test)
+r2 = r2_score(y_reg_test, y_reg_pred)
             
 # ── Classification Report ──
 report = classification_report(
