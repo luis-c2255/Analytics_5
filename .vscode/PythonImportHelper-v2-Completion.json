@@ -1056,7 +1056,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "modern = filtered[filtered[\"year\"] > 1500].dropna(subset=[\"year\", \"vei\"])\nmodern[\"decade\"] = (modern[\"year\"] // 10 * 10).astype(int)\ndecade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],",
+        "peekOfCode": "modern = filtered[filtered[\"year\"] > 1500].dropna(subset=[\"year\", \"vei\"])\nmodern[\"decade\"] = (modern[\"year\"] // 10 * 10).astype(int)\ndecade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts[\"decade\"],",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
@@ -1065,7 +1065,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "modern[\"decade\"] = (modern[\"year\"] // 10 * 10).astype(int)\ndecade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],\n        y=decade_counts['eruption_count'],",
+        "peekOfCode": "modern[\"decade\"] = (modern[\"year\"] // 10 * 10).astype(int)\ndecade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts[\"decade\"],\n        y=decade_counts[\"eruption_count\"],",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
@@ -1074,7 +1074,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "decade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],\n        y=decade_counts['eruption_count'],\n        name='Eruption Count',",
+        "peekOfCode": "decade_counts = (modern.groupby(\"decade\").agg(\n    eruption_count=(\"volcano_event_id\", \"count\"),\n    avg_vei=(\"vei\", \"mean\")\n).reset_index())\nfig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts[\"decade\"],\n        y=decade_counts[\"eruption_count\"],\n        name=\"Eruption Count\",",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
@@ -1083,7 +1083,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "fig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts['decade'],\n        y=decade_counts['eruption_count'],\n        name='Eruption Count',\n        marker_color='#F1B961',\n        opacity=0.75\n    ),\n    secondary_y=False",
+        "peekOfCode": "fig_timeline = make_subplots(specs=[[{\"secondary_y\": True}]])\nfig_timeline.add_trace(\n    go.Bar(\n        x=decade_counts[\"decade\"],\n        y=decade_counts[\"eruption_count\"],\n        name=\"Eruption Count\",\n        marker_color=\"#ff4b4b\",\n        opacity=0.75\n    ),\n    secondary_y=False",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },

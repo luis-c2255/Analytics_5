@@ -328,38 +328,46 @@ decade_counts = (modern.groupby("decade").agg(
 fig_timeline = make_subplots(specs=[[{"secondary_y": True}]])
 fig_timeline.add_trace(
     go.Bar(
-        x=decade_counts['decade'],
-        y=decade_counts['eruption_count'],
-        name='Eruption Count',
-        marker_color='#F1B961',
+        x=decade_counts["decade"],
+        y=decade_counts["eruption_count"],
+        name="Eruption Count",
+        marker_color="#ff4b4b",
         opacity=0.75
     ),
     secondary_y=False
 )
 fig_timeline.add_trace(
-    go.Scatter,
-    x=decade_counts['decade'],
-    y=decade_counts['avg_vei'],
-    name='Avg VEI',
-    mode='lines+markers',
-    line=dict(color='#EC2C02', width=2),
-    marker=dict(size=6)
-),
+    go.Scatter(
+        x=decade_counts["decade"],
+        y=decade_counts["avg_vei"],
+        name="Avg VEI",
+        mode="lines+markers",
+        line=dict(color="#ffa500", width=2),
+        marker=dict(size=6)
+    ),
+    secondary_y=True
+)
 fig_timeline.update_layout(
     height=420,
     paper_bgcolor="#0e1117",
     plot_bgcolor="#0e1117",
-    font=dict(color='white'),
+    font=dict(color="white"),
     legend=dict(
-        bgcolor='#1e1e1e',
-        bordercolor='#444',
-        borderwidth=1),
+        bgcolor="#1e1e1e",
+        bordercolor="#444",
+        borderwidth=1
+    ),
     margin=dict(l=0, r=0, t=20, b=40),
-    xaxis=dict(gridcolor='#2a2a2a', title='Decade'),
+    xaxis=dict(gridcolor="#2a2a2a", title="Decade"),
 )
 fig_timeline.update_yaxes(
-    title_text='Eruption Count',
+    title_text="Eruption Count",
     secondary_y=False,
+    gridcolor="#2a2a2a"
+)
+fig_timeline.update_yaxes(
+    title_text="Avg VEI",
+    secondary_y=True,
     gridcolor="#2a2a2a"
 )
 st.plotly_chart(fig_timeline, width="stretch")
