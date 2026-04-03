@@ -52,6 +52,14 @@
         "documentation": {}
     },
     {
+        "label": "make_subplots",
+        "importPath": "plotly.subplots",
+        "description": "plotly.subplots",
+        "isExtraImport": true,
+        "detail": "plotly.subplots",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -1463,6 +1471,429 @@
         "description": "pages.3_🌋_Global_Volcano_Eruption",
         "peekOfCode": "fig_heatmap = px.imshow(\n        heatmap_pivot,\n        color_continuous_scale=\"YlOrRd\",\n        text_auto=\".1f\",\n        aspect=\"auto\",\n        labels={\"color\": \"Rate (%)\"},\n    )\nfig_heatmap.update_layout(\n        height=380,\n        margin=dict(l=0, r=0, t=10, b=0),",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "load_data",
+        "kind": 2,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "def load_data():\n    df = pd.read_csv('pypi_ai_packages.csv')\n    df['date'] = pd.to_datetime(df['date'])\n    df['first_release_date'] = pd.to_datetime(df['first_release_date'])\n    df['keywords'] = df['keywords'].fillna('not_specified')\n    df['license'] = df['license'].fillna('Unknown')\n    numeric_cols = ['downloads', 'dependency_count', 'total_versions',\n                    'age_days', 'total_downloads', 'avg_daily_downloads',\n                    'download_momentum_pct']\n    df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "df = load_data()\n# Sidebar filters\nst.sidebar.title(\"🎛️ Filters\")\ndate_range = st.sidebar.date_input(\n    \"Select Date Range\",\n    value=(df['date'].min(), df['date'].max()),\n    min_value=df['date'].min().date(),\n    max_value=df['date'].max().date()\n)\nframeworks = st.sidebar.multiselect(",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "date_range",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "date_range = st.sidebar.date_input(\n    \"Select Date Range\",\n    value=(df['date'].min(), df['date'].max()),\n    min_value=df['date'].min().date(),\n    max_value=df['date'].max().date()\n)\nframeworks = st.sidebar.multiselect(\n    \"Framework Tags\",\n    options=df['framework_tag'].unique(),\n    default=df['framework_tag'].unique()",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "frameworks",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "frameworks = st.sidebar.multiselect(\n    \"Framework Tags\",\n    options=df['framework_tag'].unique(),\n    default=df['framework_tag'].unique()\n)\nllm_filter = st.sidebar.radio(\n    \"Package Era\",\n    options=['All', 'LLM-Era Only', 'Traditional Only'],\n    index=0\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "llm_filter",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "llm_filter = st.sidebar.radio(\n    \"Package Era\",\n    options=['All', 'LLM-Era Only', 'Traditional Only'],\n    index=0\n)\nmin_downloads = st.sidebar.slider(\n    \"Minimum Daily Downloads\",\n    min_value=0,\n    max_value=int(df['downloads'].max()),\n    value=0,",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "min_downloads",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "min_downloads = st.sidebar.slider(\n    \"Minimum Daily Downloads\",\n    min_value=0,\n    max_value=int(df['downloads'].max()),\n    value=0,\n    step=1000\n)\n# Apply filters\nmask = (\n    (df['date'] >= pd.Timestamp(date_range[0])) &",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "mask",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "mask = (\n    (df['date'] >= pd.Timestamp(date_range[0])) &\n    (df['date'] <= pd.Timestamp(date_range[1])) &\n    (df['framework_tag'].isin(frameworks)) &\n    (df['downloads'] >= min_downloads)\n)\nif llm_filter == 'LLM-Era Only':\n    mask &= (df['llm_era_package'] == 'True')\nelif llm_filter == 'Traditional Only':\n    mask &= (df['llm_era_package'] == 'False')",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "filtered_df",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "filtered_df = df[mask]\nst.markdown(\n    Components.page_header(\"🖥️ Pypi AI Packages Download Analysis\"), unsafe_allow_html=True\n)\nst.markdown(f\"Dataset: {len(filtered_df):,} records | Packages: {filtered_df['package_name'].nunique()}\", text_alignment=\"center\")\n# Key metrics\ncol1, col2, col3, col4 = st.columns(4)\nwith col1:\n    st.markdown(\n        Components.metric_card(",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "daily_downloads",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "daily_downloads = filtered_df.groupby('date')['downloads'].sum().reset_index()\nfig_daily = px.line(\n    daily_downloads,\n    x='date',\n    y='downloads',\n    title='Daily Total Downloads',\n    labels={'downloads': 'Downloads', 'date': 'Date'}\n)\nfig_daily.update_layout(hovermode='x unified')\nst.plotly_chart(fig_daily, width=\"stretch\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_daily",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_daily = px.line(\n    daily_downloads,\n    x='date',\n    y='downloads',\n    title='Daily Total Downloads',\n    labels={'downloads': 'Downloads', 'date': 'Date'}\n)\nfig_daily.update_layout(hovermode='x unified')\nst.plotly_chart(fig_daily, width=\"stretch\")\nst.markdown(\"   \")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "framework_daily",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "framework_daily = filtered_df.groupby(['date', 'framework_tag'])['downloads'].sum().reset_index()\nfig_framework = px.line(\n    framework_daily,\n    x='date',\n    y='downloads',\n    color='framework_tag',\n    title='Downloads by Framework',\n    labels={'downloads': 'Downloads', 'date': 'Date'}\n)\nst.plotly_chart(fig_framework, width=\"stretch\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_framework",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_framework = px.line(\n    framework_daily,\n    x='date',\n    y='downloads',\n    color='framework_tag',\n    title='Downloads by Framework',\n    labels={'downloads': 'Downloads', 'date': 'Date'}\n)\nst.plotly_chart(fig_framework, width=\"stretch\")\nst.markdown(\"   \")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "weekly_pivot",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "weekly_pivot = filtered_df.groupby(['week', 'package_name'])['download_momentum_pct'].mean().reset_index()\ntop_packages = filtered_df.groupby('package_name')['total_downloads'].first().nlargest(15).index\nweekly_pivot = weekly_pivot[weekly_pivot['package_name'].isin(top_packages)]\npivot_table = weekly_pivot.pivot(index='package_name', columns='week', values='download_momentum_pct')\nfig_heatmap = px.imshow(\n    pivot_table,\n    labels=dict(x=\"Week\", y=\"Package\", color=\"Momentum %\"),\n    title=\"Top 15 Packages - Weekly Momentum\",\n    color_continuous_scale='RdYlGn',\n    aspect='auto'",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "top_packages",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "top_packages = filtered_df.groupby('package_name')['total_downloads'].first().nlargest(15).index\nweekly_pivot = weekly_pivot[weekly_pivot['package_name'].isin(top_packages)]\npivot_table = weekly_pivot.pivot(index='package_name', columns='week', values='download_momentum_pct')\nfig_heatmap = px.imshow(\n    pivot_table,\n    labels=dict(x=\"Week\", y=\"Package\", color=\"Momentum %\"),\n    title=\"Top 15 Packages - Weekly Momentum\",\n    color_continuous_scale='RdYlGn',\n    aspect='auto'\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "weekly_pivot",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "weekly_pivot = weekly_pivot[weekly_pivot['package_name'].isin(top_packages)]\npivot_table = weekly_pivot.pivot(index='package_name', columns='week', values='download_momentum_pct')\nfig_heatmap = px.imshow(\n    pivot_table,\n    labels=dict(x=\"Week\", y=\"Package\", color=\"Momentum %\"),\n    title=\"Top 15 Packages - Weekly Momentum\",\n    color_continuous_scale='RdYlGn',\n    aspect='auto'\n)\nst.plotly_chart(fig_heatmap, width=\"stretch\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "pivot_table",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "pivot_table = weekly_pivot.pivot(index='package_name', columns='week', values='download_momentum_pct')\nfig_heatmap = px.imshow(\n    pivot_table,\n    labels=dict(x=\"Week\", y=\"Package\", color=\"Momentum %\"),\n    title=\"Top 15 Packages - Weekly Momentum\",\n    color_continuous_scale='RdYlGn',\n    aspect='auto'\n)\nst.plotly_chart(fig_heatmap, width=\"stretch\")\nst.markdown(\"   \")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_heatmap",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_heatmap = px.imshow(\n    pivot_table,\n    labels=dict(x=\"Week\", y=\"Package\", color=\"Momentum %\"),\n    title=\"Top 15 Packages - Weekly Momentum\",\n    color_continuous_scale='RdYlGn',\n    aspect='auto'\n)\nst.plotly_chart(fig_heatmap, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"🏆 :orange[Package Rankings]\", divider=\"orange\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "top_by_downloads",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "top_by_downloads = filtered_df.groupby('package_name').agg({\n    'total_downloads': 'first',\n    'avg_daily_downloads': 'first',\n    'download_momentum_pct': 'first'}).nlargest(15, 'total_downloads').reset_index()\nfig_top = px.bar(\n    top_by_downloads,\n    x='total_downloads',\n    y='package_name',\n    orientation='h',\n    title='Top 15 Packages by Total Downloads',",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_top",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_top = px.bar(\n    top_by_downloads,\n    x='total_downloads',\n    y='package_name',\n    orientation='h',\n    title='Top 15 Packages by Total Downloads',\n    labels={'total_downloads': 'Total Downloads', 'package_name': 'Package'},\n    color='download_momentum_pct',\n    color_continuous_scale='Viridis'\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "growth_df",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "growth_df = filtered_df.groupby('package_name').agg({\n    'download_momentum_pct': 'mean',\n    'avg_daily_downloads': 'first'}).reset_index()\ngrowth_df = growth_df[growth_df['avg_daily_downloads'] > 1000] # Filter noise\ntop_growth = growth_df.nlargest(15, 'download_momentum_pct')\nfig_growth = px.bar(\n    top_growth,\n    x='download_momentum_pct',\n    y='package_name',\n    orientation='h',",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "growth_df",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "growth_df = growth_df[growth_df['avg_daily_downloads'] > 1000] # Filter noise\ntop_growth = growth_df.nlargest(15, 'download_momentum_pct')\nfig_growth = px.bar(\n    top_growth,\n    x='download_momentum_pct',\n    y='package_name',\n    orientation='h',\n    title='Top 15 Fastest Growing Packages (min 1K daily downloads)',\n    labels={'download_momentum_pct': 'Momentum %', 'package_name': 'Package'},\n    color='avg_daily_downloads',",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "top_growth",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "top_growth = growth_df.nlargest(15, 'download_momentum_pct')\nfig_growth = px.bar(\n    top_growth,\n    x='download_momentum_pct',\n    y='package_name',\n    orientation='h',\n    title='Top 15 Fastest Growing Packages (min 1K daily downloads)',\n    labels={'download_momentum_pct': 'Momentum %', 'package_name': 'Package'},\n    color='avg_daily_downloads',\n    color_continuous_scale='Plasma'",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_growth",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_growth = px.bar(\n    top_growth,\n    x='download_momentum_pct',\n    y='package_name',\n    orientation='h',\n    title='Top 15 Fastest Growing Packages (min 1K daily downloads)',\n    labels={'download_momentum_pct': 'Momentum %', 'package_name': 'Package'},\n    color='avg_daily_downloads',\n    color_continuous_scale='Plasma'\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "framework_share",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "framework_share = filtered_df.groupby('framework_tag')['downloads'].sum().reset_index()\nframework_share = framework_share.sort_values('downloads', ascending=False)\nfig_pie = px.pie(\n    framework_share,\n    values='downloads',\n    names='framework_tag',\n    title='Downloads Distribution by Framework',\n    hole=0.4\n)\nst.plotly_chart(fig_pie, width=\"stretch\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "framework_share",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "framework_share = framework_share.sort_values('downloads', ascending=False)\nfig_pie = px.pie(\n    framework_share,\n    values='downloads',\n    names='framework_tag',\n    title='Downloads Distribution by Framework',\n    hole=0.4\n)\nst.plotly_chart(fig_pie, width=\"stretch\")\nst.markdown(\"   \")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_pie",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_pie = px.pie(\n    framework_share,\n    values='downloads',\n    names='framework_tag',\n    title='Downloads Distribution by Framework',\n    hole=0.4\n)\nst.plotly_chart(fig_pie, width=\"stretch\")\nst.markdown(\"   \")\nst.subheader(\"🔍 :violet[Deep Dive Analysis]\", divider=\"violet\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "package_summary",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "package_summary = filtered_df.groupby('package_name').agg({\n    'dependency_count': 'first',\n    'total_downloads': 'first',\n    'framework_tag': 'first',\n    'llm_era_package': 'first'}).reset_index()\nfig_scatter = px.scatter(\n    package_summary,\n    x='dependency_count',\n    y='total_downloads',\n    color='framework_tag',",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_scatter",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_scatter = px.scatter(\n    package_summary,\n    x='dependency_count',\n    y='total_downloads',\n    color='framework_tag',\n    size='total_downloads',\n    hover_data=['package_name'],\n    title='Dependencies vs Total Downloads',\n    labels={'dependency_count': 'Number of Dependencies', 'total_downloads': 'Total Downloads'},\n    log_y=True",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "age_popularity",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "age_popularity = filtered_df.groupby('package_name').agg({\n    'age_days': 'first',\n    'avg_daily_downloads': 'first',\n    'llm_era_package': 'first'}).reset_index()\nfig_age = px.scatter(\n    age_popularity,\n    x='age_days',\n    y='avg_daily_downloads',\n    color='llm_era_package',\n    hover_data=['package_name'],",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_age",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_age = px.scatter(\n    age_popularity,\n    x='age_days',\n    y='avg_daily_downloads',\n    color='llm_era_package',\n    hover_data=['package_name'],\n    title='Package Age vs Average Daily Downloads',\n    labels={'age_days': 'Age (days)', 'avg_daily_downloads': 'Avg Daily Downloads'},\n    log_y=True\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "comparison_df",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "comparison_df = filtered_df.groupby('llm_era_package').agg({\n    'downloads': 'sum',\n    'avg_daily_downloads': 'mean',\n    'download_momentum_pct': 'mean',\n    'dependency_count': 'mean'}).reset_index()\nfig_comparison = make_subplots(\n    rows=1, cols=2,\n    subplot_titles=('Average Daily Downloads', 'Average Momentum %'),\n    specs=[[{'type': 'bar'}, {'type': 'bar'}]]\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_comparison",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_comparison = make_subplots(\n    rows=1, cols=2,\n    subplot_titles=('Average Daily Downloads', 'Average Momentum %'),\n    specs=[[{'type': 'bar'}, {'type': 'bar'}]]\n)\nfig_comparison.add_trace(\n    go.Bar(\n        x=comparison_df['llm_era_package'], \n        y=comparison_df['avg_daily_downloads'],\n        name='Avg Daily Downloads', ",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "detailed_table",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "detailed_table = filtered_df.groupby('package_name').agg({\n    'total_downloads': 'first',\n    'avg_daily_downloads': 'first',\n    'download_momentum_pct': 'first',\n    'dependency_count': 'first',\n    'age_days': 'first',\n    'framework_tag': 'first',\n    'license': 'first',\n    'author': 'first'}).nlargest(20, 'total_downloads').reset_index()\nst.dataframe(",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "license_dist",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "license_dist = filtered_df.groupby('license_group')['downloads'].sum().reset_index()\nlicense_dist = license_dist.sort_values('downloads', ascending=False).head(10)\nfig_license = px.bar(\n    license_dist,\n    x='license_group',\n    y='downloads',\n    title='Top 10 Licenses by Downloads',\n    labels={'license_group': 'License', 'downloads': 'Total Downloads'},\n    color='downloads',\n    color_continuous_scale='Blues'",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "license_dist",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "license_dist = license_dist.sort_values('downloads', ascending=False).head(10)\nfig_license = px.bar(\n    license_dist,\n    x='license_group',\n    y='downloads',\n    title='Top 10 Licenses by Downloads',\n    labels={'license_group': 'License', 'downloads': 'Total Downloads'},\n    color='downloads',\n    color_continuous_scale='Blues'\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_license",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_license = px.bar(\n    license_dist,\n    x='license_group',\n    y='downloads',\n    title='Top 10 Licenses by Downloads',\n    labels={'license_group': 'License', 'downloads': 'Total Downloads'},\n    color='downloads',\n    color_continuous_scale='Blues'\n)\nfig_license.update_layout(xaxis_tickangle=-45)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "version_bins",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "version_bins = filtered_df.groupby('package_name')['total_versions'].first().reset_index()\nfig_versions = px.histogram(\n    version_bins,\n    x='total_versions',\n    nbins=30,\n    title='Package Version Count Distribution',\n    labels={'total_versions': 'Number of Versions', 'count': 'Number of Packages'},\n    color_discrete_sequence=['teal']\n)\nst.plotly_chart(fig_versions, width=\"stretch\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_versions",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_versions = px.histogram(\n    version_bins,\n    x='total_versions',\n    nbins=30,\n    title='Package Version Count Distribution',\n    labels={'total_versions': 'Number of Versions', 'count': 'Number of Packages'},\n    color_discrete_sequence=['teal']\n)\nst.plotly_chart(fig_versions, width=\"stretch\")\nst.markdown(\"   \")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "dependency_stats",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "dependency_stats = filtered_df.groupby('package_name').agg({\n    'dependency_count': 'first',\n    'total_downloads': 'first'}).reset_index()\n# Create bins for dependency count\ndependency_stats['dependency_bin'] = pd.cut(\n    dependency_stats['dependency_count'],\n    bins=[0, 10, 25, 50, 100, 200],\n    labels=['0-10', '11-25', '26-50', '51-100', '100+']\n)\ndep_analysis = dependency_stats.groupby('dependency_bin').agg({",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "dependency_stats['dependency_bin']",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "dependency_stats['dependency_bin'] = pd.cut(\n    dependency_stats['dependency_count'],\n    bins=[0, 10, 25, 50, 100, 200],\n    labels=['0-10', '11-25', '26-50', '51-100', '100+']\n)\ndep_analysis = dependency_stats.groupby('dependency_bin').agg({\n    'package_name': 'count',\n    'total_downloads': 'mean'}).reset_index()\ndep_analysis.columns = ['dependency_bin', 'package_count', 'avg_downloads']\nfig_dep = make_subplots(",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "dep_analysis",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "dep_analysis = dependency_stats.groupby('dependency_bin').agg({\n    'package_name': 'count',\n    'total_downloads': 'mean'}).reset_index()\ndep_analysis.columns = ['dependency_bin', 'package_count', 'avg_downloads']\nfig_dep = make_subplots(\n    rows=1, cols=2,\n    subplot_titles=('Package Count by Dependency Range', 'Avg Downloads by Dependency Range'),\n    specs=[[{'type':'bar'}, {'type': 'bar'}]]\n)\nfig_dep.add_trace(",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "dep_analysis.columns",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "dep_analysis.columns = ['dependency_bin', 'package_count', 'avg_downloads']\nfig_dep = make_subplots(\n    rows=1, cols=2,\n    subplot_titles=('Package Count by Dependency Range', 'Avg Downloads by Dependency Range'),\n    specs=[[{'type':'bar'}, {'type': 'bar'}]]\n)\nfig_dep.add_trace(\n    go.Bar(\n        x=dep_analysis['dependency_bin'], \n        y=dep_analysis['package_count'],",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_dep",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_dep = make_subplots(\n    rows=1, cols=2,\n    subplot_titles=('Package Count by Dependency Range', 'Avg Downloads by Dependency Range'),\n    specs=[[{'type':'bar'}, {'type': 'bar'}]]\n)\nfig_dep.add_trace(\n    go.Bar(\n        x=dep_analysis['dependency_bin'], \n        y=dep_analysis['package_count'],\n        name='Package Count', ",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "corr_features",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "corr_features = filtered_df.groupby('package_name').agg({\n    'dependency_count': 'first',\n    'total_versions': 'first',\n    'age_days': 'first',\n    'avg_daily_downloads': 'first',\n    'download_momentum_pct': 'first'\n})\ncorr_matrix = corr_features.corr()\nfig_corr = px.imshow(\n    corr_matrix,",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "corr_matrix",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "corr_matrix = corr_features.corr()\nfig_corr = px.imshow(\n    corr_matrix,\n    text_auto='.2f',\n    title='Feature Correlation Heatmap',\n    color_continuous_scale='RdBu_r',\n    zmin=-1,\n    zmax=1,\n    aspect='auto'\n)",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "fig_corr",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "fig_corr = px.imshow(\n    corr_matrix,\n    text_auto='.2f',\n    title='Feature Correlation Heatmap',\n    color_continuous_scale='RdBu_r',\n    zmin=-1,\n    zmax=1,\n    aspect='auto'\n)\nst.plotly_chart(fig_corr, width=\"stretch\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "documentation": {}
+    },
+    {
+        "label": "csv",
+        "kind": 5,
+        "importPath": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "description": "pages.4_🖥️_Pypi_AI_Packages_Download",
+        "peekOfCode": "csv = filtered_df.to_csv(index=False).encode('utf-8')\nst.download_button(\n    label=\"Download Filtered Dataset as CSV\",\n    data=csv,\n    file_name='filtered_pypi_ai_packages.csv',\n    mime='text/csv'\n)\nst.markdown(\"   \")\nwith st.expander(\"📊 Statistical Summary\"):\n    st.write(\"Numeric Column Statistics:\")",
+        "detail": "pages.4_🖥️_Pypi_AI_Packages_Download",
         "documentation": {}
     },
     {
