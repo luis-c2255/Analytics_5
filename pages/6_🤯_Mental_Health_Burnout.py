@@ -79,7 +79,7 @@ st.sidebar.markdown(f"### 🟢 {len(filtered):,}")
 st.markdown(
     Components.page_header("🤯 Mental Health Burnout Analysis"), unsafe_allow_html=True
 )
-st.markdown("Analyzing 150,000 tech professionals across work habits, lifestyle, and mental health indicators.", text_alignment="center")
+st.markdown("### Analyzing 150,000 tech professionals across work habits, lifestyle, and mental health indicators.", text_alignment="center")
 st.markdown("   ")
 
 # ─────────────────────────────────────────────
