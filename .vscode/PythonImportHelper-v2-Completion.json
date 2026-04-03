@@ -1407,7 +1407,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "eq_mag_df = filtered.dropna(subset=[\"earthquake_magnitude\"])\nfig_eq_mag = px.histogram(\n    eq_mag_df,\n    x=\"earthquake_magnitude\",\n    nbins=20,\n    color_discrete_sequence=[\"#a855f7\"],\n    labels={\n        \"earthquake_magnitude\": \"Earthquake Magnitude\",\n        \"count\": \"Number of Eruptions\"}\n)",
+        "peekOfCode": "eq_mag_df = filtered.dropna(subset=[\"earthquake_magnitude\"])\nfig_eq_mag = px.histogram(\n    eq_mag_df,\n    x=\"earthquake_magnitude\",\n    nbins=20,\n    color_discrete_sequence=[\"#a855f7\"],\n    text_auto=True,\n    labels={\n        \"earthquake_magnitude\": \"Earthquake Magnitude\",\n        \"count\": \"Number of Eruptions\"}",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
@@ -1416,7 +1416,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "fig_eq_mag = px.histogram(\n    eq_mag_df,\n    x=\"earthquake_magnitude\",\n    nbins=20,\n    color_discrete_sequence=[\"#a855f7\"],\n    labels={\n        \"earthquake_magnitude\": \"Earthquake Magnitude\",\n        \"count\": \"Number of Eruptions\"}\n)\nfig_eq_mag.update_traces(",
+        "peekOfCode": "fig_eq_mag = px.histogram(\n    eq_mag_df,\n    x=\"earthquake_magnitude\",\n    nbins=20,\n    color_discrete_sequence=[\"#a855f7\"],\n    text_auto=True,\n    labels={\n        \"earthquake_magnitude\": \"Earthquake Magnitude\",\n        \"count\": \"Number of Eruptions\"}\n)",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },

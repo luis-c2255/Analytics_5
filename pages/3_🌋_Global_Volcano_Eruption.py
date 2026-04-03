@@ -805,6 +805,7 @@ fig_eq_mag = px.histogram(
     x="earthquake_magnitude",
     nbins=20,
     color_discrete_sequence=["#a855f7"],
+    text_auto=True,
     labels={
         "earthquake_magnitude": "Earthquake Magnitude",
         "count": "Number of Eruptions"}
