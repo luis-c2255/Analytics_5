@@ -198,7 +198,7 @@ fig3 = px.bar(
     y="count", 
     color="burnout_level",
     barmode="group",
-    text_auto=".2f",
+    text_auto=True,
     color_discrete_map=color_map,
     labels={"count": "Number of Employees", "gender": "Gender"}
 )

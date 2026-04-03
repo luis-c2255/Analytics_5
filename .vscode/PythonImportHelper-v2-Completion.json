@@ -2692,7 +2692,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "burnout_gender = (filtered.groupby([\"gender\", \"burnout_level\"]).size().reset_index(name=\"count\"))\nfig3 = px.bar(\n    burnout_gender, \n    x=\"gender\", \n    y=\"count\", \n    color=\"burnout_level\",\n    barmode=\"group\",\n    text_auto=\".2f\",\n    color_discrete_map=color_map,\n    labels={\"count\": \"Number of Employees\", \"gender\": \"Gender\"}",
+        "peekOfCode": "burnout_gender = (filtered.groupby([\"gender\", \"burnout_level\"]).size().reset_index(name=\"count\"))\nfig3 = px.bar(\n    burnout_gender, \n    x=\"gender\", \n    y=\"count\", \n    color=\"burnout_level\",\n    barmode=\"group\",\n    text_auto=True,\n    color_discrete_map=color_map,\n    labels={\"count\": \"Number of Employees\", \"gender\": \"Gender\"}",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
@@ -2701,7 +2701,7 @@
         "kind": 5,
         "importPath": "pages.6_🤯_Mental_Health_Burnout",
         "description": "pages.6_🤯_Mental_Health_Burnout",
-        "peekOfCode": "fig3 = px.bar(\n    burnout_gender, \n    x=\"gender\", \n    y=\"count\", \n    color=\"burnout_level\",\n    barmode=\"group\",\n    text_auto=\".2f\",\n    color_discrete_map=color_map,\n    labels={\"count\": \"Number of Employees\", \"gender\": \"Gender\"}\n)",
+        "peekOfCode": "fig3 = px.bar(\n    burnout_gender, \n    x=\"gender\", \n    y=\"count\", \n    color=\"burnout_level\",\n    barmode=\"group\",\n    text_auto=True,\n    color_discrete_map=color_map,\n    labels={\"count\": \"Number of Employees\", \"gender\": \"Gender\"}\n)",
         "detail": "pages.6_🤯_Mental_Health_Burnout",
         "documentation": {}
     },
