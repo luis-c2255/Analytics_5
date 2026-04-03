@@ -165,7 +165,7 @@ fig_map = px.scatter_geo(
         'latitude': False,
         'longitude': False
     },
-    color_continuous_scale="Inferno",
+    color_continuous_scale="Reds",
     size=map_color,
     size_max=18,
     projection='natural earth',
@@ -175,7 +175,7 @@ fig_map.update_layout(
     height=500,
     margin=dict(l=0, r=0, t=40, b=0),
     paper_bgcolor='#0e1117',
-    geo=dict(bgcolor='#0e1117', landcolor='#1e2a38', oceancolor='#0d1b2a')
+    geo=dict(bgcolor='#0e1117', landcolor="#183723", oceancolor="#183a5e")
 )
 st.plotly_chart(fig_map, width="stretch")
 
