@@ -63,7 +63,7 @@ selected_eras = st.sidebar.multiselect(
 )
 
 # Continent filter
-all_continents = sorted(df['country_continent'].dropna().unique().tolistK())
+all_continents = sorted(df['country_continent'].dropna().unique().tolist())
 selected_continents = st.sidebar.multiselect(
     "Select Continent(s)", all_continents, default=all_continents
 )

@@ -786,7 +786,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "all_eras = sorted(df['era'].dropna().unique().tolist())\nselected_eras = st.sidebar.multiselect(\n    \"Select Era(s)\", all_eras, default=all_eras\n)\n# Continent filter\nall_continents = sorted(df['country_continent'].dropna().unique().tolistK())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter",
+        "peekOfCode": "all_eras = sorted(df['era'].dropna().unique().tolist())\nselected_eras = st.sidebar.multiselect(\n    \"Select Era(s)\", all_eras, default=all_eras\n)\n# Continent filter\nall_continents = sorted(df['country_continent'].dropna().unique().tolist())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
@@ -795,7 +795,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "selected_eras = st.sidebar.multiselect(\n    \"Select Era(s)\", all_eras, default=all_eras\n)\n# Continent filter\nall_continents = sorted(df['country_continent'].dropna().unique().tolistK())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter\nvei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())",
+        "peekOfCode": "selected_eras = st.sidebar.multiselect(\n    \"Select Era(s)\", all_eras, default=all_eras\n)\n# Continent filter\nall_continents = sorted(df['country_continent'].dropna().unique().tolist())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter\nvei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
@@ -804,7 +804,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "all_continents = sorted(df['country_continent'].dropna().unique().tolistK())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter\nvei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())\nvei_range = st.sidebar.slider(\n    \"VEI Range\", vei_min, vei_max, (vei_min, vei_max)\n)\n# Ring of Fire filter",
+        "peekOfCode": "all_continents = sorted(df['country_continent'].dropna().unique().tolist())\nselected_continents = st.sidebar.multiselect(\n    \"Select Continent(s)\", all_continents, default=all_continents\n)\n# VEI range filter\nvei_min, vei_max = int(df['vei'].min()), int(df['vei'].max())\nvei_range = st.sidebar.slider(\n    \"VEI Range\", vei_min, vei_max, (vei_min, vei_max)\n)\n# Ring of Fire filter",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },
