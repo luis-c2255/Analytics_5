@@ -1027,7 +1027,7 @@ with st.expander("🔴 Highest Burnout Risk Group", expanded=True):
             <li><strong>Work Mode with highest risk:</strong> Onsite employees show elevated risk scores — review workload distribution and communication policies for this cohort.</li>
             <li><strong>Company Size most affected:</strong> Large - consider scaling mental health programs.</li>
         </ul>
-        """), unsafe_allow_html=True
+        """)
 with st.expander("🤫 Silent Sufferers", expanded=True):
     st.markdown(
         "- **0.3%** of employees are classified as silent sufferers - high risk but not seeking help and not in therapy."
