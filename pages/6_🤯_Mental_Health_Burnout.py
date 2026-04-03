@@ -643,18 +643,18 @@ if run_clustering and len(cluster_features) >= 2:
             fig20.update_traces(textposition="inside", textinfo="percent+label")
             fig20.update_layout(height=380)
             st.plotly_chart(fig20, width="stretch")
-# ── Cluster Profile Radar Chart ──
-st.markdown("🕸️ :violet-background[Cluster Profile Radar Chart]")
-radar_features = [f for f in cluster_features if f in cluster_df.columns]
-cluster_means = cluster_df.groupby("Cluster")[radar_features].mean()
+        # ── Cluster Profile Radar Chart ──
+        st.markdown("🕸️ :violet-background[Cluster Profile Radar Chart]")
+        radar_features = [f for f in cluster_features if f in cluster_df.columns]
+        cluster_means = cluster_df.groupby("Cluster")[radar_features].mean()
 
-# Normalize for radar (0-1 scale)
-cluster_means_norm = (cluster_means - cluster_means.min()) / (cluster_means.max() - cluster_means.min() + 1e-9)
+        # Normalize for radar (0-1 scale)
+        cluster_means_norm = (cluster_means - cluster_means.min()) / (cluster_means.max() - cluster_means.min() + 1e-9)
 
-fig21 = go.Figure()
-colors_radar = px.colors.qualitative.Set2
-for i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):
-    fig21.add_trace(go.Scatterpolar(
+        fig21 = go.Figure()
+        colors_radar = px.colors.qualitative.Set2
+        for i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):
+            fig21.add_trace(go.Scatterpolar(
         r=row.values.tolist() + [row.values[0]],
         theta=radar_features + [radar_features[0]],
         fill="toself",
@@ -662,114 +662,114 @@ for i, (cluster_name, row) in enumerate(cluster_means_norm.iterrows()):
         line_color=colors_radar[i % len(colors_radar)],
         opacity=0.7
 ))
-fig21.update_layout(
+            fig21.update_layout(
     polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
     showlegend=True, height=500
 )
-st.plotly_chart(fig21, width="stretch")
+            st.plotly_chart(fig21, width="stretch")
 
-# ── Cluster Means Table ──
-st.markdown("📊 :violet-background[Cluster Feature Averages]")
-cluster_means_display = cluster_df.groupby("Cluster")[cluster_features].mean().round(2)
-st.dataframe(cluster_means_display.style.background_gradient(cmap="RdYlGn_r", axis=0),width="stretch")
+        # ── Cluster Means Table ──
+        st.markdown("📊 :violet-background[Cluster Feature Averages]")
+        cluster_means_display = cluster_df.groupby("Cluster")[cluster_features].mean().round(2)
+        st.dataframe(cluster_means_display.style.background_gradient(cmap="RdYlGn_r", axis=0),width="stretch")
 
-# ── Burnout Score by Cluster ──
-col1, col2 = st.columns(2)
+        # ── Burnout Score by Cluster ──
+        col1, col2 = st.columns(2)
 
-with col1:
-    st.subheader("🔥 :violet-background[Burnout Score by Segment]")
-    fig22 = px.box(
+        with col1:
+            st.subheader("🔥 :violet-background[Burnout Score by Segment]")
+            fig22 = px.box(
         cluster_df, x="Cluster", y="burnout_score",
         color="Cluster",
         color_discrete_sequence=px.colors.qualitative.Set2,
         labels={"burnout_score": "Burnout Score", "Cluster": "Segment"}
 )
-    fig22.update_layout(height=400, showlegend=False)
-    st.plotly_chart(fig22, width="stretch")
+            fig22.update_layout(height=400, showlegend=False)
+            st.plotly_chart(fig22, width="stretch")
 
-with col2:
-    st.subheader("😴 Sleep Hours by Segment")
-    fig23 = px.box(
+        with col2:
+            st.subheader("😴 Sleep Hours by Segment")
+            fig23 = px.box(
         cluster_df, x="Cluster", y="sleep_hours",
         color="Cluster",
         color_discrete_sequence=px.colors.qualitative.Set2,
         labels={"sleep_hours": "Sleep Hours", "Cluster": "Segment"}
 )
-    fig23.update_layout(height=400, showlegend=False)
-    st.plotly_chart(fig23, width="stretch")
+            fig23.update_layout(height=400, showlegend=False)
+            st.plotly_chart(fig23, width="stretch")
 
-# ── Scatter: Burnout vs Stress colored by Cluster ──
-st.markdown("🔵 :violet-background[Burnout vs Stress Level — By Segment]")
-sample_cluster = cluster_df.sample(min(3000, len(cluster_df)), random_state=42)
-fig24 = px.scatter(
-    sample_cluster, x="stress_level", y="burnout_score",
+        # ── Scatter: Burnout vs Stress colored by Cluster ──
+        st.markdown("🔵 :violet-background[Burnout vs Stress Level — By Segment]")
+        sample_cluster = cluster_df.sample(min(3000, len(cluster_df)), random_state=42)
+        fig24 = px.scatter(
+            sample_cluster, x="stress_level", y="burnout_score",
     color="Cluster",
     color_discrete_sequence=px.colors.qualitative.Set2,
     opacity=0.6,
     labels={"stress_level": "Stress Level", "burnout_score": "Burnout Score"},
     hover_data=["job_role", "work_mode", "sleep_hours", "work_hours_per_week"]
 )
-fig24.update_layout(height=450)
-st.plotly_chart(fig24, width="stretch")
+        fig24.update_layout(height=450)
+        st.plotly_chart(fig24, width="stretch")
 
-# ── Work Mode Distribution by Cluster ──
-col1, col2 = st.columns(2)
+        # ── Work Mode Distribution by Cluster ──
+        col1, col2 = st.columns(2)
 
-with col1:
-    st.markdown("💼 :violet-background[Work Mode Distribution by Segment]")
-    work_mode_cluster = (
+        with col1:
+            st.markdown("💼 :violet-background[Work Mode Distribution by Segment]")
+            work_mode_cluster = (
         cluster_df.groupby(["Cluster", "work_mode"])
         .size().reset_index(name="count")
 )
-    fig25 = px.bar(
+            fig25 = px.bar(
         work_mode_cluster, x="Cluster", y="count",
         color="work_mode", barmode="group",
         color_discrete_sequence=px.colors.qualitative.Pastel,
         labels={"count": "Employee Count", "work_mode": "Work Mode"}
 )
-    fig25.update_layout(height=400)
-    st.plotly_chart(fig25, width="stretch")
+            fig25.update_layout(height=400)
+            st.plotly_chart(fig25, width="stretch")
 
-with col2:
-    st.markdown("🏢 :violet-background[Company Size Distribution by Segment]")
-    company_cluster = (
+        with col2:
+            st.markdown("🏢 :violet-background[Company Size Distribution by Segment]")
+            company_cluster = (
         cluster_df.groupby(["Cluster", "company_size"])
         .size().reset_index(name="count")
 )
-    fig26 = px.bar(
+            fig26 = px.bar(
         company_cluster, x="Cluster", y="count",
         color="company_size", barmode="group",
         color_discrete_sequence=px.colors.qualitative.Pastel1,
         labels={"count": "Employee Count", "company_size": "Company Size"}
 )
-    fig26.update_layout(height=400)
-    st.plotly_chart(fig26, width="stretch")
+            fig26.update_layout(height=400)
+            st.plotly_chart(fig26, width="stretch")
 
-# ── Therapy & Help-Seeking by Cluster ──
-st.markdown("🧘 :violet-background[Therapy & Help-Seeking Behavior by Segment]")
-help_cluster = cluster_df.groupby("Cluster").agg(pct_therapy=("has_therapy", "mean"),pct_seeks_help=("seeks_professional_help", "mean")).reset_index()
-help_cluster["pct_therapy"] = (help_cluster["pct_therapy"] * 100).round(2)
-help_cluster["pct_seeks_help"] = (help_cluster["pct_seeks_help"] * 100).round(2)
+        # ── Therapy & Help-Seeking by Cluster ──
+        st.markdown("🧘 :violet-background[Therapy & Help-Seeking Behavior by Segment]")
+        help_cluster = cluster_df.groupby("Cluster").agg(pct_therapy=("has_therapy", "mean"),pct_seeks_help=("seeks_professional_help", "mean")).reset_index()
+        help_cluster["pct_therapy"] = (help_cluster["pct_therapy"] * 100).round(2)
+        help_cluster["pct_seeks_help"] = (help_cluster["pct_seeks_help"] * 100).round(2)
 
-help_melted = help_cluster.melt(
+        help_melted = help_cluster.melt(
     id_vars="Cluster",
     value_vars=["pct_therapy", "pct_seeks_help"],
     var_name="Metric", value_name="Percentage"
 )
-help_melted["Metric"] = help_melted["Metric"].map({
+        help_melted["Metric"] = help_melted["Metric"].map({
     "pct_therapy": "In Therapy (%)",
     "pct_seeks_help": "Seeks Professional Help (%)"
 })
-fig27 = px.bar(
+        fig27 = px.bar(
     help_melted, x="Cluster", y="Percentage",
     color="Metric", barmode="group",
     color_discrete_sequence=["#3498db", "#e74c3c"],
     text_auto=".1f",
     labels={"Percentage": "Percentage (%)", "Cluster": "Segment"}
 )
-fig27.update_layout(height=400)
-fig27.update_traces(textposition="outside")
-st.plotly_chart(fig27, width="stretch")
+        fig27.update_layout(height=400)
+        fig27.update_traces(textposition="outside")
+        st.plotly_chart(fig27, width="stretch")
 
 st.subheader("⚠️ :yellow[High-Risk Employee Profiles]", divider="yellow")
 st.markdown("#### Identify employees most vulnerable to burnout who are not seeking help — critical for HR intervention.")
