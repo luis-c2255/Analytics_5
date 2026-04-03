@@ -90,9 +90,9 @@ with col1:
     avg_burnout = filtered["burnout_score"].mean()
     st.markdown(
         Components.metric_card(
-            title="🔥 Avg Burnout Score",
+            title="Avg Burnout Score",
             value=f"{avg_burnout:.2f}",
-            delta=f"{avg_burnout - df['burnout_score'].mean():.2f} vs overall",
+            delta="🔥",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -100,9 +100,9 @@ with col2:
     avg_stress = filtered["stress_level"].mean()
     st.markdown(
         Components.metric_card(
-            title="😰 Avg Stress Level",
+            title="Avg Stress Level",
             value=f"{avg_stress:.2f}",
-            delta=f"{avg_stress - df['stress_level'].mean():.2f} vs overall",
+            delta="😰",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -110,9 +110,9 @@ with col3:
     avg_sleep = filtered["sleep_hours"].mean()
     st.markdown(
         Components.metric_card(
-            title="😴 Avg Sleep Hours",
+            title="Avg Sleep Hours",
             value=f"{avg_sleep:.1f}h",
-            delta=f"{avg_sleep - df['sleep_hours'].mean():.1f}h vs overall",
+            delta="😴",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -120,9 +120,9 @@ with col4:
     pct_therapy = filtered["has_therapy"].mean() * 100
     st.markdown(
         Components.metric_card(
-            title="🧘 In Therapy",
+            title="In Therapy",
             value=f"{pct_therapy:.1f}%",
-            delta=f"{pct_therapy - df['has_therapy'].mean()*100:.1f}% vs overall",
+            delta="🧘",
             card_type="info"
         ), unsafe_allow_html=True
     )
@@ -130,9 +130,9 @@ with col5:
     pct_seeks_help = filtered["seeks_professional_help"].mean() * 100
     st.markdown(
         Components.metric_card(
-            title="🆘 Seeks Help",
+            title="Seeks Help",
             value=f"{pct_seeks_help:.1f}%",
-            delta=f"{pct_seeks_help - df['seeks_professional_help'].mean()*100:.1f}% vs overall",
+            delta="🆘",
             card_type="info"
         ), unsafe_allow_html=True
     )
