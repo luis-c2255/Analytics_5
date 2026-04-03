@@ -141,6 +141,15 @@
         "documentation": {}
     },
     {
+        "label": "statsmodels",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "statsmodels",
+        "description": "statsmodels",
+        "detail": "statsmodels",
+        "documentation": {}
+    },
+    {
         "label": "load_data",
         "kind": 2,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
