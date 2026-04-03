@@ -777,7 +777,7 @@
         "kind": 5,
         "importPath": "pages.3_🌋_Global_Volcano_Eruption",
         "description": "pages.3_🌋_Global_Volcano_Eruption",
-        "peekOfCode": "df = load_data()\n# ─────────────────────────────────────────────\n# SIDEBAR FILTERS\n# ─────────────────────────────────────────────\nst.sidebar.image(\n    \"https://upload.wikimedia.org/wikipedia/commons/thumb/\"\n    \"e/e3/Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg/\"\n    \"320px-Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg\",\n    width=\"stretch\"\n)",
+        "peekOfCode": "df = load_data()\n# ─────────────────────────────────────────────\n# SIDEBAR FILTERS\n# ─────────────────────────────────────────────\nst.sidebar.image(\"OIP.svg\", width=\"stretch\")\nst.markdown(\"   \")\nst.sidebar.title(\"🌋 Filter Options\")\n# Era filter\nall_eras = sorted(df['era'].dropna().unique().tolist())\nselected_eras = st.sidebar.multiselect(",
         "detail": "pages.3_🌋_Global_Volcano_Eruption",
         "documentation": {}
     },

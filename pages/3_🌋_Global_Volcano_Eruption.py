@@ -48,12 +48,8 @@ df = load_data()
 # SIDEBAR FILTERS
 # ─────────────────────────────────────────────
 
-st.sidebar.image(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/"
-    "e/e3/Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg/"
-    "320px-Volc%C3%A1n_Villarrica%2C_Chile_%282015%29.jpg",
-    width="stretch"
-)
+st.sidebar.image("OIP.svg", width="stretch")
+st.markdown("   ")
 st.sidebar.title("🌋 Filter Options")
 
 # Era filter
@@ -138,7 +134,7 @@ with col4:
 with col5:
     st.markdown(
         Components.metric_card(
-            title="Casualties Recorded",
+            title="Casualties",
             value=f"{filtered['has_casualties'].sum():,}",
             delta="☠️",
             card_type="warning"
