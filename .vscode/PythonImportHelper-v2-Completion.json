@@ -1160,6 +1160,105 @@
         "documentation": {}
     },
     {
+        "label": "top_hazard",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "top_hazard = (\n    filtered.dropna(subset=[\"composite_hazard_score\"]).groupby(\"volcano_name\").agg(\n        avg_hazard=(\"composite_hazard_score\", \"mean\"),\n        eruption_count=(\"volcano_event_id\", \"count\"),\n        avg_vei=(\"vei\", \"mean\")\n    ).reset_index().sort_values(\"avg_hazard\", ascending=False).head(15))\nfig_hazard = px.bar(\n    top_hazard,\n    x=\"avg_hazard\",\n    y=\"volcano_name\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_hazard",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_hazard = px.bar(\n    top_hazard,\n    x=\"avg_hazard\",\n    y=\"volcano_name\",\n    orientation=\"h\",\n    color=\"avg_vei\",\n    color_continuous_scale=\"Inferno\",\n    hover_data={\n        \"eruption_count\": True,\n        \"avg_vei\": \":.2f\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "scatter_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "scatter_df = filtered.dropna(subset=[\"vei\", \"composite_hazard_score\", \"human_impact_score\"])\nfig_scatter = px.scatter(\n    scatter_df,\n    x=\"vei\",\n    y=\"composite_hazard_score\",\n    color=\"era\",\n    size=\"human_impact_score\",\n    size_max=30,\n    hover_name=\"volcano_name\",\n    hover_data={",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_scatter",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_scatter = px.scatter(\n    scatter_df,\n    x=\"vei\",\n    y=\"composite_hazard_score\",\n    color=\"era\",\n    size=\"human_impact_score\",\n    size_max=30,\n    hover_name=\"volcano_name\",\n    hover_data={\n        \"country\": True,",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "risk_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "risk_df = filtered.dropna(subset=[\"vei_risk_tier\", \"composite_hazard_score\"])\nrisk_order = [\"Low\", \"Moderate\", \"High\", \"Extreme\", \"Catastrophic\"]\nfig_box = px.box(\n    risk_df,\n    x=\"vei_risk_tier\",\n    y=\"composite_hazard_score\",\n    color=\"vei_risk_tier\",\n    category_orders={\"vei_risk_tier\": risk_order},\n    color_discrete_sequence=[\"#2ecc71\", \"#f1c40f\", \"#e67e22\", \"#e74c3c\", \"#8e44ad\"],\n    labels={",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "risk_order",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "risk_order = [\"Low\", \"Moderate\", \"High\", \"Extreme\", \"Catastrophic\"]\nfig_box = px.box(\n    risk_df,\n    x=\"vei_risk_tier\",\n    y=\"composite_hazard_score\",\n    color=\"vei_risk_tier\",\n    category_orders={\"vei_risk_tier\": risk_order},\n    color_discrete_sequence=[\"#2ecc71\", \"#f1c40f\", \"#e67e22\", \"#e74c3c\", \"#8e44ad\"],\n    labels={\n        \"vei_risk_tier\": \"VEI Risk Tier\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_box",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_box = px.box(\n    risk_df,\n    x=\"vei_risk_tier\",\n    y=\"composite_hazard_score\",\n    color=\"vei_risk_tier\",\n    category_orders={\"vei_risk_tier\": risk_order},\n    color_discrete_sequence=[\"#2ecc71\", \"#f1c40f\", \"#e67e22\", \"#e74c3c\", \"#8e44ad\"],\n    labels={\n        \"vei_risk_tier\": \"VEI Risk Tier\",\n        \"composite_hazard_score\": \"Composite Hazard Score\"",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "impact_continent",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "impact_continent = (\n    filtered.dropna(subset=[\"human_impact_score\"]).groupby(\"country_continent\")\n    .agg(avg_impact=(\"human_impact_score\", \"mean\"),total_eruptions=(\"volcano_event_id\", \"count\"))\n    .reset_index()\n    .sort_values(\"avg_impact\", ascending=False)\n)\nfig_impact = px.bar(\n    impact_continent,\n    x=\"country_continent\",\n    y=\"avg_impact\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_impact",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_impact = px.bar(\n    impact_continent,\n    x=\"country_continent\",\n    y=\"avg_impact\",\n    color=\"avg_impact\",\n    color_continuous_scale=\"Reds\",\n    text=\"avg_impact\",\n    hover_data={\"total_eruptions\": True},\n    labels={\n        \"country_continent\": \"Continent\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "casualty_df",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "casualty_df = (filtered[filtered[\"has_casualties\"] == True]\n               .dropna(subset=[\"volcano_activity_category\"])\n               .groupby(\"volcano_activity_category\")\n               .agg(\n                   total_deaths=(\"deaths_total\", \"sum\"),\n                   eruption_count=(\"volcano_event_id\", \"count\")\n                   )\n               .reset_index()\n               .sort_values(\"total_deaths\", ascending=False))\nfig_casualty = px.bar(",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
+        "label": "fig_casualty",
+        "kind": 5,
+        "importPath": "pages.3_🌋_Global_Volcano_Eruption",
+        "description": "pages.3_🌋_Global_Volcano_Eruption",
+        "peekOfCode": "fig_casualty = px.bar(\n    casualty_df,\n    x=\"volcano_activity_category\",\n    y=\"total_deaths\",\n    color=\"eruption_count\",\n    color_continuous_scale=\"OrRd\",\n    text=\"total_deaths\",\n    labels={\n        \"volcano_activity_category\": \"Activity Category\",\n        \"total_deaths\": \"Total Deaths\",",
+        "detail": "pages.3_🌋_Global_Volcano_Eruption",
+        "documentation": {}
+    },
+    {
         "label": "Colors",
         "kind": 6,
         "importPath": "utils.theme",

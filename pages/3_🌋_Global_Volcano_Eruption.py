@@ -428,7 +428,187 @@ fig_type.update_layout(
 st.plotly_chart(fig_type, width="stretch")
 st.markdown("   ")
 
-st.subheader("⚠️ :orange[Hazard & Risk]", divider="orange")
+st.subheader("⚠️ :orange[Hazard & Risk Analysis]", divider="orange")
+st.markdown("   ")
+st.markdown(":orange-background[Top 15 Volcanoes by Composite Hazard Score]")
+top_hazard = (
+    filtered.dropna(subset=["composite_hazard_score"]).groupby("volcano_name").agg(
+        avg_hazard=("composite_hazard_score", "mean"),
+        eruption_count=("volcano_event_id", "count"),
+        avg_vei=("vei", "mean")
+    ).reset_index().sort_values("avg_hazard", ascending=False).head(15))
+fig_hazard = px.bar(
+    top_hazard,
+    x="avg_hazard",
+    y="volcano_name",
+    orientation="h",
+    color="avg_vei",
+    color_continuous_scale="Inferno",
+    hover_data={
+        "eruption_count": True,
+        "avg_vei": ":.2f",
+        "avg_hazard": ":.1f"
+    },
+    labels={
+        "avg_hazard": "Avg Hazard Score",
+        "volcano_name": "Volcano",
+        "avg_vei": "Avg VEI"
+    },
+    text="avg_hazard"
+)
+fig_hazard.update_traces(texttemplate="%{text:.1f}", textposition="outside")
+fig_hazard.update_layout(
+    height=480,
+    coloraxis_colorbar=dict(title="Avg VEI"),
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    yaxis=dict(autorange="reversed"),
+    xaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_hazard, width="stretch")
+st.markdown("   ")
+
+st.markdown(":orange-background[VEI vs. Composite Hazard Score]")
+
+scatter_df = filtered.dropna(subset=["vei", "composite_hazard_score", "human_impact_score"])
+fig_scatter = px.scatter(
+    scatter_df,
+    x="vei",
+    y="composite_hazard_score",
+    color="era",
+    size="human_impact_score",
+    size_max=30,
+    hover_name="volcano_name",
+    hover_data={
+        "country": True,
+        "deaths_total": True,
+        "vei": True,
+        "composite_hazard_score": True,
+        "human_impact_score": False
+    },
+    labels={
+        "vei": "Volcanic Explosivity Index (VEI)",
+        "composite_hazard_score": "Composite Hazard Score",
+        "era": "Era"
+    },
+    color_discrete_sequence=px.colors.qualitative.Bold
+)
+fig_scatter.update_layout(
+    height=480,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    legend=dict(bgcolor="#1e1e1e", bordercolor="#444", borderwidth=1),
+    xaxis=dict(gridcolor="#2a2a2a"),
+    yaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_scatter, width="stretch")
+st.markdown("   ")
+
+st.markdown(":orange-background[Hazard Score Distribution by VEI Risk Tier]")
+risk_df = filtered.dropna(subset=["vei_risk_tier", "composite_hazard_score"])
+risk_order = ["Low", "Moderate", "High", "Extreme", "Catastrophic"]
+fig_box = px.box(
+    risk_df,
+    x="vei_risk_tier",
+    y="composite_hazard_score",
+    color="vei_risk_tier",
+    category_orders={"vei_risk_tier": risk_order},
+    color_discrete_sequence=["#2ecc71", "#f1c40f", "#e67e22", "#e74c3c", "#8e44ad"],
+    labels={
+        "vei_risk_tier": "VEI Risk Tier",
+        "composite_hazard_score": "Composite Hazard Score"
+    },
+    points="all"
+)
+fig_box.update_layout(
+    height=420,
+    showlegend=False,
+    margin=dict(l=0, r=0, t=10, b=0),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    xaxis=dict(gridcolor="#2a2a2a"),
+    yaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_box, width="stretch")
+st.markdown("   ")
+st.markdown(":orange-background[Human Impact Score by Continent]")
+
+impact_continent = (
+    filtered.dropna(subset=["human_impact_score"]).groupby("country_continent")
+    .agg(avg_impact=("human_impact_score", "mean"),total_eruptions=("volcano_event_id", "count"))
+    .reset_index()
+    .sort_values("avg_impact", ascending=False)
+)
+fig_impact = px.bar(
+    impact_continent,
+    x="country_continent",
+    y="avg_impact",
+    color="avg_impact",
+    color_continuous_scale="Reds",
+    text="avg_impact",
+    hover_data={"total_eruptions": True},
+    labels={
+        "country_continent": "Continent",
+        "avg_impact": "Avg Human Impact Score"}
+)
+fig_impact.update_traces(
+    texttemplate="%{text:.2f}",
+    textposition="outside"
+)
+fig_impact.update_layout(
+    height=380,
+    coloraxis_showscale=False,
+    margin=dict(l=0, r=0, t=10, b=40),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    xaxis=dict(tickangle=-20, gridcolor="#2a2a2a"),
+    yaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_impact, width="stretch")
+st.markdown("   ")
+
+st.markdown(":orange-background[Casualties by Volcano Activity Category]")
+casualty_df = (filtered[filtered["has_casualties"] == True]
+               .dropna(subset=["volcano_activity_category"])
+               .groupby("volcano_activity_category")
+               .agg(
+                   total_deaths=("deaths_total", "sum"),
+                   eruption_count=("volcano_event_id", "count")
+                   )
+               .reset_index()
+               .sort_values("total_deaths", ascending=False))
+fig_casualty = px.bar(
+    casualty_df,
+    x="volcano_activity_category",
+    y="total_deaths",
+    color="eruption_count",
+    color_continuous_scale="OrRd",
+    text="total_deaths",
+    labels={
+        "volcano_activity_category": "Activity Category",
+        "total_deaths": "Total Deaths",
+        "eruption_count": "Eruption Count"}
+    )
+fig_casualty.update_traces(
+    texttemplate="%{text:,.0f}",
+    textposition="outside"
+)
+fig_casualty.update_layout(
+    height=380,
+    margin=dict(l=0, r=0, t=10, b=40),
+    paper_bgcolor="#0e1117",
+    plot_bgcolor="#0e1117",
+    font=dict(color="white"),
+    xaxis=dict(tickangle=-20, gridcolor="#2a2a2a"),
+    yaxis=dict(gridcolor="#2a2a2a")
+)
+st.plotly_chart(fig_casualty, width="stretch")
 st.markdown("   ")
 st.subheader("🌊 :blue[Tsunami & Earthquake Links]", divider="blue")
 st.markdown("   ")
