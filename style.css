@@ -266,7 +266,7 @@ div[data-testid="stSidebarNavSearch"] input {
 }
 
 [data-testid="stSidebarNav"] li {
-    background-color: var(--neon-blue);
+    background-color: var(--bg-overlay);
     margin-bottom: 10px;
     border: var(--neon-cyan);
     border-radius: 10px;
