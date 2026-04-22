@@ -1,8 +1,12 @@
+[[theme.fontFaces]]
+family="Syne"
+url="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap"
+
 [theme]
 font = "sans-serif"
-headingFont = "Syne:https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Syne:wght@400..800&display=swap" rel="stylesheet"
+headingFont = "Syne"
 codeFont = "monospace"
 [theme.sidebar]
 font = "sans-serif"
-headingFont = "Syne:https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Syne:wght@400..800&display=swap" rel="stylesheet"
+headingFont = "Syne"
 codeFont = "monospace"
