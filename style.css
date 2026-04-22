@@ -281,7 +281,7 @@ div[data-testid="stSidebarNavSearch"] input {
 }
 
 [data-testid="stSidebarNav"] span {
-    color: var(--text-primary) !important;
+    color: var(--text-muted) !important;
     font-weight: 700;
 }
 
