@@ -74,8 +74,29 @@ body::before {
     z-index: 9999;
 }
 
+.metric-title {
+    color: var(--text-primary);
+    margin: 0;
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.metric-value {
+    color: var(--text-secondary);
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.metric-delta {
+    margin: 0.5rem 0 0 0;
+    font-size: 1.5rem;
+}
+
 /* Card */
-.card {
+.metric-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-default);
     border-radius: 4px;
@@ -85,7 +106,7 @@ body::before {
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
-.card::before {
+.metric-card::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -94,7 +115,7 @@ body::before {
     pointer-events: none;
 }
 
-.card:hover {
+.metric-card:hover {
     border-color: var(--border-strong);
 }
 
@@ -451,34 +472,4 @@ div[data-testid="stSidebarNavSearch"] input {
     text-align: center;
     padding: 14px;
     font-size: 1.15rem;
-}
-
-.metric-card {
-    border: 1px solid var(--neon-cyan);
-    background-color: var(--bg-overlay);
-    border-top: 6px solid var(--neon-blue);
-    padding: 1rem;
-    border-radius: 10px;
-    height: 100%;
-}
-
-.metric-title {
-    color: var(--text-primary);
-    margin: 0;
-    font-size: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-}
-
-.metric-value {
-    color: var(--text-secondary);
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 700;
-}
-
-.metric-delta {
-    margin: 0.5rem 0 0 0;
-    font-size: 1.5rem;
 }
