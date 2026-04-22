@@ -277,7 +277,7 @@ div[data-testid="stSidebarNavSearch"] input {
     background-color: var(--brand-light);
     border-color: var(--neon-cyan);
     transform: translateY(-2px);
-    box-shadow: var(--glow-pink);
+    box-shadow: 0 0 2px var(--glow-pink);
 }
 
 [data-testid="stSidebarNav"] span {
