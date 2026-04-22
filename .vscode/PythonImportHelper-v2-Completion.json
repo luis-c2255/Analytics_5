@@ -3130,11 +3130,11 @@
         "documentation": {}
     },
     {
-        "label": "Colors",
+        "label": "Color",
         "kind": 6,
         "importPath": "utils.theme",
         "description": "utils.theme",
-        "peekOfCode": "class Colors:\n    BLUE = \"#3A8DFF\"\n    GREEN = \"#4CC9A6\"\n    RED = \"#FF6B6B\"\n    ORANGE = \"#FFB84D\"\n    CHARCOAL = \"#1E1E1E\"\n    GREY = \"#9EA4A9\"\n    PRUSSIAN = \"#0A1A2F\"\n    PLATINUM = \"#F7F9FC\"\n    DARKGREEN = \"#0B2C24\"",
+        "peekOfCode": "class Colors :\n    CYAN = \"#00f5ff\"\n    PINK = \"#ff2d78\"\n    PURPLE = \"#bf5fff\"\n    GREEN = \"#00ff9f\"\n    AMBER = \"#ffcc00\"\n    BLUE = \"#4d8aff\"\n    RED = \"#FF2D78\"\n    WHITE = \"#E2E8FF\"\nclass Components:",
         "detail": "utils.theme",
         "documentation": {}
     },
@@ -3143,7 +3143,7 @@
         "kind": 6,
         "importPath": "utils.theme",
         "description": "utils.theme",
-        "peekOfCode": "class Components:\n    @staticmethod\n    def metric_card(title: str, value: str, delta: str = \"\", delta_positive: bool = True, card_type: str = \"primary\") -> str:\n        colors = {\n        \"info\": Colors.BLUE,\n        \"success\": Colors.GREEN,\n        \"warning\": Colors.ORANGE,\n        \"error\": Colors.RED\n        }\n        border_color = colors.get(card_type, Colors.BLUE)",
+        "peekOfCode": "class Components:\n    @staticmethod\n    def metric_card(title: str, value: str, delta: str = \"\", delta_positive: bool = True, card_type: str = \"primary\") -> str:\n        colors = {\n        \"info\": Colors.BLUE,\n        \"success\": Colors.GREEN,\n        \"warning\": Colors.AMBER,\n        \"error\": Colors.RED\n        }\n        border_color = colors.get(card_type, Colors.BLUE)",
         "detail": "utils.theme",
         "documentation": {}
     }

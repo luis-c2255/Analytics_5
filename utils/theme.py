@@ -1,19 +1,14 @@
 import streamlit as st
 
-class Colors:
-    BLUE = "#3A8DFF"
-    GREEN = "#4CC9A6"
-    RED = "#FF6B6B"
-    ORANGE = "#FFB84D"
-    CHARCOAL = "#1E1E1E"
-    GREY = "#9EA4A9"
-    PRUSSIAN = "#0A1A2F"
-    PLATINUM = "#F7F9FC"
-    DARKGREEN = "#0B2C24"
-    LIGHTGREEN = "#247A4D"
-    STEELBLUE = "#5A6A7A"
-    DARKTEAL = "#005F73"
-    DARKCYAN = "#0A9396"
+class Colors :
+    CYAN = "#00f5ff"
+    PINK = "#ff2d78"
+    PURPLE = "#bf5fff"
+    GREEN = "#00ff9f"
+    AMBER = "#ffcc00"
+    BLUE = "#4d8aff"
+    RED = "#FF2D78"
+    WHITE = "#E2E8FF"
 
 class Components:
     @staticmethod
@@ -21,7 +16,7 @@ class Components:
         colors = {
         "info": Colors.BLUE,
         "success": Colors.GREEN,
-        "warning": Colors.ORANGE,
+        "warning": Colors.AMBER,
         "error": Colors.RED
         }
         border_color = colors.get(card_type, Colors.BLUE)
@@ -45,7 +40,7 @@ class Components:
         config = {
             "info": {"color": Colors.BLUE, "bg": "rgba(58, 141, 255, 0.15)"},
             "success": {"color": Colors.GREEN, "bg": "rgba(76, 201, 166, 0.15)"},
-            "warning": {"color": Colors.ORANGE, "bg": "rgba(255, 184, 77, 0.15)"},
+            "warning": {"color": Colors.AMBER, "bg": "rgba(255, 184, 77, 0.15)"},
             "error": {"color": Colors.RED, "bg": "rgba(255, 107, 107, 0.15)"}
         }
         style = config.get(box_type, config["info"])
@@ -57,15 +52,14 @@ class Components:
                     border-left: 6px solid {style["color"]};
                     {height_style} {flex_style}'>
             <h4 style='color: {style["color"]}; margin: 0 0 0.5rem 0;'>{title}</h4>
-            <div style='flex-grow: 1; color: {Colors.PLATINUM};'>{content}</div>
+            <div style='flex-grow: 1; color: {Colors.WHITE};'>{content}</div>
         </div>
         """
     @staticmethod
     def page_header(title:str) -> str:
         """Create a styled page header"""
         return f"""
-        <div style='background: linear-gradient(135deg, {Colors.DARKTEAL} 0%, {Colors.DARKCYAN} 100%);
-                    padding: 0.8rem; border-radius: 8px; margin-bottom: 0.8rem;'>
-                    <h1 style='color: white; margin: 0; text-align: center; font-size: 2.5rem;'>{title}</h1>
+        <h1 style='font-family: urban-echo; color: #40E0D0; text-shadow: 2px 2px 4px #00F5FF, 0 0 25px #bf5fff, 0 0 5px #ff2d78; 
+        margin: 0; text-align: center; font-size: 3rem;'>{title}</h1>
         </div>
         """

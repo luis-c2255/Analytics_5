@@ -1,0 +1,15 @@
+[server]
+enableStaticServing = true
+
+[[theme.fontFaces]]
+family="urban-echo"
+url="Analytics_5\static\UrbanEchoRegular-8OXLD.otf"
+
+[theme]
+font = "sans-serif"
+headingFont = "urban-echo"
+codeFont = "monospace"
+[theme.sidebar]
+font = "sans-serif"
+headingFont = "urban-echo"
+codeFont = "monospace"
