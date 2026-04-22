@@ -1,20 +1,159 @@
 /* Import Roboto Font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-:root {
-    --lightgreen: #2474AD;
-    --darkgreen: #0B2C24;
-    --platinum: #E5E5E5;
-    --grey: #B3B3B3;
-    --darkblue: #11172D;
-    --barbiepink: #FF0090;
+:root,
+.dark {
+    --bg-base: #050710;
+    --bg-surface: #0a0d1a;
+    --bg-raised: #0f1225;
+    --bg-overlay: #141830;
+
+    /* Borders */
+    --border-default: rgba(120, 80, 255, 0.15);
+    --border-strong: rgba(120, 80, 255, 0.35);
+
+    /* Text */
+    --text-primary: #e2e8ff;
+    --text-secondary: #8892c8;
+    --text-muted: #4a5280;
+
+    /* Neon palette */
+    --neon-cyan: #00f5ff;
+    --neon-pink: #ff2d78;
+    --neon-purple: #bf5fff;
+    --neon-green: #00ff9f;
+    --neon-amber: #ffcc00;
+    --neon-blue: #4d8aff;
+
+    /* Glow versions (for box-shadow) */
+    --glow-cyan: 0 0 12px rgba(0, 245, 255, 0.6), 0 0 30px rgba(0, 245, 255, 0.25);
+    --glow-pink: 0 0 12px rgba(255, 45, 120, 0.6), 0 0 30px rgba(255, 45, 120, 0.25);
+    --glow-purple: 0 0 12px rgba(191, 95, 255, 0.6), 0 0 30px rgba(191, 95, 255, 0.25);
+    --glow-green: 0 0 12px rgba(0, 255, 159, 0.6), 0 0 30px rgba(0, 255, 159, 0.25);
+    --glow-amber: 0 0 12px rgba(255, 204, 0, 0.6), 0 0 30px rgba(255, 204, 0, 0.25);
+    --glow-blue: 0 0 12px rgba(77, 138, 255, 0.6), 0 0 30px rgba(77, 138, 255, 0.25);
+
+    /* Semantic mapped to neons */
+    --brand: var(--neon-cyan);
+    --brand-light: rgba(0, 245, 255, 0.08);
+    --green: var(--neon-green);
+    --green-bg: rgba(0, 255, 159, 0.08);
+    --red: var(--neon-pink);
+    --red-bg: rgba(255, 45, 120, 0.08);
+    --amber: var(--neon-amber);
+    --amber-bg: rgba(255, 204, 0, 0.08);
+    --purple: var(--neon-purple);
+    --purple-bg: rgba(191, 95, 255, 0.08);
+    --teal: var(--neon-cyan);
+    --teal-bg: rgba(0, 245, 255, 0.08);
+
+    /* Chart palette */
+    --c1: #00f5ff;
+    --c2: #bf5fff;
+    --c3: #00ff9f;
+    --c4: #ffcc00;
+    --c5: #ff2d78;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 html,
 body,
 [class*="css"] {
     font-family: 'Roboto', sans-serif;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
 }
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* Card */
+.card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    padding: 18px 20px;
+    position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.03) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.card:hover {
+    border-color: var(--border-strong);
+}
+
+/* Typography */
+.label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.value-xl {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 12px;
+}
+
+/* Neon text glow */
+.neon-cyan {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px rgba(0, 245, 255, 0.8);
+}
+
+.neon-green {
+    color: var(--neon-green);
+    text-shadow: 0 0 8px rgba(0, 255, 159, 0.8);
+}
+
+.neon-pink {
+    color: var(--neon-pink);
+    text-shadow: 0 0 8px rgba(255, 45, 120, 0.8);
+}
+
+.neon-purple {
+    color: var(--neon-purple);
+    text-shadow: 0 0 8px rgba(191, 95, 255, 0.8);
+}
+
+.neon-amber {
+    color: var(--neon-amber);
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.8);
+}
+
 
 /* Remove Streamlit Branding */
 #MainMenu {
@@ -36,20 +175,18 @@ header {
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 4px;
+    height: 4px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #0A1A2F;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #5A6A7A;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #7B8B9B;
+    background: var(--neon-cyan);
+    border-radius: 2px;
+    box-shadow: var(--glow-cyan);
 }
 
 /* Custom Header / Navbar */
