@@ -223,6 +223,62 @@
         "documentation": {}
     },
     {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Literal",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "isnan",
+        "importPath": "math",
+        "description": "math",
+        "isExtraImport": true,
+        "detail": "math",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
         "label": "load_data",
         "kind": 2,
         "importPath": "pages.1_📽_Netflix_Content_Analysis",
@@ -3130,6 +3186,15 @@
         "documentation": {}
     },
     {
+        "label": "KpiCardProps",
+        "kind": 6,
+        "importPath": "utils.theme",
+        "description": "utils.theme",
+        "peekOfCode": "class KpiCardProps:\n    label: str\n    value: Optional[float]\n    format: Optional[Literal['percent', 'time', 'integer', 'decimal']] = None\n    goal: Optional[float] = None\n    suffix: Optional[str] = None\n    accent: Optional[str] = None\nNEON: Dict[str, Dict[str, str]] = {\n    \"cyan\": {\n        \"color\": '#00f5ff',",
+        "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
         "label": "Color",
         "kind": 6,
         "importPath": "utils.theme",
@@ -3144,6 +3209,51 @@
         "importPath": "utils.theme",
         "description": "utils.theme",
         "peekOfCode": "class Components:\n    @staticmethod\n    def metric_card(title: str, value: str, delta: str = \"\", delta_positive: bool = True, card_type: str = \"primary\") -> str:\n        colors = {\n        \"info\": Colors.BLUE,\n        \"success\": Colors.GREEN,\n        \"warning\": Colors.AMBER,\n        \"error\": Colors.RED\n        }\n        border_color = colors.get(card_type, Colors.BLUE)",
+        "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "resolve_neon",
+        "kind": 2,
+        "importPath": "utils.theme",
+        "description": "utils.theme",
+        "peekOfCode": "def resolve_neon(accent: Optional[str] = None) -> Dict[str, str]:\n    if accent is not None and \"pink\" in accent:\n        return NEON['pink']\n    if accent is not None and \"purple\" in accent:\n        return NEON[\"purple\"]\n    if accent is not None and 'green' in accent:\n        return NEON[\"green\"]\n    if accent is not None and \"amber\" in accent:\n        return NEON[\"amber\"]\n    return NEON[\"cyan\"]",
+        "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "minutes_to_display",
+        "kind": 2,
+        "importPath": "utils.theme",
+        "description": "utils.theme",
+        "peekOfCode": "def minutes_to_display(minutes: Optional[float]) -> str:\n    if minutes is None or (isinstance(minutes, float) and math.isnan(minutes)):\n        return \"-\"\n    total_seconds = round(minutes * 60)\n    m = total_seconds // 60\n    s = total_seconds % 60\n    return f\"{m:02d}:{s:02d}\"\ndef format_value(\n    value: Optional[float],\n    format: Optional[Literal['percent', 'time', 'integer', 'decimal']],",
+        "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "format_value",
+        "kind": 2,
+        "importPath": "utils.theme",
+        "description": "utils.theme",
+        "peekOfCode": "def format_value(\n    value: Optional[float],\n    format: Optional[Literal['percent', 'time', 'integer', 'decimal']],\n    suffix: Optional[str] = None,\n) -> str:\n    if value is None or (isinstance(value, float) and isnan(value)):\n        return \"-\"\n    match format:\n        case 'percent':\n            return f\"{round(value)}%\"",
+        "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "goal_status",
+        "kind": 2,
+        "importPath": "utils.theme",
+        "description": "utils.theme",
+        "peekOfCode": "def goal_status(\n    value: Optional[float],\n    goal: Optional[float],\n) -> Literal['above', 'below', 'none']:\n    if value is None or goal is None:\n        return 'none'\n    return 'above' if value <= goal else \"below\"\ndef metric_card(\n    *,\n    label: Any,",
+        "detail": "utils.theme",
+        "documentation": {}
+    },
+    {
+        "label": "metric_card",
+        "kind": 2,
+        "importPath": "utils.theme",
+        "description": "utils.theme",
+        "peekOfCode": "def metric_card(\n    *,\n    label: Any,\n    value: Any,\n    goal: Any = None,\n    suffix: Any = None,\n    accent: Optional[str] = None,\n) -> Dict[str, Any]:\n    status = goal_status(value, goal)\n    neon_accent = resolve_neon(accent)",
         "detail": "utils.theme",
         "documentation": {}
     }
