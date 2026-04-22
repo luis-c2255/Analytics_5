@@ -2,14 +2,14 @@
 enableStaticServing = true
 
 [[theme.fontFaces]]
-family="urban-echo"
-url="https://www.fontspace.com/urban-echo-font-f156976"
+family="voxel-point"
+url="https://www.fontspace.com/voxelpoint-font-f120590"
 
 [theme]
 font = "sans-serif"
-headingFont = "urban-echo"
+headingFont = "voxel-point"
 codeFont = "monospace"
 [theme.sidebar]
 font = "sans-serif"
-headingFont = "urban-echo"
+headingFont = "voxel-point"
 codeFont = "monospace"
