@@ -60,6 +60,6 @@ class Components:
         """Create a styled page header"""
         return f"""
         <h1 style='font-family: urban-echo; color: #40E0D0; text-shadow: 2px 2px 4px #00F5FF, 0 0 25px #bf5fff, 0 0 5px #ff2d78; 
-        margin: 0; text-align: center; font-size: 3rem;'>{title}</h1>
+        margin: 0; text-align: center; text-transform: uppercase; font-size: 3rem;'>{title}</h1>
         </div>
         """
