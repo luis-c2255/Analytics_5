@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+
 :root,
 .dark {
     --bg-base: #050710;
     --bg-surface: #0a0d1a;
     --bg-raised: #0f1225;
     --bg-overlay: #141830;
+    --card-accent: #00f5ff;
+    --card-bg: #060d13;
 
     /* Borders */
     --border-default: rgba(120, 80, 255, 0.15);
@@ -74,35 +78,58 @@ body::before {
     z-index: 9999;
 }
 
-.metric-title {
-    color: var(--text-primary);
-    margin: 0;
-    font-size: 0.5rem;
+.card-header {
+    font-size: 0.65rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
+    letter-spacing: 2px;
+    opacity: 0.9;
 }
 
-.metric-value {
-    color: var(--text-secondary);
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 700;
+.card-value {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 5px 0;
+    background: linear-gradient(to bottom,
+            var(--card-accent) 0%,
+            var(--card-accent) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2) 100%);
+    background-size: 100% 4px;
+    --webkit-background-clip: text;
+    --webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 2px var(--card-accent));
 }
 
-.metric-delta {
-    margin: 0.5rem 0 0 0;
-    font-size: 1.5rem;
+.delta-container {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delta-label {
+    font-size: 0.6rem;
+    color: #ffffff;
+    opacity: 0.5;
+}
+
+.delta-number {
+    font-size: 0.8rem;
+    color: #ffffff
 }
 
 /* Card */
 .metric-card {
-    background: linear-gradient(90deg, transparent 0%, #00f5ff 40%, #bf5fff 60%, transparent 100%);
-    border-radius: 4px;
-    padding: 3px 8px;
-    position: relative;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    background-color: var(--card-bg);
+    border-top: 3px solid var(--card-accent);
+    padding: 15px 20px;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--card-accent);
+    clip-path: polygon(10px 0%, 100% 0%, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0% 100%, 0% 10px);
+    margin-bottom: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .metric-card::before {
@@ -118,31 +145,6 @@ body::before {
     border-color: var(--border-strong);
 }
 
-/* Typography */
-.label {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-}
-
-.value-xl {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.1;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
-}
-
-.section-title {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    margin-bottom: 12px;
-}
 
 /* Neon text glow */
 .neon-cyan {
