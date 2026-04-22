@@ -3,7 +3,7 @@ enableStaticServing = true
 
 [[theme.fontFaces]]
 family="urban-echo"
-url="Analytics_5\static\UrbanEchoRegular-8OXLD.otf"
+url="https://www.fontspace.com/urban-echo-font-f156976"
 
 [theme]
 font = "sans-serif"
