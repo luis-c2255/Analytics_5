@@ -237,7 +237,7 @@ class Components:
         "warning": Colors.AMBER,
         "error": Colors.RED
         }
-        border_color = colors.get(card_type, Colors.BLUE)
+        border_color = colors.get(card_type, Colors.CYAN)
         delta_color = Colors.GREEN if delta_positive else Colors.RED
         delta_html = (
             f"<p class='metric-delta' style='color:{delta_color};'>{delta}</p>"
@@ -245,8 +245,8 @@ class Components:
         )
         return f"""
         <div class='metric-card' style='--bordercolor:{border_color};'>
-            <div style='display:flex; align-items:center; margin-bottom:0.5rem;'>
-                <p class='metric-title'>{title}</p>
+            <div style='display:inline-flex; align-items: center; margin-top: 10; border: 1px solid #00f5ff; box-shadow: 0 0 20px var(--neon-cyan) inset;'>
+                <p class='metric-title' style='font-weight: 700; letter-spacing: 0.1em; text-shadow: 2px 2px 4px #00f5ff;>{title}</p>
             </div>
             <p class='metric-value'>{value}</p>
             {delta_html}

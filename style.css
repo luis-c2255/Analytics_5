@@ -97,10 +97,9 @@ body::before {
 
 /* Card */
 .metric-card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-strong);
+    background: linear-gradient(90deg, transparent 0%, #00f5ff 40%, #bf5fff 60%, transparent 100%);
     border-radius: 4px;
-    padding: 18px 20px;
+    padding: 3px 8px;
     position: relative;
     transition: border-color 0.2s, box-shadow 0.2s;
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
@@ -448,7 +447,6 @@ div[data-testid="stSidebarNavSearch"] input {
 .stLinkButton {
     background: var(--brand-light);
     background-color: var(--brand-light);
-    backdrop-filter: blur(12px);
     color: white;
     border: var(--border-strong);
     box-shadow: var(--glow-pink);
